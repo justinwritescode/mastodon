@@ -909,7 +909,7 @@ DEPENDENCIES
   active_model_serializers (~> 0.10)
   addressable (~> 2.8)
   annotate (~> 3.2)
-  aws-sdk-s3 (~> 1.123)
+  aws-sdk-s3 (~> 1.159)
   better_errors (~> 2.9)
   binding_of_caller (~> 1.0)
   blurhash (~> 0.1)
