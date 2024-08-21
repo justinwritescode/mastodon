@@ -943,6 +943,7 @@ DEPENDENCIES
   flatware-rspec
   fog-core (<= 2.5.0)
   fog-openstack (~> 1.0)
+  fugit (~> 1.11.1)
   fuubar (~> 2.5)
   haml-rails (~> 2.0)
   haml_lint
