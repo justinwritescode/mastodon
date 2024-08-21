@@ -1,0 +1,19 @@
+/* Clean Slate:
+* white columns on a light-grey page, with dark grey headers and blue accent.
+*/
+:root {
+  --bg: #fff;
+  --text: #123;
+  --textBold: #000;
+  --textMuted: #666;
+
+  --bgPage: #ddd;
+  --textPage: var(--text);
+  --textPageBold: var(--textBold);
+  --textPageMuted: var(--textMuted);
+
+  --bgHead: #333;
+  --textHead: #fff;
+  --accent: #09f;
+  --accentText: var(--textHead);
+}
