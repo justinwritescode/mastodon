@@ -5,6 +5,8 @@
     %meta{ charset: 'utf-8' }/
     %title= safe_join([yield(:page_title), Setting.default_settings['site_title']], ' - ')
     %meta{ content: 'width=device-width,initial-scale=1', name: 'viewport' }/
+    = google_tag_manager ENV.fetch("GOOGLE_TAG_MANAGER_ID", nil)
+    = stylesheet_pack_tag 'common', media: 'all', crossorigin: 'anonymous'
     = theme_style_tags Setting.default_settings['theme']
     = javascript_pack_tag 'common', crossorigin: 'anonymous'
     = javascript_pack_tag 'error', crossorigin: 'anonymous'
