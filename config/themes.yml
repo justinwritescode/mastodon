@@ -1,3 +1,12 @@
 default: styles/application.scss
 contrast: styles/contrast.scss
 mastodon-light: styles/mastodon-light.scss
+# Mastodon (High Contrast): styles/contrast.scss
+# Mastodon (Light): styles/mastodon-light.css
+# Linernotes Dark: styles/linernotes_dark.scss
+# Canta (Dark): styles/canta-dark.scss
+# Blacklead: styles/blacklead.scss
+# Mastodon Flat (Clean Slate): styles/clean-slate.scss
+# Mastodon Flat (Droid/Flamingo): styles/droid-flamingo.scss
+# Mastodon Flat (Midnight Blue): styles/droid-flamingo.scss
+# Mastodon Flat (Testing Palette): styles/droid-flamingo.scss

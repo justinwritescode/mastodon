@@ -1,0 +1,21 @@
+/*
+* Testing palette:
+* light grey columns, slate grey background, turquoise headers, orange accents.
+* (a bit garish, but sufficiently "different" to catch any unthemed elements.)
+*/
+:root {
+--bg: #d9e1e8;
+--text: #234;
+--textBold: #000000;
+--textMuted: #579;
+
+--bgPage: #345;
+--textPage: #ddd;
+--textPageBold: #fff;
+--textPageMuted: #aaa;
+
+--bgHead: darkturquoise;
+--textHead: #345;
+--accent: #ff3e00;
+--accentText: var(--textPageBold);
+}

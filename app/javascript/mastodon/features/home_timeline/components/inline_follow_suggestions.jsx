@@ -78,12 +78,16 @@ Source.propTypes = {
 const Card = ({ id, sources }) => {
   const intl = useIntl();
   const account = useSelector(state => state.getIn(['accounts', id]));
-  const firstVerifiedField = account.get('fields').find(item => !!item.get('verified_at'));
+  const firstVerifiedField = account?.get('fields')?.find(item => !!item.get('verified_at'));
   const dispatch = useDispatch();
 
   const handleDismiss = useCallback(() => {
     dispatch(dismissSuggestion(id));
   }, [id, dispatch]);
+
+  if (!account) {
+    return null; // Or you can return a loading spinner, or a placeholder
+  }
 
   return (
     <div className='inline-follow-suggestions__body__scrollable__card'>
@@ -102,6 +106,7 @@ const Card = ({ id, sources }) => {
     </div>
   );
 };
+
 
 Card.propTypes = {
   id: PropTypes.string.isRequired,

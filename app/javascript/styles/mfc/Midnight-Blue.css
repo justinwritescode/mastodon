@@ -1,0 +1,19 @@
+/* Midnight Blue:
+* a dark blue palette based loosely on Twitter's night mode.
+*/
+:root {
+  --bg: #123;
+  --text: #d0d8e0;
+  --textBold: #fff;
+  --textMuted: #808890;
+
+  --bgPage: #051119;
+  --textPage: var(--text);
+  --textPageBold: var(--textBold);
+  --textPageMuted: var(--textMuted);
+
+  --bgHead: #357;
+  --textHead: var(--textBold);
+  --accent: #09f;
+  --accentText: var(--textBold);
+}

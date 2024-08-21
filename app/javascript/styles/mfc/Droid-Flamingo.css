@@ -1,0 +1,20 @@
+/* Droid/Flamingo:
+* dark neutral-grey page, with either Android Green or Flamingo accent.
+*/
+:root {
+  --bg: #222;
+  --text: #ddd;
+  --textBold: #fff;
+  --textMuted: #777;
+
+  --bgPage: #111;
+  --textPage: var(--text);
+  --textPageBold: var(--textBold);
+  --textPageMuted: var(--textMuted);
+
+  --bgHead: #333;
+  --textHead: var(--textBold);
+  --accent: #a4c639;
+  /* flamingo: #f09 */
+  --accentText: var(--textHead);
+}
