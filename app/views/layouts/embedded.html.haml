@@ -11,6 +11,7 @@
     - if storage_host?
       %link{ rel: 'dns-prefetch', href: storage_host }/
 
+    = google_tag_manager ENV.fetch("GOOGLE_TAG_MANAGER_ID", nil)
     = stylesheet_pack_tag 'common', media: 'all', crossorigin: 'anonymous'
     = theme_style_tags Setting.theme # Use the admin-configured theme here, even if logged in
     = javascript_pack_tag 'common', integrity: true, crossorigin: 'anonymous'
