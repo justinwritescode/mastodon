@@ -151,7 +151,7 @@ group :test do
   gem 'rails-controller-testing', '~> 1.0'
 
   # Validate schemas in specs
-  gem 'json-schema', '~> 4.0'
+  gem 'json-schema', '~> 5.0'
 
   # Test harness fo rack components
   gem 'rack-test', '~> 2.1'
