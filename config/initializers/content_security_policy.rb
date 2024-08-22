@@ -34,12 +34,12 @@ Rails.application.config.content_security_policy do |p|
   p.base_uri        :none
   p.default_src     :none
   p.frame_ancestors :none
-  p.font_src        :self, assets_host
+  p.font_src        :self, assets_host, ENV.fetch("CSP_FONT_SRC", "")
   p.img_src         :self, :data, :blob, *media_hosts
-  p.style_src       :self, assets_host
-  p.media_src       :self, :data, *media_hosts
-  p.frame_src       :self, :https
-  p.manifest_src    :self, assets_host
+  p.style_src       :self, assets_host, ENV.fetch("CSP_STYLE_SRC", "")
+  p.media_src       :self, :data, *media_hosts, ENV.fetch("CSP_MEDIA_SRC", "")
+  p.frame_src       :self, :https, ENV.fetch("CSP_FRAME_SRC", "")
+  p.manifest_src    :self, assets_host, ENV.fetch("CSP_MANIFEST_SRC", "")
 
   if sso_host.present?
     p.form_action     :self, sso_host
@@ -47,18 +47,18 @@ Rails.application.config.content_security_policy do |p|
     p.form_action     :self
   end
 
-  p.child_src       :self, :blob, assets_host
-  p.worker_src      :self, :blob, assets_host
+  p.child_src       :self, :blob, assets_host, ENV.fetch("CSP_CHILD_SRC", "")
+  p.worker_src      :self, :blob, assets_host, ENV.fetch("CSP_WORKER_SRC", "")
 
   if Rails.env.development?
     webpacker_public_host = ENV.fetch('WEBPACKER_DEV_SERVER_PUBLIC', Webpacker.config.dev_server[:public])
     front_end_build_urls = %w(ws http).map { |protocol| "#{protocol}#{Webpacker.dev_server.https? ? 's' : ''}://#{webpacker_public_host}" }
 
-    p.connect_src :self, :data, :blob, *media_hosts, Rails.configuration.x.streaming_api_base_url, *front_end_build_urls
-    p.script_src  :self, :unsafe_inline, :unsafe_eval, assets_host
+    p.connect_src :self, :data, :blob, *media_hosts, Rails.configuration.x.streaming_api_base_url, *front_end_build_urls, ENV.fetch("CSP_CONNECT_SRC", "")
+    p.script_src  :self, :unsafe_inline, :unsafe_eval, assets_host, ENV.fetch("CSP_SCRIPT_SRC", "")
   else
-    p.connect_src :self, :data, :blob, *media_hosts, Rails.configuration.x.streaming_api_base_url
-    p.script_src  :self, assets_host, "'wasm-unsafe-eval'"
+    p.connect_src :self, :data, :blob, *media_hosts, Rails.configuration.x.streaming_api_base_url, ENV.fetch("CSP_CONNECT_SRC", "")
+    p.script_src  :self, assets_host, "'wasm-unsafe-eval'", ENV.fetch("CSP_SCRIPT_SRC", "")
   end
 end
 

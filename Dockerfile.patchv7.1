@@ -1,0 +1,70 @@
+FROM linuxserver/mastodon:latest AS base
+
+WORKDIR /app/www
+
+COPY Gemfile .
+COPY Gemfile.lock .
+
+# Set environment variables for compilation
+ENV CFLAGS="-Wno-error=format-security -O2" \
+    CPPFLAGS="-Wno-error=format-security"
+
+RUN gem install bundler
+
+RUN apk update && \
+    apk add --no-cache \
+    autoconf \
+    automake \
+    build-base \
+    cmake \
+    git \
+    gdbm-dev \
+    glib-dev \
+    gmp-dev \
+    icu-dev \
+    libidn-dev \
+    postgresql-dev \
+    openssl-dev \
+    libtool \
+    meson \
+    nasm \
+    pkgconfig \
+    shared-mime-info \
+    xz \
+    # libvips components
+    libexif-dev \
+    expat-dev \
+    gobject-introspection-dev \
+    libheif-dev \
+    libimagequant-dev \
+    libjpeg-turbo-dev \
+    lcms2-dev \
+    orc-dev \
+    tiff-dev \
+    libwebp-dev \
+    # ffmpeg components
+    dav1d-dev \
+    xz-dev \
+    lame-dev \
+    opus-dev \
+    snappy-dev \
+    libvpx-dev \
+    x264-dev \
+    x265-dev \
+    libvorbis-dev \
+    ruby \
+    ruby-dev \
+    yaml-dev\
+;
+
+RUN apk add --no-cache \
+    libtool \
+    linux-headers \
+    libc-dev \
+    protobuf-dev \
+    protobuf-c-dev
+
+
+RUN bundle update && \
+    bundle config set frozen false \
+    bundle install

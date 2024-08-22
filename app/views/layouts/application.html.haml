@@ -5,6 +5,7 @@
     %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1' }/
 
     = google_tag_manager ENV.fetch("GOOGLE_TAG_MANAGER_ID", nil)
+    = google_analytics_identify_user
 
     - if cdn_host?
       %link{ rel: 'dns-prefetch', href: cdn_host }/
