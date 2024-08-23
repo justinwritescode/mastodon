@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 source 'https://rubygems.org'
-ruby '>= 3.1.0'
+ruby '>= 3.2.4'
 
 gem 'propshaft'
 gem 'puma', '~> 6.3'
@@ -163,7 +163,7 @@ group :test do
   gem 'webmock', '~> 3.18'
 end
 
-group :development do
+group :rubocop do
   # Code linting CLI and plugins
   gem 'rubocop', require: false
   gem 'rubocop-capybara', require: false
@@ -171,7 +171,9 @@ group :development do
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
   gem 'rubocop-rspec_rails', require: false
+end
 
+group :development do
   # Annotates modules with schema
   gem 'annotate', '~> 3.2'
 
