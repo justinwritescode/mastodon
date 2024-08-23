@@ -1,16 +1,29 @@
+# Use the base image
 FROM linuxserver/mastodon:latest AS base
 
+# Set the working directory
 WORKDIR /app/www
 
+# Copy Gemfile and Gemfile.lock
 COPY Gemfile .
 COPY Gemfile.lock .
+COPY Gemfile.lock .
+COPY ./app .
+COPY ./lib .
+COPY ./vendor .
+COPY ./streaming .
+COPY ./spec .
+COPY ./spec .
+COPY ./public .
+COPY ./config .
+COPY ./package.json .
+COPY ./jsconfig.json .
+# COPY ./node_modules .
+COPY ./config/nginx /etc/nginx
 
-# Set environment variables for compilation
-ENV CFLAGS="-Wno-error=format-security -O2" \
-    CPPFLAGS="-Wno-error=format-security"
+FROM base AS with-src
 
-RUN gem install bundler
-
+# Install necessary build dependencies
 RUN apk update && \
     apk add --no-cache \
     autoconf \
@@ -54,8 +67,7 @@ RUN apk update && \
     libvorbis-dev \
     ruby \
     ruby-dev \
-    yaml-dev\
-;
+    yaml-dev
 
 RUN apk add --no-cache \
     libtool \
@@ -64,7 +76,33 @@ RUN apk add --no-cache \
     protobuf-dev \
     protobuf-c-dev
 
+FROM with-src AS with-dependencies
 
-RUN bundle update && \
-    bundle config set frozen false \
+RUN git clone https://github.com/rbenv/rbenv.git ~/.rbenv && \
+    echo 'export PATH="$HOME/.rbenv/bin:/root/.rbenv/shims/ruby:$PATH"' >> ~/.bashrc && \
+    echo 'eval "$(rbenv init -)"' >> ~/.bashrc && \
+    exec bash && \
+    cp $HOME/.bashrc $HOME/.profile \
+    cp $HOME/.bashrc $HOME/.shrc && \
+    git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build &&  \
+    RUBY_CONFIGURE_OPTS=--with-jemalloc rbenv install 3.3.4 && \
+    rbenv global 3.3.4
+
+FROM with-dependencies AS with-ruby
+
+# Set environment variables for compilation
+ENV CFLAGS="-Wno-error=format-security -O2" \
+    CPPFLAGS="-Wno-error=format-security"
+
+# Install Bundler
+RUN gem install bundler --no-document
+
+FROM with-ruby AS with-bundler
+
+# Set bundler to non-frozen mode and install gems
+RUN exec bash && \
+    bundle config set frozen false && \
+    bundle update && \
     bundle install
+
+FROM with-bundler AS mastodon
