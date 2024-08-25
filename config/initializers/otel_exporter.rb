@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'opentelemetry-sdk'
 require 'opentelemetry/exporter/otlp'
 
 # Replace this with your Application Insights Instrumentation Key.
-application_insights_instrumentation_key = ENV.fetch("APPLICATIONINSIGHTS_INSTRUMENTATION_KEY", nil)
+application_insights_instrumentation_key = ENV.fetch('APPLICATIONINSIGHTS_INSTRUMENTATION_KEY', nil)
 
 if application_insights_instrumentation_key
   # Configure the OTLP Exporter
@@ -13,12 +15,12 @@ if application_insights_instrumentation_key
     c.add_span_processor(
       OpenTelemetry::SDK::Trace::Export::BatchSpanProcessor.new(
         OpenTelemetry::Exporter::OTLP::Exporter.new(
-          endpoint: "https://dc.services.visualstudio.com/v2/track",
-          headers: { "api-key" => application_insights_instrumentation_key }
+          endpoint: 'https://dc.services.visualstudio.com/v2/track',
+          headers: { 'api-key' => application_insights_instrumentation_key }
         )
       )
     )
   end
 else
-  Rails.logger.warn("APPLICATIONINSIGHTS_INSTRUMENTATION_KEY is not set. Skipping OpenTelemetry configuration.")
+  Rails.logger.warn('APPLICATIONINSIGHTS_INSTRUMENTATION_KEY is not set. Skipping OpenTelemetry configuration.')
 end

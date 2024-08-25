@@ -1,0 +1,178 @@
+# Use the base image
+FROM linuxserver/mastodon:latest AS base
+
+LABEL maintaner="Justin P. Chase"
+
+# Set the working directory
+WORKDIR /app/www
+
+# Copy Gemfile and Gemfile.lock
+COPY Gemfile .
+COPY Gemfile.lock .
+COPY Gemfile.lock .
+COPY ./app .
+COPY ./lib .
+COPY ./vendor .
+COPY ./streaming .
+COPY ./spec .
+COPY ./public .
+COPY ./config .
+COPY ./package.json .
+COPY ./jsconfig.json .
+# COPY ./node_modules .
+COPY ./config/nginx /etc/nginx
+COPY ./root /
+
+FROM base AS with-src
+
+# Install necessary build dependencies
+RUN apk update && \
+    apk add --no-cache \
+    autoconf \
+    automake \
+    build-base \
+    ruby-dev \
+    gcompat \
+    coreutils \
+    cmake \
+    git \
+    gdbm-dev \
+    glib-dev \
+    gmp-dev \
+    icu-dev \
+    libidn-dev \
+    postgresql-dev \
+    openssl-dev \
+    libtool \
+    meson \
+    nasm \
+    pkgconfig \
+    shared-mime-info \
+    xz \
+    # libvips components
+    libexif-dev \
+    expat-dev \
+    gobject-introspection-dev \
+    libheif-dev \
+    libimagequant-dev \
+    libjpeg-turbo-dev \
+    lcms2-dev \
+    orc-dev \
+    tiff-dev \
+    libwebp-dev \
+    # ffmpeg components
+    dav1d-dev \
+    xz-dev \
+    lame-dev \
+    opus-dev \
+    snappy-dev \
+    libvpx-dev \
+    x264-dev \
+    x265-dev \
+    libvorbis-dev \
+    ruby \
+    ruby-dev \
+    yaml-dev \
+    openssh-server \
+    libc6-compat \
+    libtool \
+    linux-headers \
+    libc-dev \
+    protobuf-dev \
+    protobuf-c-dev \
+    jemalloc 
+
+FROM with-src AS with-dependencies
+
+RUN git clone https://github.com/rbenv/rbenv.git ~/.rbenv && \
+    echo 'export PATH="$HOME/.rbenv/bin:/root/.rbenv/shims/ruby:$PATH"' >> ~/.bashrc && \
+    echo 'eval "$(rbenv init -)"' >> ~/.bashrc && \
+    exec bash && \
+    cp $HOME/.bashrc $HOME/.profile \
+    cp $HOME/.bashrc $HOME/.shrc && \
+    git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build &&  \
+    RUBY_CONFIGURE_OPTS=--with-jemalloc rbenv install 3.3.4 && \
+    rbenv global 3.3.4
+
+FROM with-dependencies AS with-ruby
+
+# Set environment variables for compilation
+ENV CFLAGS="-Wno-error=format-security -O2" \
+    CPPFLAGS="-Wno-error=format-security"
+
+# Install Bundler
+RUN gem install bundler --no-document
+
+# Set bundler to non-frozen mode and install gems
+RUN exec bash && \
+    bundle config set frozen false && \
+    bundle update && \
+    bundle install
+
+FROM with-ruby AS with-bundler
+
+COPY sshd_config /etc/ssh/
+
+# Start and enable SSH
+RUN apk add openssh \
+    && echo "root:Docker!" | chpasswd \
+    && cd /etc/ssh/ \
+    && ssh-keygen -A
+
+FROM with-bundler AS with-sshd
+
+COPY ./bin/mastodon-web /app/bin/
+COPY ./bin/mastodon-sidekiq /app/bin/
+COPY ./bin/mastodon-streaming /app/bin/
+
+RUN rm -rf /var/lib/apt/lists/* \
+    echo "**** cleanup ****" && \
+    # yarn cache clean && \
+    # apk del --purge \
+    # build-dependencies && \
+    # Remove assets not needed in runtime because they were compiled & copied to public
+    # rm -r \
+    #     /app/www/app/javascript/fonts \
+    #     /app/www/app/javascript/icons \
+    #     /app/www/app/javascript/packs \
+    #     /app/www/app/javascript/styles && \
+    rm -rf \
+        # Remove vendored sources for building native extensions.
+        /app/www/vendor/bundle/ruby/*/gems/hiredis-*/vendor/hiredis \
+        /app/www/vendor/bundle/ruby/*/gems/nokogiri-*/gumbo-parser \
+        /app/www/vendor/bundle/ruby/*/gems/nokogiri-*/patches \
+        /app/www/vendor/bundle/ruby/*/gems/pghero-*/app/assets \
+        # Remove build logs, temp files, and cache.
+        /app/www/vendor/bundle/ruby/*/build_info/ \
+        /app/www/vendor/bundle/ruby/*/cache/ \
+        /app/www/tmp/cache \
+        $HOME/.bundle/cache \
+        $HOME/.composer \
+        /tmp/* && \
+	find /app/www/vendor/bundle/ruby/*/extensions/ \( -name gem_make.out -o -name mkmf.log \) -delete && \
+  # Remove tests, documentations and other useless files.
+	find /app/www/vendor/bundle/ruby/*/gems/ \( -name 'doc' \
+    -o -name 'spec' \
+    -o -name 'test' \) \
+		-type d -maxdepth 2 -exec rm -fr "{}" + && \
+	find /app/www/vendor/bundle/ruby/*/gems/ \( -name 'README*' \
+    -o -name 'CHANGELOG*' \
+    -o -name 'CONTRIBUT*' \
+    -o -name '*LICENSE*' \
+    -o -name 'Rakefile' \
+    -o -name '.*' \) \
+		-type f -delete && \
+  # Remove source maps, TS files, docs, tests and other useless files.
+	find /app/www/streaming/node_modules \( -name '.*' \
+    -o -name '*.map' \
+    -o -name '*.md' \
+    -o -name '*.ts' \
+    -o -name 'LICENSE*' \
+    -o -name 'Makefile' \
+    -o -name 'README*' \) \
+		-type f -delete && \
+	rm -rf /app/www/streaming/node_modules/*/test && \
+  rm -rf /app/www/node_modules
+
+FROM with-sshd AS mastodon
+

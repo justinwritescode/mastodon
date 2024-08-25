@@ -67,3 +67,13 @@
       interval: 1 hour
       class: Scheduler::AutoCloseRegistrationsScheduler
       queue: scheduler
+      
+development:
+  :concurrency: 5
+  :queues:
+    - default
+
+production:
+  :concurrency: 10
+  :queues:
+    - default

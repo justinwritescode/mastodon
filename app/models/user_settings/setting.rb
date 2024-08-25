@@ -6,7 +6,7 @@ class UserSettings::Setting
   def initialize(name, options = {})
     @name          = name.to_sym
     @default_value = options[:default]
-    @namespace     = options[:namespace]
+    # @namespace     = options[:namespace]
     @in            = options[:in]
   end
 

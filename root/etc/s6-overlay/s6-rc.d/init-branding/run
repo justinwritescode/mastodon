@@ -1,0 +1,13 @@
+# 
+# run
+#     Created: 2024-08-23T12:54:15-04:00
+#    Modified: 2024-08-23T12:54:16-04:00
+#      Author: Justin Paul Chase <justin@justinwritescode.com>
+#   Copyright: © 2022 - 2024 Justin Paul Chase, All Rights Reserved
+#     License: MIT (https://opensource.org/licenses/MIT)
+# 
+
+#!/bin/bash
+
+# intentional tabs in the heredoc
+cat ./branding
