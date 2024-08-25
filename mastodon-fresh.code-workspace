@@ -1,0 +1,139 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../mastodon-linuxserver"
+		}
+	],
+	"settings": {
+		"DockerRun.DisableAutoGenerateConfig": true,
+		"psi-header.config": {
+			"author": "Justin Paul Chase",
+			"authorEmail": "justin@justinwritescode.com",
+			"blankLinesAfter": 1,
+			"company": "TheBackroom.life",
+			"copyrightHolder": "Justin Paul Chase",
+			"creationDateZero": "blank",
+			"forceToTop": true,
+			"initials": "jpc",
+			"license": "MIT",
+			"modDateFormat": "date-time",
+			"spacesBetweenYears": true,
+			"updateLicenseVariables": true
+		},
+		"psi-header.changes-tracking": {
+        "autoHeader": "manualSave",
+        "enforceHeader": false,
+        "excludeGlob": [
+            "**/*snippet",
+            "front-matter.yml"
+        ],
+        "include": [
+            "msbuild",
+            "csharp",
+            "xml",
+            "yaml",
+            "markdown",
+            "shellscript",
+            "typescript"
+        ],
+        "isActive": true,
+        "modAuthor": "Modified By: <<author>> <<<authoremail>>>",
+        "modDate": "Modified: <<dateformat('yyyy-MM-DDTHH:mm:sszzzZ')>>",
+        "modDateFormat": "date-time",
+        "replace": [
+            "Modified: <<dateformat('yyyy-MM-DDTHH:mm:sszzzZ')>>",
+            "Modified By: <<author>>",
+            "<<authoremail>>"
+        ],
+        "updateLicenseVariables": true
+    },
+    "psi-header.lang-config": [
+        {
+            "language": "msbuild",
+            "mapTo": "xml"
+        },
+        {
+            "begin": "@*",
+            "end": "*@",
+            "language": "aspnetcorerazor",
+            "prefix": " * "
+        },
+        {
+            "begin": "<!--",
+            "end": "-->",
+            "language": "xml"
+        },
+        {
+            "begin": "---",
+            "end": "---",
+            "language": "markdown",
+            "prefix": ""
+        },
+        {
+            "begin": "/* ",
+            "end": " */ ",
+            "language": "csharp",
+            "prefix": " * "
+        },
+        {
+            "language": "typescript",
+            "mapTo": "csharp"
+        },
+        {
+            "language": "yaml",
+            "mapTo": "shellscript"
+        },
+        {
+            "begin": "# ",
+            "end": "# ",
+            "language": "shellscript",
+            "prefix": "# "
+        }
+    ],
+    "psi-header.templates": [
+        {
+            "changeLogCaption": "HISTORY:",
+            "changeLogEntryTemplate": [
+                "",
+                "<<dateformat(DD-MM-YYYY)>>\t<<initials>>\t"
+            ],
+            "changeLogHeaderLineCount": 2,
+            "changeLogNaturalOrder": true,
+            "language": "*",
+            "template": [
+                "<<filename>>",
+                "    Created: <<filecreated('yyyy-MM-DDTHH:mm:sszzzZ')>>",
+                "   Modified: <<dateformat('yyyy-MM-DDTHH:mm:sszzzZ')>>",
+                "     Author: <<author>> <<<authoremail>>>",
+                "  Copyright: © <<yeartoyear(<<projectCreationYear>>, now)>> <<copyrightHolder>>, All Rights Reserved",
+                "    License: <<spdxid>> (<<licenseurl>>)"
+            ]
+        },
+        {
+            "language": "markdown",
+            "template": [
+                "authors:",
+                "- <<initials>>",
+                "title: <<filename>>",
+                "lastmod: <<dateformat('yyyy-MM-DDTHH:mm:sszzzZ')>>",
+                "date: <<filecreated('yyyy-MM-DDTHH:mm:sszzzZ')>>",
+                "license: <<spdxid>>",
+                "copyright: © <<yeartoyear(<<projectCreationYear>>, now)>> <<copyrightHolder>>, All Rights Reserved",
+                "keywords:",
+                "- dgmjr",
+                "type: readme"
+            ]
+        }
+    ],
+    "psi-header.variables": [
+        [
+            "projectCreationYear",
+            "2022"
+        ]
+    ],
+    "git.ignoreLimitWarning": true,
+	}
+}

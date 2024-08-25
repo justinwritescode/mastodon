@@ -23,11 +23,11 @@ class RedisConfiguration
   end
 
   def connection
-    if namespace?
-      Redis::Namespace.new(namespace, redis: raw_connection)
-    else
-      raw_connection
-    end
+    # if namespace?
+    #   Redis::Namespace.new(namespace, redis: raw_connection)
+    # else
+    raw_connection
+    # end
   end
 
   def namespace?
