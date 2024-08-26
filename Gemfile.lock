@@ -686,7 +686,8 @@ GEM
     rdoc (6.7.0)
       psych (>= 4.0.0)
     redcarpet (3.6.0)
-    redis (4.8.1)
+    redis (5.3.0)
+      redis-client (>= 0.22.0)
     redis-client (0.22.2)
       connection_pool
     redis-namespace (1.11.0)
@@ -1029,7 +1030,7 @@ DEPENDENCIES
   rails-i18n (~> 7.0)
   rdf-normalize (~> 0.5)
   redcarpet (~> 3.6)
-  redis (~> 4.5)
+  redis (~> 5.3)
   redis-namespace (~> 1.10)
   rqrcode (~> 2.2)
   rspec-github (~> 2.4)
