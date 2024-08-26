@@ -75,7 +75,7 @@ gem 'rack-attack', '~> 6.6'
 gem 'rack-cors', '~> 2.0', require: 'rack/cors'
 gem 'rails-i18n', '~> 7.0'
 gem 'redcarpet', '~> 3.6'
-gem 'redis', '~> 4.5', require: ['redis', 'redis/connection/hiredis']
+gem 'redis', '~> 5.3', require: ['redis', 'redis/connection/hiredis']
 gem 'redis-namespace', '~> 1.10'
 gem 'rqrcode', '~> 2.2'
 gem 'ruby-progressbar', '~> 1.13'
