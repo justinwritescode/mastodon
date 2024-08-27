@@ -257,6 +257,7 @@ GEM
       faraday (~> 1.0)
     fast_blank (1.0.1)
     fastimage (2.3.1)
+    ffi (1.17.0)
     ffi (1.17.0-aarch64-linux-gnu)
     ffi (1.17.0-aarch64-linux-musl)
     ffi (1.17.0-arm-linux-gnu)
@@ -455,6 +456,7 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2024.0702)
     mini_mime (1.1.5)
+    mini_portile2 (2.8.7)
     minitest (5.25.1)
     msgpack (1.7.2)
     multi_json (1.15.0)
@@ -475,6 +477,9 @@ GEM
     net-smtp (0.5.0)
       net-protocol
     nio4r (2.7.3)
+    nokogiri (1.16.7)
+      mini_portile2 (~> 2.8.2)
+      racc (~> 1.4)
     nokogiri (1.16.7-aarch64-linux)
       racc (~> 1.4)
     nokogiri (1.16.7-arm-linux)
@@ -955,6 +960,7 @@ PLATFORMS
   arm-linux-gnu
   arm-linux-musl
   arm64-darwin
+  ruby
   x86-linux
   x86-linux-gnu
   x86-linux-musl
@@ -998,6 +1004,7 @@ DEPENDENCIES
   faker (~> 3.2)
   fast_blank (~> 1.0)
   fastimage
+  ffi (~> 1.17.0)
   flatware-rspec
   fog-core (<= 2.5.0)
   fog-openstack (~> 1.0)
