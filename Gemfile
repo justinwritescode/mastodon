@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 source 'https://rubygems.org'
-ruby '>= 3.1.0'
+ruby '>= 3.2.0'
 
 gem 'propshaft'
 gem 'puma', '~> 6.3'
@@ -232,5 +232,7 @@ gem 'hcaptcha', '~> 7.1'
 gem 'mail', '~> 2.8'
 
 gem 'redis-rb', '~> 9001.0'
+
+gem 'ffi', '~> 1.17.0'
 
 gem 'ruby-lsp', '~> 0.17.6'
