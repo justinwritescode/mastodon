@@ -15,7 +15,7 @@ Rails.application.configure do
   config.eager_load = true
 
   # Full error reports are disabled and caching is turned on.
-  config.consider_all_requests_local       = false
+  config.consider_all_requests_local       = true
   config.action_controller.perform_caching = true
   config.action_controller.asset_host      = ENV['CDN_HOST'] if ENV['CDN_HOST'].present?
 
@@ -41,10 +41,14 @@ Rails.application.configure do
   config.action_dispatch.trusted_proxies = ENV['TRUSTED_PROXY_IP'].split(/(?:\s*,\s*|\s+)/).map { |item| IPAddr.new(item) } if ENV['TRUSTED_PROXY_IP'].present?
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  config.force_ssl = true
+  # Ensuring we actually set that non-SSL requests are allowed and no redirect should occur
+  config.force_ssl = false
+  config.hosts << '127.0.0.1:3000'
+
+  # If SSL configuration is defined, it should ensure no redirects occur
   config.ssl_options = {
     redirect: {
-      exclude: ->(request) { request.path.start_with?('/health') || request.headers['Host'].end_with?('.onion') || request.headers['Host'].end_with?('.i2p') },
+      exclude: ->(request) { true },
     },
   }
 
