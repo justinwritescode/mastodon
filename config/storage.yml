@@ -1,0 +1,10 @@
+---
+storage: s3
+type: s3
+s3:
+  endPoint: <%= ENV["S3_ENDPOINT"] || 'nil' %>
+  usePathStyleEndpoint: false
+  bucket: <%= ENV["S3_BUCKET"] || 'nil' %>
+  region: <%= ENV["S3_REGION"] || 'nil' %>
+  accessKeyId: <%= ENV["AWS_ACCESS_KEY_ID"] || 'nil' %>
+  secretAccessKey: <%= ENV["AWS_SECRET_ACCESS_KEY"] || 'nil' %>
