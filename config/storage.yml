@@ -1,10 +1,19 @@
 ---
 storage: s3
-type: s3
+s3_enabled: <%= ENV["S3_ENABLED"] || 'false' %>
 s3:
   endPoint: <%= ENV["S3_ENDPOINT"] || 'nil' %>
-  usePathStyleEndpoint: false
+  usePathStyleEndpoint: <%= ENV['S3_OVERRIDE_PATH_STYLE'] != 'false' %>
   bucket: <%= ENV["S3_BUCKET"] || 'nil' %>
   region: <%= ENV["S3_REGION"] || 'nil' %>
   accessKeyId: <%= ENV["AWS_ACCESS_KEY_ID"] || 'nil' %>
   secretAccessKey: <%= ENV["AWS_SECRET_ACCESS_KEY"] || 'nil' %>
+  aliasHost: <%= ENV["S3_ALIAS_HOST"] || 'nil' %>
+  protocol: <%= ENV["S3_PROTOCOL"] || 'https' %>
+  hostname: <%= ENV["S3_HOSTNAME"] || ('s3.' + ENV["S3_REGION"] + '.amazonaws.com') %>
+  permissions: <%= ENV["S3_PERMISSION"] || 'public-read' %>
+  signatureVersion: <%= ENV["S3_SIGNATURE_VERSION"] || 'v4' %>
+  openTimeout: <%= ENV["S3_OPEN_TIMEOUT"] || '5' %>
+  readTimeout: <%= ENV["S3_READ_TIMEOUT"] || '5' %>
+  idleTimeout: <%= ENV["S3_IDLE_TIMEOUT"] || '5' %>
+  retryLimit: <%= ENV["S3_RETRY_LIMIT"] || '0' %>
