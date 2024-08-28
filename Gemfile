@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 source 'https://rubygems.org'
-ruby '>= 3.2.0'
+ruby '>= 3.3.4'
 
 gem 'propshaft'
 gem 'puma', '~> 6.3'
@@ -52,6 +52,7 @@ gem 'fast_blank', '~> 1.0'
 gem 'fastimage'
 gem 'fugit', '~> 1.11.1'
 gem 'hiredis', '~> 0.6.3'
+gem 'hiredis-client'
 gem 'htmlentities', '~> 4.3'
 gem 'http', '~> 5.2.0'
 gem 'http_accept_language', '~> 2.1'
