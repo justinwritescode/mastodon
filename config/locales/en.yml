@@ -1185,7 +1185,7 @@ en:
       x_months: "%{count}mo"
       x_seconds: "%{count}s"
   deletes:
-    challenge_not_passed: The information you entered was not correct
+    challenge_not_passed: The shit you entered was wrong
     confirm_password: Enter your current password to verify your identity
     confirm_username: Enter your username to confirm the procedure
     proceed: Delete account
@@ -1238,18 +1238,18 @@ en:
     hint_html: "<strong>Customize what people see on your public profile and next to your posts.</strong> Other people are more likely to follow you back and interact with you when you have a filled out profile and a profile picture."
     other: Other
   errors:
-    '400': The request you submitted was invalid or malformed.
-    '403': You don't have permission to view this page.
-    '404': The page you are looking for isn't here.
-    '406': This page is not available in the requested format.
-    '410': The page you were looking for doesn't exist here anymore.
+    '400': You done fucked up!
+    '403': You're not fucking allowed to fucking do that!
+    '404': The shit you're looking for isn't fucking here.
+    '406': Yo no hablo el language-o you're-o speaking-o.
+    '410': It's gone. Get over it.
     '422':
       content: Security verification failed. Are you blocking cookies?
       title: Security verification failed
-    '429': Too many requests
+    '429': Slow the fuck down, tiger!
     '500':
-      content: We're sorry, but something went wrong on our end.
-      title: This page is not correct
+      content: Oh, fuck! Oh, fuck!! We're all gonna die!!
+      title: Oh, fuck! Oh, fuck!! We're all gonna die!!
     '503': The page could not be served due to a temporary server failure.
     noscript_html: To use the Mastodon web application, please enable JavaScript. Alternatively, try one of the <a href="%{apps_path}">native apps</a> for Mastodon for your platform.
   existing_username_validator:
