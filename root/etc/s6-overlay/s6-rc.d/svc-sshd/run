@@ -4,6 +4,8 @@
 export NODE_ENV=production
 export PATH="${PATH}:/app/www/bin"
 
+echo "Starting SSHD server...";
+
 exec \
-    s6-notifyoncheck -d -n 300 -w 1000 -c "nc -z localhost 4000" \
-    cd /app/www s6-setuidgid abc /usr/bin/sshd
+    s6-notifyoncheck -d -n 300 -w 1000 -c "nc -z localhost 2222" \
+    service ssh start
