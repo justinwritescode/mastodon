@@ -1,0 +1,1 @@
+dotnet run --project "./ResizeIcon/ResizeIcon.csproj" 
