@@ -71,3 +71,5 @@ docker-compose.override.yml
 
 # Ignore dotenv .local files
 .env*.local
+ruby-3.3.4.tar.gz
+/ruby-3.3.4
