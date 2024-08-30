@@ -2,13 +2,19 @@ FROM ghcr.io/justinwritescode/mastodon:xplat AS base
 
 SHELL [ "bash", "-c" ]
 
+ENV TZ=EST5EDT \
+    WEBSITE_TIME_ZONE=EST5EDT
+
 USER root
 
 RUN mkdir /app && \
-    ln -s /opt/mastodon /app/www && \
-    apt-get update \
+    ln -s /opt/mastodon /app/www \
+    && apt-get update \
     && apt-get install -y --no-install-recommends dialog \
-    && apt-get install -y --no-install-recommends openssh-server \
+    && apt-get install -y --no-install-recommends \
+    openssh-server \
+    nginx \
+    nodejs \
     && echo "root:Docker!" | chpasswd 
 
 # COPY --from=linuxserver/mastodon:latest /etc /etc
