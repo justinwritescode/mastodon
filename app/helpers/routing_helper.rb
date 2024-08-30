@@ -10,11 +10,14 @@ module RoutingHelper
     include Rails.application.routes.url_helpers
 
     def default_url_options
-      ActionMailer::Base.default_url_options
+      ActionMailer::Base.default_url_
+      options
     end
   end
 
   def full_asset_url(source, **options)
+    return 'default/path' if path.nil?
+    
     source = ActionController::Base.helpers.asset_url(source, **options) unless use_storage?
 
     URI.join(asset_host, source).to_s
