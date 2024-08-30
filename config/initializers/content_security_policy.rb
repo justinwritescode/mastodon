@@ -30,15 +30,25 @@ def sso_host
   end
 end
 
+Rails.logger.debug { "assets_host = #{assets_host}, media_hosts = #{media_hosts}" }
+Rails.logger.debug { "SSO host = #{sso_host}" } if sso_host.present?
+
+ENV.each do |key, value|
+  if key.start_with?('CSP_')
+    # Emit a debug message with the key and its value
+    Rails.logger.debug { "CSP ENV Var - #{key}: #{value}" }
+  end
+end
+
 Rails.application.config.content_security_policy do |p|
   p.base_uri        :none
   p.default_src     :none
   p.frame_ancestors :none
-  p.font_src        :self, assets_host, ENV.fetch('CSP_FONT_SRC', '')
-  p.img_src         :self, :data, :blob, *media_hosts, ENV.fetch('CSP_IMG_SRC', '')
-  p.style_src       :self, assets_host, ENV.fetch('CSP_STYLE_SRC', '')
-  p.media_src       :self, :data, *media_hosts, ENV.fetch('CSP_MEDIA_SRC', '')
-  p.frame_src       :self, :https, ENV.fetch('CSP_FRAME_SRC', '')
+  p.font_src        :self, assets_host, *ENV.fetch('CSP_FONT_SRC', '').split
+  p.img_src         :self, :data, :blob, *media_hosts, *ENV.fetch('CSP_IMG_SRC', '').split
+  p.style_src       :self, assets_host, *ENV.fetch('CSP_STYLE_SRC', '').split
+  p.media_src       :self, :data, *media_hosts, *ENV.fetch('CSP_MEDIA_SRC', '').split
+  p.frame_src       :self, :https, *ENV.fetch('CSP_FRAME_SRC', '').split
   p.manifest_src    :self, assets_host
 
   if sso_host.present?
@@ -47,18 +57,18 @@ Rails.application.config.content_security_policy do |p|
     p.form_action     :self
   end
 
-  p.child_src       :self, :blob, assets_host, ENV.fetch('CSP_CHILD_SRC', '')
-  p.worker_src      :self, :blob, assets_host, ENV.fetch('CSP_WORKER_SRC', '')
+  p.child_src       :self, :blob, assets_host, *ENV.fetch('CSP_CHILD_SRC', '').split
+  p.worker_src      :self, :blob, assets_host, *ENV.fetch('CSP_WORKER_SRC', '').split
 
   if Rails.env.development?
     webpacker_public_host = ENV.fetch('WEBPACKER_DEV_SERVER_PUBLIC', Webpacker.config.dev_server[:public])
     front_end_build_urls = %w(ws http).map { |protocol| "#{protocol}#{Webpacker.dev_server.https? ? 's' : ''}://#{webpacker_public_host}" }
 
-    p.connect_src :self, :data, :blob, *media_hosts, Rails.configuration.x.streaming_api_base_url, *front_end_build_urls, ENV.fetch('CSP_CONNECT_SRC', '')
-    p.script_src  :self, :unsafe_inline, :unsafe_eval, assets_host, ENV.fetch('CSP_SCRIPT_SRC', '')
+    p.connect_src :self, :data, :blob, *media_hosts, Rails.configuration.x.streaming_api_base_url, *front_end_build_urls, *ENV.fetch('CSP_CONNECT_SRC', '').split
+    p.script_src  :self, :unsafe_inline, :unsafe_eval, assets_host, *ENV.fetch('CSP_SCRIPT_SRC', '').split
   else
-    p.connect_src :self, :data, :blob, *media_hosts, Rails.configuration.x.streaming_api_base_url, ENV.fetch('CSP_CONNECT_SRC', '')
-    p.script_src  :self, assets_host, "'wasm-unsafe-eval'", ENV.fetch('CSP_SCRIPT_SRC', '')
+    p.connect_src :self, :data, :blob, *media_hosts, Rails.configuration.x.streaming_api_base_url, *ENV.fetch('CSP_CONNECT_SRC', '').split
+    p.script_src  :self, assets_host, "'wasm-unsafe-eval'", *ENV.fetch('CSP_SCRIPT_SRC', '').split
   end
 end
 
