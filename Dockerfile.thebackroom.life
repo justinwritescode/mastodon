@@ -1,18 +1,15 @@
-FROM ghcr.io/mastodon/mastodon:latest AS base
+FROM ghcr.io/justinwritescode/mastodon:xplat AS base
 
 SHELL [ "bash", "-c" ]
 
 USER root
-
-COPY ./root /
 
 RUN mkdir /app && \
     ln -s /opt/mastodon /app/www && \
     apt-get update \
     && apt-get install -y --no-install-recommends dialog \
     && apt-get install -y --no-install-recommends openssh-server \
-    && echo "root:Docker!" | chpasswd \
-    && chmod u+x /entrypoint.sh
+    && echo "root:Docker!" | chpasswd 
 
 # COPY --from=linuxserver/mastodon:latest /etc /etc
 # COPY --from=linuxserver/mastodon:latest /usr/bin/with-contenv /usr/bin/
@@ -34,4 +31,6 @@ RUN \
     rm -rf /usr/bin/bundle && \
     ln -s /opt/mastodon/bin/bundle /usr/bin/bundle
 
-ENTRYPOINT [ "/entrypoint.sh" ]
+COPY ./root /
+
+ENTRYPOINT [ "bash", "/entrypoint.sh" ]
