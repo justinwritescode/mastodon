@@ -1,6 +1,9 @@
 #!/usr/bin/with-contenv bash
 # shellcheck shell=bash
 
+export RAILS_ENV=production
+export PATH="/mastodon/bin:${PATH}"
+
 if pgrep -f "[n]ginx:" >/dev/null; then
     echo "Zombie nginx processes detected, sending SIGTERM"
     pkill -ef [n]ginx:
