@@ -17,5 +17,5 @@ jobs:
     - name: Build the Docker image
       run: |
         docker build --file Dockerfile.thebackroom.life "." --tag ghcr.io/justinwritescode/mastodon:thebackroom.life
-        docker push image ghcr.io/justinwritescode/mastodon:thebackroom.life
+        docker image push ghcr.io/justinwritescode/mastodon:thebackroom.life
         
