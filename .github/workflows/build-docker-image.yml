@@ -10,8 +10,20 @@ permissions: write-all
 
 jobs:
 
-  build:
+  build-xplat-base:
 
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build the Docker image
+      run: |
+        docker login -u=justinwritescode -p="${{ secrets.GITHUB_TOKEN }}" ghcr.io
+        docker build --file Dockerfile "." --tag ghcr.io/justinwritescode/mastodon:xplat
+        docker image push ghcr.io/justinwritescode/mastodon:xplat
+        
+  build-thebackroom-life:
+    needs: build-xplat-base
     runs-on: ubuntu-latest
 
     steps:
