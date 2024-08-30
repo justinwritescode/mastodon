@@ -23,7 +23,7 @@ ARG MASTODON_VERSION_PRERELEASE=""
 ARG MASTODON_VERSION_METADATA=""
 
 # Timezone used by the Docker container and runtime, change with [--build-arg TZ=Europe/Berlin]
-ARG TZ="Etc/UTC"
+ARG TZ="EST5EDT"
 # Linux UID (user id) for the mastodon user, change with [--build-arg UID=1234]
 ARG UID="991"
 # Linux GID (group id) for the mastodon user, change with [--build-arg GID=1234]

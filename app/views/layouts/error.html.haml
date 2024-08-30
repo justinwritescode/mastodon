@@ -8,7 +8,10 @@
     = theme_style_tags Setting.default_settings['theme']
     = javascript_pack_tag 'common', crossorigin: 'anonymous'
     = javascript_pack_tag 'error', crossorigin: 'anonymous'
+    = google_tag_manager_script_tag ENV["GTM_ID"]
+    = google_analytics_identify_user ENV["GA_ID"]
   %body.error
+    = google_tag_manager_noscript_tag ENV["GTM_ID"]
     .dialog
       .dialog__illustration
         %img{ alt: Setting.default_settings['site_title'], src: '/oops.png' }/
