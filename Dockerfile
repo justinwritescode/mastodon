@@ -409,6 +409,6 @@ EXPOSE 3000
 # Set container tini as default entry point
 ENTRYPOINT ["/usr/bin/tini", "--"]
 
-LABEL org.opencontainers.image.description "This is the base image for TheBackroom & Justin Chase's Mastodon instances."
-LABEL org.opencontainers.image.source "https://github.com/justinwritescode/mastodon"
-LABEL org.opencontainers.image.licenses "MIT"
+LABEL org.opencontainers.image.description="This is the base image for TheBackroom & Justin Chase's Mastodon instances."
+LABEL org.opencontainers.image.source="https://github.com/justinwritescode/mastodon"
+LABEL org.opencontainers.image.licenses="MIT"

@@ -44,4 +44,4 @@ COPY config ./
 
 ENTRYPOINT [ "bash", "entrypoint" ]
 
-LABEL org.opencontainers.image.description "Modifications to the base image for the site TheBackroom.life"
+LABEL org.opencontainers.image.description="Modifications to the base image for the site TheBackroom.life"
