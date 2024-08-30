@@ -1,0 +1,21 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "thebackroombranding" ]
+  pull_request:
+    branches: [ "thebackroombranding" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build the Docker image
+      run: |
+        docker build . --file Dockerfile.thebackroom.life --tag ghcr.io/justinwritescode/mastodon:thebackroom.life
+        docker push image ghcr.io/justinwritescode/mastodon:thebackroom.life
+        
