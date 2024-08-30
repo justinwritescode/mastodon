@@ -1,0 +1,13 @@
+#!/usr/bin/with-contenv bash
+# shellcheck shell=bash
+
+export RAILS_ENV=production
+export PATH="/mastodon/bin:${PATH}"
+
+PATH="/mastodon/bin:${PATH}"
+
+bash display-branding;
+bash start-sshd;
+bash start-nginx; 
+echo "**** Starting Mastodon ****";
+/mastodon/bin/bundle exec rails server -p 3000;

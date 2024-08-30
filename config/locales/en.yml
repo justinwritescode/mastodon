@@ -1246,7 +1246,7 @@ en:
     '422':
       content: Security verification failed. Are you blocking cookies?
       title: Security verification failed
-    '429': Too many requests
+    '429': Slow the fuck down!!
     '500':
       content: Oh fuck!! Oh fuck!! We're all gonna die!!!
       title: Shit hit the fucking fan!!

@@ -8,14 +8,15 @@ ENV TZ=EST5EDT \
 USER root
 
 RUN mkdir /app && \
-    ln -s /opt/mastodon /app/www \
-    && apt-get update \
-    && apt-get install -y --no-install-recommends dialog \
-    && apt-get install -y --no-install-recommends \
-    openssh-server \
-    nginx \
-    nodejs \
-    && echo "root:Docker!" | chpasswd 
+    mkdir /run/sshd && \
+    ln -s /opt/mastodon /app/www && \
+    apt-get update  && \
+    apt-get install -y --no-install-recommends dialog && \
+    apt-get install -y --no-install-recommends \
+        openssh-server \
+        nginx \
+        nodejs && \
+    echo "root:Docker!" | chpasswd 
 
 # COPY --from=linuxserver/mastodon:latest /etc /etc
 # COPY --from=linuxserver/mastodon:latest /usr/bin/with-contenv /usr/bin/
@@ -38,5 +39,9 @@ RUN \
     ln -s /opt/mastodon/bin/bundle /usr/bin/bundle
 
 COPY ./root /
+COPY app ./
+COPY config ./
 
-ENTRYPOINT [ "bash", "/entrypoint.sh" ]
+ENTRYPOINT [ "bash", "entrypoint" ]
+
+LABEL org.opencontainers.image.description "Modifications to the base image for the site TheBackroom.life"
