@@ -1,4 +1,4 @@
-FROM ghcr.io/justinwritescode/mastodon:thebackroom.life AS base
+FROM ghcr.io/mastodon/mastodon:latest AS base
 
 USER root
 
@@ -122,6 +122,8 @@ ENV PATH="/command:${PATH}"
 # COPY --from=linuxserver/mastodon:latest /etc /etc
 
 WORKDIR /mastodon
+
+EXPOSE 80 2222 3000 4000
 
 RUN \ 
     # find /etc -name init-php -exec rm -rf {} + && \
