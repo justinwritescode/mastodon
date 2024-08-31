@@ -229,6 +229,12 @@ Rails.application.routes.draw do
   get '/privacy-policy', to: 'privacy#show', as: :privacy_policy
   get '/terms',          to: redirect('/privacy-policy')
 
+  # Route for Google Tag Manager script at /js/gtm.js
+  get '/js/gtm.js', to: 'js/google_tag_manager#serve'
+
+  # Route for User Identification script at /js/ga.js
+  get '/js/ga.js', to: 'js/google_analytics_identify_user#serve'
+
   match '/', via: [:post, :put, :patch, :delete], to: 'application#raise_not_found', format: false
   match '*unmatched_route', via: :all, to: 'application#raise_not_found', format: false
 end
