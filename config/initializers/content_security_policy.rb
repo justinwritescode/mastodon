@@ -30,8 +30,49 @@ def sso_host
   end
 end
 
+def csp_script_src
+  (ENV['CSP_SCRIPT_SRC'].presence || [:unsafe_inline, :http, :https, '*']).compact
+end
+
+def csp_content_src
+  (ENV['CSP_CONTENT_SRC'].presence || [:unsafe_inline, :http, :https, '*']).compact
+end
+
+def csp_frame_src
+  (ENV['CSP_FRAME_SRC'].presence || ['*']).compact
+end
+
+def csp_media_src
+  (ENV['CSP_MEDIA_SRC'].presence || ['*']).compact
+end
+
+def csp_style_src
+  (ENV['CSP_STYLE_SRC'].presence || [:unsafe_inline, :http, :https, '*']).compact
+end
+
+def csp_img_src
+  (ENV['CSP_IMG_SRC'].presence || ['*']).compact
+end
+
+def csp_font_src
+  (ENV['CSP_FONT_SRC'].presence || ['*']).compact
+end
+
+def csp_child_src
+  (ENV['CSP_CHILD_SRC'].presence || ['*']).compact
+end
+
+def csp_worker_src
+  (ENV['CSP_WORKER_SRC'].presence || ['*']).compact
+end
+
+def csp_connect_src
+  (ENV['CSP_CONNECT_SRC'].presence || ['*']).compact
+end
+
 Rails.logger.debug { "assets_host = #{assets_host}, media_hosts = #{media_hosts}" }
 Rails.logger.debug { "SSO host = #{sso_host}" } if sso_host.present?
+Rails.logger.debug { "CSP_CONTENT_SRC = #{csp_content_src}, CSP_SCRIPT_SRC = #{csp_script_src}, CSP_CONNECT_SRC = #{csp_connect_src}, CSP_IMG_SRC = #{csp_img_src}" }
 
 ENV.each do |key, value|
   if key.start_with?('CSP_')
@@ -44,11 +85,11 @@ Rails.application.config.content_security_policy do |p|
   p.base_uri        :none
   p.default_src     :none
   p.frame_ancestors :none
-  p.font_src        :self, assets_host, *ENV.fetch('CSP_FONT_SRC', '').split
-  p.img_src         :self, :data, :blob, *media_hosts, *ENV.fetch('CSP_IMG_SRC', '').split
-  p.style_src       :self, assets_host, *ENV.fetch('CSP_STYLE_SRC', '').split
-  p.media_src       :self, :data, *media_hosts, *ENV.fetch('CSP_MEDIA_SRC', '').split
-  p.frame_src       :self, :https, *ENV.fetch('CSP_FRAME_SRC', '').split
+  p.font_src        :self, assets_host, *csp_font_src
+  p.img_src         :self, :data, :blob, *media_hosts, *csp_img_src
+  p.style_src       :self, assets_host, *csp_style_src
+  p.media_src       :self, :data, *media_hosts, *csp_media_src
+  p.frame_src       :self, :https, *csp_frame_src
   p.manifest_src    :self, assets_host
 
   if sso_host.present?
@@ -57,25 +98,25 @@ Rails.application.config.content_security_policy do |p|
     p.form_action     :self
   end
 
-  p.child_src       :self, :blob, assets_host, *ENV.fetch('CSP_CHILD_SRC', '').split
-  p.worker_src      :self, :blob, assets_host, *ENV.fetch('CSP_WORKER_SRC', '').split
+  p.child_src       :self, :blob, assets_host, *csp_child_src
+  p.worker_src      :self, :blob, assets_host, *csp_worker_src
 
   if Rails.env.development?
     webpacker_public_host = ENV.fetch('WEBPACKER_DEV_SERVER_PUBLIC', Webpacker.config.dev_server[:public])
     front_end_build_urls = %w(ws http).map { |protocol| "#{protocol}#{Webpacker.dev_server.https? ? 's' : ''}://#{webpacker_public_host}" }
 
-    p.connect_src :self, :data, :blob, *media_hosts, Rails.configuration.x.streaming_api_base_url, *front_end_build_urls, *ENV.fetch('CSP_CONNECT_SRC', '').split
-    p.script_src  :self, :unsafe_inline, :unsafe_eval, assets_host, *ENV.fetch('CSP_SCRIPT_SRC', '').split
+    p.connect_src :self, :data, :blob, *media_hosts, Rails.configuration.x.streaming_api_base_url, *front_end_build_urls, *csp_connect_src
+    p.script_src  :self, :unsafe_inline, :unsafe_eval, assets_host, *csp_script_src
   else
-    p.connect_src :self, :data, :blob, *media_hosts, Rails.configuration.x.streaming_api_base_url, *ENV.fetch('CSP_CONNECT_SRC', '').split
-    p.script_src  :self, assets_host, "'wasm-unsafe-eval'", *ENV.fetch('CSP_SCRIPT_SRC', '').split
+    p.connect_src :self, :data, :blob, *media_hosts, Rails.configuration.x.streaming_api_base_url, *csp_connect_src
+    p.script_src  :self, assets_host, "'wasm-unsafe-eval'", *csp_script_src
   end
 end
 
 # Report CSP violations to a specified URI
 # For further information see the following documentation:
 # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy-Report-Only
-# Rails.application.config.content_security_policy_report_only = true
+Rails.application.config.content_security_policy_report_only = true
 
 Rails.application.config.content_security_policy_nonce_generator = ->(_request) { SecureRandom.base64(16) }
 
