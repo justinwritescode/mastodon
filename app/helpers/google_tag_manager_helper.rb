@@ -2,30 +2,32 @@
 
 module GoogleTagManagerHelper
   # Method to include Google Tag Manager script tag
-  def google_tag_manager_script_tag(gtm_id)
-    gtm_id ||= ENV.fetch('GTM_ID', nil)
+  def google_tag_manager_script_tag
+    javascript_tag '', src: '/js/gtm.js'
 
-    return if gtm_id.blank?
+    # gtm_id ||= ENV.fetch('GTM_ID', nil)
 
-    # JavaScript code for Google Tag Manager
-    script_content = <<~JS
-      <!-- Google Tag Manager -->
-      <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-      })(window,document,'script','dataLayer','#{gtm_id}');</script>
-      <!-- End Google Tag Manager -->
-    JS
+    # return if gtm_id.blank?
 
-    script_content.html_safe
+    # # JavaScript code for Google Tag Manager
+    # script_content = <<~JS
+    #   <!-- Google Tag Manager -->
+    #   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    #   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    #   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    #   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    #   })(window,document,'script','dataLayer','#{gtm_id}');</script>
+    #   <!-- End Google Tag Manager -->
+    # JS
+
+    # script_content.html_safe
   end
 
   # Method to include Google Tag Manager noscript tag
-  def google_tag_manager_noscript_tag(gtm_id)
-    gtm_id ||= ENV.fetch('GTM_ID', nil)
+  def google_tag_manager_noscript_tag
+    gtm_id = ENV.fetch('GTM_ID', nil)
 
-    return if gtm_id.blank?
+    return if gtm_id.blank? || gtm_id.nil?
 
     # Noscript code for Google Tag Manager
     noscript_content = <<~HTML

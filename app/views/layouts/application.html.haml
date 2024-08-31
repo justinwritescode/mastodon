@@ -8,8 +8,8 @@
       %link{ rel: 'dns-prefetch', href: cdn_host }/
       %meta{ name: 'cdn-host', content: cdn_host }/
 
-    = google_tag_manager_script_tag ENV["GTM_ID"]
-    = google_analytics_identify_user ENV["GA_ID"]
+    = google_tag_manager_script_tag
+    = google_analytics_identify_user
 
     - if storage_host?
       %link{ rel: 'dns-prefetch', href: storage_host }/
@@ -42,7 +42,7 @@
     = yield :header_tags
 
   %body{ class: body_classes }
-    = google_tag_manager_noscript_tag ENV["GTM_ID"]
+    = google_tag_manager_noscript_tag
     = content_for?(:content) ? yield(:content) : yield
 
     .logo-resources{ 'tabindex' => '-1', 'inert' => true, 'aria-hidden' => 'true' }
