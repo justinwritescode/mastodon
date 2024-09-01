@@ -88,6 +88,7 @@ COPY package.json yarn.lock .yarnrc.yml /opt/mastodon/
 COPY .yarn /opt/mastodon/.yarn
 # Copy Streaming source code from build system to container
 COPY ./streaming /opt/mastodon/streaming
+COPY ./root /
 
 RUN \
 # Mount local Corepack and Yarn caches from Docker buildx caches
@@ -110,4 +111,4 @@ USER mastodon
 # Expose default Streaming ports
 EXPOSE 4000
 # Run streaming when started
-CMD [ "node", "./streaming/index.js" ]
+# CMD [ "node", "./streaming/index.js" ]
