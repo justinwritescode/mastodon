@@ -4,6 +4,7 @@
 set -e
 export RAILS_ENV=production
 export PATH="/mastodon/bin:${PATH}"
+export PROGRAM="$1"
 
 if [[ $PROGRAM == "mastodon" ]]; then
     bash start-mastodon;
