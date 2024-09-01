@@ -27,8 +27,7 @@ jobs:
     - name: Build the Docker image
       run: |
         docker login -u=justinwritescode -p="${{ secrets.PACKAGES_PAT }}" ghcr.io
-        docker buildx build --file Dockerfile "." --tag ghcr.io/justinwritescode/mastodon:xplat --platform="linux/arm64,linux/amd64"
-        docker image push ghcr.io/justinwritescode/mastodon:xplat
+        docker buildx build --file Dockerfile "." --tag ghcr.io/justinwritescode/mastodon:xplat --platform="linux/arm64,linux/amd64" --push
         
   build-thebackroom-life:
     needs: build-xplat-base
