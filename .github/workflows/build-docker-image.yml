@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ "thebackroombranding" ]
 
+concurrency:
+  group: thebackroomlife-ci-docker
+  cancel-in-progress: true
+
 permissions: write-all
 
 jobs:
@@ -19,7 +23,7 @@ jobs:
     
     - uses: ./.github/actions/setup-docker
       with:
-        token: ${{ secrets.PACKAGES_PAT }}
+        password: ${{ secrets.PACKAGES_PAT }}
 
     - name: Build & push the Docker image
       uses: docker/build-push-action@v6.7.0
@@ -39,7 +43,7 @@ jobs:
 
     - uses: ./.github/actions/setup-docker
       with:
-        token: ${{ secrets.PACKAGES_PAT }}
+        password: ${{ secrets.PACKAGES_PAT }}
 
     - name: Build & push the Docker image
       uses: docker/build-push-action@v6.7.0
@@ -59,7 +63,7 @@ jobs:
     
     - uses: ./.github/actions/setup-docker
       with:
-        token: ${{ secrets.PACKAGES_PAT }}
+        password: ${{ secrets.PACKAGES_PAT }}
 
     - name: Build & push the Docker image
       uses: docker/build-push-action@v6.7.0
