@@ -31,11 +31,23 @@ jobs:
       with:
         password: ${{ secrets.PACKAGES_PAT }}
 
+    - uses: docker/login-action@v3
+      with: 
+        username: thebackroomlife
+        password: ${{ secrets.AZURECR_KEY }}
+        registry: thebackroomlife.azurecr.io
+
     - name: Build & push the Docker image
       uses: docker/build-push-action@v6.7.0
       with:
-        labels: ghcr.io/justinwritescode/mastodon:xplat
+        tags: |
+          mastodon:xplat
+          justinwritescode/mastodon:xplat
+          ghcr.io/justinwritescode/mastodon:xplat
+          thebackroomlife.azurecr.io/mastodon:xplat
+          thebackroomlife.azurecr.io/justinwritescode/mastodon:xplat
         pull: true
+        push: true
         file: Dockerfile
         platforms: linux/amd64,linux/arm64
         cache-from: ./build-cache
@@ -58,11 +70,23 @@ jobs:
       with:
         password: ${{ secrets.PACKAGES_PAT }}
 
+    - uses: docker/login-action@v3
+      with: 
+        username: thebackroomlife
+        password: ${{ secrets.AZURECR_KEY }}
+        registry: thebackroomlife.azurecr.io
+
     - name: Build & push the Docker image
       uses: docker/build-push-action@v6.7.0
       with:
-        labels: ghcr.io/justinwritescode/mastodon:thebackroom.life
+        tags: |
+          mastodon:thebackroom.life
+          justinwritescode/mastodon:thebackroom.life
+          ghcr.io/justinwritescode/mastodon:thebackroom.life
+          thebackroomlife.azurecr.io/mastodon:thebackroom.life
+          thebackroomlife.azurecr.io/justinwritescode/mastodon:thebackroom.life
         pull: true
+        push: true
         file: Dockerfile.thebackroom.life
         platforms: linux/amd64,linux/arm64
         cache-from: ./build-cache
@@ -84,11 +108,23 @@ jobs:
       with:
         password: ${{ secrets.PACKAGES_PAT }}
 
+    - uses: docker/login-action@v3
+      with: 
+        username: thebackroomlife
+        password: ${{ secrets.AZURECR_KEY }}
+        registry: thebackroomlife.azurecr.io
+
     - name: Build & push the Docker image
       uses: docker/build-push-action@v6.7.0
       with:
-        labels: ghcr.io/justinwritescode/mastodon:thebackroom.life
+        tags: |
+          mastodon:streaming
+          justinwritescode/mastodon:streaming
+          ghcr.io/justinwritescode/mastodon:streaming
+          thebackroomlife.azurecr.io/mastodon:streaming
+          thebackroomlife.azurecr.io/justinwritescode/mastodon:streaming
         pull: true
+        push: true
         file: Dockerfile.thebackroom.life
         platforms: linux/amd64,linux/arm64
         cache-from: ./build-cache
