@@ -1,5 +1,14 @@
 - content_for :page_title do
-  = t('errors.410')
+  = t('errors.410.title')
 
 - content_for :content do
-  = t('errors.410')
+  = t('errors.410.content')
+
+- content_for :error_code do
+  = 410
+
+- content_for :static_image do
+  = t('errors.410.static_image')
+
+- content_for :static_image do
+  = t('errors.410.dynamic_image')

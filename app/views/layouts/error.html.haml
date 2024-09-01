@@ -1,10 +1,10 @@
 !!!
-%html{ lang: I18n.locale }
+%html{ lang: I18n.locale.to_s }
   %head
-    %meta{ 'content' => 'text/html; charset=UTF-8', 'http-equiv' => 'Content-Type' }/
-    %meta{ charset: 'utf-8' }/
+    %meta{ 'content' => 'text/html; charset=UTF-8', 'http-equiv' => 'Content-Type' }
+    %meta{ charset: 'utf-8' }
     %title= safe_join([yield(:page_title), Setting.default_settings['site_title']], ' - ')
-    %meta{ content: 'width=device-width,initial-scale=1', name: 'viewport' }/
+    %meta{ content: 'width=device-width,initial-scale=1', name: 'viewport' }
     = theme_style_tags Setting.default_settings['theme']
     = javascript_pack_tag 'common', crossorigin: 'anonymous'
     = javascript_pack_tag 'error', crossorigin: 'anonymous'
@@ -14,6 +14,6 @@
     = google_tag_manager_noscript_tag
     .dialog
       .dialog__illustration
-        %img{ alt: Setting.default_settings['site_title'], src: '/oops.png' }/
+        %img{ alt: Setting.default_settings['site_title'], src: "#{asset_host}/#{yield(:static_image)}", onmouseover: "this.src=\"#{asset_host}/#{yield(:dynamic_image)}\"", onmouseout:"this.src=\"#{asset_host}/#{yield(:static_image)}\"" }
       .dialog__message
         %h1= yield :content
