@@ -16,9 +16,16 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    - name: Setup Docker for multi-platform builds
+      run: |
+        docker buildx create --name mybuilder --use
+        docker buildx inspect --bootstrap
+        sudo mkdir -p /etc/docker
+        echo '{"features": {"buildkit": true}}' | sudo tee /etc/docker/daemon.json
+        sudo systemctl restart docker
+        docker run --privileged --rm tonistiigi/binfmt --install all
     - name: Build the Docker image
       run: |
-        docker run --privileged --rm tonistiigi/binfmt --install all
         docker login -u=justinwritescode -p="${{ secrets.PACKAGES_PAT }}" ghcr.io
         docker build buildx --file Dockerfile "." --tag ghcr.io/justinwritescode/mastodon:xplat --platform="linux/arm64,linux/amd64"
         docker image push ghcr.io/justinwritescode/mastodon:xplat
