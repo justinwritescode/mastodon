@@ -6,8 +6,7 @@ inputs:
     default: justinwritescode
     description: the username to use when logging in to the container registry
   token:
-    required: false
-    default: ${{ secrets.PACKAGES_PAT }}
+    required: true
     description: the token to use when logging in to the container registry
   registry:
     required: false
