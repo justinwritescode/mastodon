@@ -34,7 +34,6 @@ jobs:
     - name: Build & push the Docker image
       uses: docker/build-push-action@v6.7.0
       with:
-        name: ${{ steps.buildx.outputs.name }}
         labels: ghcr.io/justinwritescode/mastodon:xplat
         pull: true
         file: Dockerfile
@@ -62,7 +61,6 @@ jobs:
     - name: Build & push the Docker image
       uses: docker/build-push-action@v6.7.0
       with:
-        name: ${{ steps.buildx.outputs.name }}
         labels: ghcr.io/justinwritescode/mastodon:thebackroom.life
         pull: true
         file: Dockerfile.thebackroom.life
@@ -89,7 +87,6 @@ jobs:
     - name: Build & push the Docker image
       uses: docker/build-push-action@v6.7.0
       with:
-        # name: ${{ steps.buildx.outputs.name }}
         labels: ghcr.io/justinwritescode/mastodon:thebackroom.life
         pull: true
         file: Dockerfile.thebackroom.life
