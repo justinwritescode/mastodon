@@ -35,7 +35,7 @@ jobs:
         password: ${{ secrets.PACKAGES_PAT }}
 
     - name: Build & push the Docker image
-      uses: docker/build-push-action
+      uses: docker/build-push-action@v6.7.0
       with:
         name: ${{ steps.buildx.outputs.name }}
         labels: ghcr.io/justinwritescode/mastodon:xplat
@@ -68,7 +68,7 @@ jobs:
         password: ${{ secrets.PACKAGES_PAT }}
 
     - name: Build & push the Docker image
-      uses: docker/build-push-action
+      uses: docker/build-push-action@v6.7.0
       with:
         name: ${{ steps.buildx.outputs.name }}
         labels: ghcr.io/justinwritescode/mastodon:thebackroom.life
