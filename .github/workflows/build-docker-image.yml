@@ -20,12 +20,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-
-    - name: Download the build cache
-      uses: actions/cache@v3
-      with: 
-        key: xplat-build-cache
-        path: ./build-cache
     
     - uses: ./.github/actions/setup-docker
       with:
@@ -42,8 +36,14 @@ jobs:
       with:
         tags: |
           ghcr.io/justinwritescode/mastodon:xplat
-          thebackroomlife.azurecr.io/mastodon:xplat
+          ghcr.io/justinwritescode/mastodon/xplat:${{ github.sha }}
+          ghcr.io/justinwritescode/mastodon/xplat:latest
           thebackroomlife.azurecr.io/justinwritescode/mastodon:xplat
+          thebackroomlife.azurecr.io/justinwritescode/mastodon:xplat:${{ github.sha }}
+          thebackroomlife.azurecr.io/justinwritescode/mastodon/xplat:latest
+          thebackroomlife.azurecr.io/mastodon:xplat
+          thebackroomlife.azurecr.io/mastodon/xplat:${{ github.sha }}
+          thebackroomlife.azurecr.io/mastodon/xplat:latest
         pull: true
         push: true
         file: Dockerfile
@@ -57,12 +57,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-
-    - name: Download the build cache
-      uses: actions/cache@v3
-      with: 
-        key: xplat-build-cache
-        path: ./build-cache
 
     - uses: ./.github/actions/setup-docker
       with:
@@ -79,8 +73,14 @@ jobs:
       with:
         tags: |
           ghcr.io/justinwritescode/mastodon:thebackroom.life
-          thebackroomlife.azurecr.io/mastodon:thebackroom.life
+          ghcr.io/justinwritescode/mastodon/thebackroom.life:${{ github.sha }}
+          ghcr.io/justinwritescode/mastodon/thebackroom.life:latest
           thebackroomlife.azurecr.io/justinwritescode/mastodon:thebackroom.life
+          thebackroomlife.azurecr.io/justinwritescode/mastodon/thebackroom.life:${{ github.sha }}
+          thebackroomlife.azurecr.io/justinwritescode/mastodon/thebackroom.life:latest
+          thebackroomlife.azurecr.io/mastodon:thebackroom.life
+          thebackroomlife.azurecr.io/mastodon/thebackroom.life:${{ github.sha }}
+          thebackroomlife.azurecr.io/mastodon/thebackroom.life:latest
         pull: true
         push: true
         file: Dockerfile.thebackroom.life
@@ -93,12 +93,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-
-    - name: Download the build cache
-      uses: actions/cache@v3
-      with: 
-        key: xplat-build-cache
-        path: ./build-cache
     
     - uses: ./.github/actions/setup-docker
       with:
@@ -115,8 +109,14 @@ jobs:
       with:
         tags: |
           ghcr.io/justinwritescode/mastodon:streaming
-          thebackroomlife.azurecr.io/mastodon:streaming
+          ghcr.io/justinwritescode/mastodon/streaming:${{ github.sha }}
+          ghcr.io/justinwritescode/mastodon/streaming:latest
           thebackroomlife.azurecr.io/justinwritescode/mastodon:streaming
+          thebackroomlife.azurecr.io/justinwritescode/mastodon/streaming:${{ github.sha }}
+          thebackroomlife.azurecr.io/justinwritescode/mastodon/streaming:latest
+          thebackroomlife.azurecr.io/mastodon:streaming
+          thebackroomlife.azurecr.io/mastodon/streaming:${{ github.sha }}
+          thebackroomlife.azurecr.io/mastodon/streaming:latest
         pull: true
         push: true
         file: Dockerfile.thebackroom.life
