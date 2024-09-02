@@ -13,7 +13,7 @@
     = google_tag_manager_noscript_tag
     .dialog
       .dialog__illustration
-        %img{ alt: safe_join([yield(:page_title), Setting.default_settings['site_title']], ' - '), class: 'error-img-static', style: 'display: block;', src: "#{error_asset_url(yield(:static_image))}" }
-        %img{ alt: safe_join([yield(:page_title), Setting.default_settings['site_title']], ' - '), class: 'error-img-dynamic', style: 'display: none;', src: "#{error_asset_url(yield(:dynamic_image))}" }
+        %img{ alt: safe_join([yield(:page_title), Setting.default_settings['site_title']], ' - '), class: 'error-img-static', style: 'display: block;', src: yield(:static_image) }
+        %img{ alt: safe_join([yield(:page_title), Setting.default_settings['site_title']], ' - '), class: 'error-img-dynamic', style: 'display: none;', src: yield(:dynamic_image) }
       .dialog__message
         %h1= yield :content
