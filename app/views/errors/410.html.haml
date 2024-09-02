@@ -8,7 +8,7 @@
   = 410
 
 - content_for :static_image do
-  = t('errors.410.static_image')
+  = error_asset_url(t('errors.410.static_image'))
 
-- content_for :static_image do
-  = t('errors.410.dynamic_image')
+- content_for :dynamic_image do
+  = error_asset_url(('errors.410.dynamic_image'))
