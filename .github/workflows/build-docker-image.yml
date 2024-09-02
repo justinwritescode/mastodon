@@ -39,7 +39,7 @@ jobs:
           ghcr.io/justinwritescode/mastodon/xplat:${{ github.sha }}
           ghcr.io/justinwritescode/mastodon/xplat:latest
           thebackroomlife.azurecr.io/justinwritescode/mastodon:xplat
-          thebackroomlife.azurecr.io/justinwritescode/mastodon:xplat:${{ github.sha }}
+          thebackroomlife.azurecr.io/justinwritescode/mastodon/xplat:${{ github.sha }}
           thebackroomlife.azurecr.io/justinwritescode/mastodon/xplat:latest
           thebackroomlife.azurecr.io/mastodon:xplat
           thebackroomlife.azurecr.io/mastodon/xplat:${{ github.sha }}
