@@ -3,13 +3,17 @@
 module GoogleAnalyticsIdentifyUserHelper
   # Method to include Google Analytics script with user identification
   def google_analytics_identify_user
-    return '' if ENV['GA_ID'].nil?
+    return '' if ga_id.nil?
 
-    javascript_tag '', src: "https://www.googletagmanager.com/gtag/js?id=#{ENV.fetch('GA_ID', nil)}"
+    javascript_tag '', src: "https://www.googletagmanager.com/gtag/js?id=#{ga_id}"
     javascript_tag '', src: '/js/ga.js'
   end
 
   private
+
+  def ga_id
+    ENV.fetch('GOOGLE_ANALYTICS_TRACKING_ID', nil)
+  end
 
   # Method to embed user information into the gtag script
   def embed_user_info(user_info)
