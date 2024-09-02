@@ -1,0 +1,26 @@
+D, [2024-09-02T02:59:44.267024 #3368] DEBUG -- : [dotenv] Set [36mACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY[0m, [36mACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT[0m, [36mACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY[0m, [36mALTERNATE_DOMAINS[0m, [36mAPPLICATIONINSIGHTS_INSTRUMENTATION_KEY[0m, [36mAWS_ACCESS_KEY_ID[0m, [36mAWS_SECRET_ACCESS_KEY[0m, [36mCDN_HOST[0m, [36mCSP_CONTENT_SOURCE[0m, [36mCSP_SCRIPT_SOURCE[0m, [36mDB_HOST[0m, [36mDB_NAME[0m, [36mDB_PASS[0m, [36mDB_PORT[0m, [36mDB_SSLMODE[0m, [36mDB_USER[0m, [36mDEFAULT_LOCALE[0m, [36mGITHUB_REPOSITORY[0m, [36mGA_ID[0m, [36mGTM_ID[0m, [36mHCAPTCHA_SITE_KEY[0m, [36mHCAPTCHA_SECRET_KEY[0m, [36mLOCAL_DOMAIN[0m, [36mLOCAL_HTTPS[0m, [36mLOG_LEVEL[0m, [36mMATOMO_HOST[0m, [36mOTP_SECRET[0m, [36mRAILS_SERVE_STATIC_FILES[0m, [36mRAILS_ENVIRONMENT[0m, [36mRAILS_LOG_LEVEL[0m, [36mREDIS_DRIVER[0m, [36mREDIS_HOST[0m, [36mREDIS_NAMESPACE[0m, [36mREDIS_PORT[0m, [36mREDIS_PASSWORD[0m, [36mREDIS_PASS[0m, [36mREDIS_USER[0m, [36mREDIS_URL[0m, [36mS3_ALIAS_HOST[0m, [36mS3_ENABLED[0m, [36mS3_BUCKET[0m, [36mS3_REGION[0m, [36mSECRET_KEY_BASE[0m, [36mSINGLE_USER_MODE[0m, [36mSMTP_AUTH_METHOD[0m, [36mSMTP_ENABLE_STARTTLS[0m, [36mSMTP_FROM_ADDRESS[0m, [36mSMTP_LOGIN[0m, [36mSMTP_OPENSSL_VERIFY_MODE[0m, [36mSMTP_PASSWORD[0m, [36mSMTP_PORT[0m, [36mSMTP_SERVER[0m, [36mTZ[0m, [36mVAPID_PRIVATE_KEY[0m, [36mVAPID_PUBLIC_KEY[0m, and [36mWEB_DOMAIN[0m
+I, [2024-09-02T02:59:44.267507 #3368]  INFO -- : [dotenv] Loaded [33m.env.production[0m
+Everything's up-to-date. Nothing to do
+D, [2024-09-02T02:59:45.577692 #3368] DEBUG -- :   Rendering layout layouts/error.html.haml
+D, [2024-09-02T02:59:45.577751 #3368] DEBUG -- :   Rendering errors/500.html.haml within layouts/error
+rake aborted!
+ActionView::Template::Error: bad URI(is not URI?): "images/errors/500.png\nimages/errors/500.png\n" (ActionView::Template::Error)
+/Users/justin/GitHub/mastodon-nochanges/app/helpers/errors_asset_helper.rb:5:in `error_asset_url'
+/Users/justin/GitHub/mastodon-nochanges/app/views/layouts/error.html.haml:17:in `_app_views_layouts_error_html_haml__254473169028265848_23280'
+/Users/justin/GitHub/mastodon-nochanges/lib/tasks/assets.rake:4:in `render_static_page'
+/Users/justin/GitHub/mastodon-nochanges/lib/tasks/assets.rake:11:in `block (2 levels) in <main>'
+/Users/justin/GitHub/mastodon-nochanges/lib/tasks/assets.rake:18:in `block in <main>'
+/Users/david/.rbenv/versions/3.3.4/bin/bundle:25:in `load'
+/Users/david/.rbenv/versions/3.3.4/bin/bundle:25:in `<main>'
+
+Caused by:
+URI::InvalidURIError: bad URI(is not URI?): "images/errors/500.png\nimages/errors/500.png\n" (URI::InvalidURIError)
+/Users/justin/GitHub/mastodon-nochanges/app/helpers/errors_asset_helper.rb:5:in `error_asset_url'
+/Users/justin/GitHub/mastodon-nochanges/app/views/layouts/error.html.haml:17:in `_app_views_layouts_error_html_haml__254473169028265848_23280'
+/Users/justin/GitHub/mastodon-nochanges/lib/tasks/assets.rake:4:in `render_static_page'
+/Users/justin/GitHub/mastodon-nochanges/lib/tasks/assets.rake:11:in `block (2 levels) in <main>'
+/Users/justin/GitHub/mastodon-nochanges/lib/tasks/assets.rake:18:in `block in <main>'
+/Users/david/.rbenv/versions/3.3.4/bin/bundle:25:in `load'
+/Users/david/.rbenv/versions/3.3.4/bin/bundle:25:in `<main>'
+Tasks: TOP => assets:generate_static_pages
+(See full trace by running task with --trace)

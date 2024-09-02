@@ -233,7 +233,7 @@ Rails.application.routes.draw do
   get '/js/gtm.js', to: 'js/google_tag_manager#serve'
 
   # Route for User Identification script at /js/ga.js
-  get '/js/ga.js', to: 'js/google_analytics_identify_user#serve'
+  get '/js/identify_user.js', to: 'js/analytics_identify_user#serve'
 
   match '/', via: [:post, :put, :patch, :delete], to: 'application#raise_not_found', format: false
   match '*unmatched_route', via: :all, to: 'application#raise_not_found', format: false

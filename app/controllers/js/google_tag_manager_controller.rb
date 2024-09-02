@@ -5,10 +5,8 @@ module Js
     skip_before_action :verify_authenticity_token, only: :serve
     # Method to serve the GTM JavaScript
     def serve
-      gtm_id = ENV['GTM_ID'] || nil
-
       if gtm_id.blank? || gtm_id.nil?
-        render js: "console.warn('GTM_ID is required');"
+        render js: "console.warn('GOOGLE_TAG_MANAGER_ID is required but was not found.');"
         return
       end
 
@@ -22,5 +20,9 @@ module Js
 
       render js: script_content
     end
+  end
+
+  def gtm_id
+    ENV.fetch('GOOGLE_TAG_MANAGER_ID', nil)
   end
 end
