@@ -1241,48 +1241,48 @@ en:
     '400': 
       content: You done fucked up!
       title: You done fucked up!
-      static_image: "images/errors/500.png"
-      dynamic_image: "images/errors/500.png"
+      static_image: "images/errors/400-static.png"
+      dynamic_image: "images/errors/400-dynamic.png"
     '403': 
       content: You're not allowed to fucking do that!
       title: You're not allowed to fucking do that!
-      static_image: "images/errors/500.png"
-      dynamic_image: "images/errors/500.png"
+      static_image: "images/errors/403-static.png"
+      dynamic_image: "images/errors/403-dynamic.png"
     '404': 
       content: The shit you were looking for ain't fucking here.
       title: The shit you were looking for ain't fucking here.
-      static_image: "images/errors/500.png"
-      dynamic_image: "images/errors/500.png"
+      static_image: "images/errors/404-static.png"
+      dynamic_image: "images/errors/404-dynamic.png"
     '406': 
       content: Yo no hablo el language-o you're-o speaking-o.  
       title: Yo no hablo el language-o you're-o speaking-o.
-      static_image: "images/errors/500.png"
+      static_image: "images/errors/406-static.png"
       dynamic_image: "images/errors/500.png"
     '410': 
       content: The shit you were looking for ain't here no more.  I don't know where the fuck it went, but look fucking elsewhere!
       title: The shit you were looking for ain't here no more.
-      static_image: "images/errors/500.png"
-      dynamic_image: "images/errors/500.png"
+      static_image: "images/errors/410-static.png"
+      dynamic_image: "images/errors/410-dynamic.png"
     '422':
       content: Security verification failed. Are you blocking cookies?
       title: Security verification failed
-      static_image: "images/errors/500.png"
-      dynamic_image: "images/errors/500.png"
+      static_image: "images/errors/422-static.png"
+      dynamic_image: "images/errors/422-dynamic.png"
     '429': 
       content: Woah, woah!! Slow the fuck down!!  Geez!!
       title: Slow the fuck down!!
-      static_image: "images/errors/500.png"
-      dynamic_image: "images/errors/500.png"
+      static_image: "images/errors/429-static.png"
+      dynamic_image: "images/errors/429-dynamic.png"
     '500':
       content: Oh shit!! Oh fuck!! We're all gonna die!!!
       title: Shit hit the fucking fan!!
-      static_image: "images/errors/500.png"
+      static_image: "images/errors/500-static.png"
       dynamic_image: "images/errors/500-dynamic.png"
     '503': 
       content: Shit's offline temporarily.  Why don't you take another hit and try again later?
       title: Shit's offline temporarily
-      static_image: "images/errors/500.png"
-      dynamic_image: "images/errors/500.png"
+      static_image: "images/errors/503-static.png"
+      dynamic_image: "images/errors/503-dynamic.png"
     noscript_html: To use the Mastodon web application, please enable JavaScript. Alternatively, try one of the <a href="%{apps_path}">native apps</a> for Mastodon for your platform.
   existing_username_validator:
     not_found: could not find a local user with that username
