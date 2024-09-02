@@ -1249,17 +1249,17 @@ en:
       static_image: images/errors/500.png
       dynamic_image: images/errors/500.png
     '404': 
-      content: The shit you were looking for ain't here.
-      title: The shit you were looking for ain't here.
+      content: The shit you were looking for ain't fucking here.
+      title: The shit you were looking for ain't fucking here.
       static_image: images/errors/500.png
       dynamic_image: images/errors/500.png
     '406': 
-      content: Yo no hablo el language you're-o speaking-o.
-      title: Yo no hablo el language you're-o speaking-o.
+      content: Yo no hablo el language-o you're-o speaking-o.  
+      title: Yo no hablo el language-o you're-o speaking-o.
       static_image: images/errors/500.png
       dynamic_image: images/errors/500.png
     '410': 
-      content: The shit you were looking for ain't here no more.
+      content: The shit you were looking for ain't here no more.  I don't know where the fuck it went, but look fucking elsewhere!
       title: The shit you were looking for ain't here no more.
       static_image: images/errors/500.png
       dynamic_image: images/errors/500.png
@@ -1269,7 +1269,7 @@ en:
       static_image: images/errors/500.png
       dynamic_image: images/errors/500.png
     '429': 
-      content: Slow the fuck down!!
+      content: Woah, woah!! Slow the fuck down!!  Geez!!
       title: Slow the fuck down!!
       static_image: images/errors/500.png
       dynamic_image: images/errors/500.png
@@ -1305,7 +1305,7 @@ en:
   featured_tags:
     add_new: Add new
     errors:
-      limit: You have already featured the maximum number of hashtags
+      limit: I think that's enoguh featured hashtags, BBro
     hint_html: "<strong>Feature your most important hashtags on your profile.</strong> A great tool for keeping track of your creative works and long-term projects, featured hashtags are displayed prominently on your profile and allow quick access to your own posts."
   filters:
     contexts:
@@ -1405,9 +1405,9 @@ en:
     preface: You can import data that you have exported from another server, such as a list of the people you are following or blocking.
     recent_imports: Recent imports
     states:
-      finished: Finished
-      in_progress: In progress
-      scheduled: Scheduled
+      finished: Fucking done
+      in_progress: Working on it
+      scheduled: I'm'a get to it
       unconfirmed: Unconfirmed
     status: Status
     success: Your data was successfully uploaded and will be processed in due time
@@ -1456,7 +1456,7 @@ en:
     title: Invite people
   lists:
     errors:
-      limit: You have reached the maximum number of lists
+      limit: I think that's enough lists, BBro
   login_activities:
     authentication_methods:
       otp: two-factor authentication app
@@ -1658,7 +1658,7 @@ en:
   scheduled_statuses:
     over_daily_limit: You have exceeded the limit of %{limit} scheduled posts for today
     over_total_limit: You have exceeded the limit of %{limit} scheduled posts
-    too_soon: The scheduled date must be in the future
+    too_soon: You can't schedule shit in the past, idiot
   self_destruct:
     lead_html: Unfortunately, <strong>%{domain}</strong> is permanently closing down. If you had an account there, you will not be able to continue using it, but you can still request a backup of your data.
     title: This server is closing down
@@ -1767,10 +1767,10 @@ en:
     open_in_web: Open in web
     over_character_limit: character limit of %{max} exceeded
     pin_errors:
-      direct: Posts that are only visible to mentioned users cannot be pinned
-      limit: You have already pinned the maximum number of posts
-      ownership: Someone else's post cannot be pinned
-      reblog: A boost cannot be pinned
+      direct: You can't pin direct posts (because how would your public followers see it?)
+      limit: That's enough fucking pins
+      ownership: You can't fucking pin someone else's post
+      reblog: You can't fucking pin boosts
     poll:
       total_people:
         one: "%{count} person"
