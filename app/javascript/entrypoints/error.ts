@@ -2,22 +2,20 @@ import './public-path';
 import ready from '../mastodon/ready';
 
 ready(() => {
-  const image = document.querySelector<HTMLImageElement>('img');
-  const preload = document.createElement("link");
-  preload.rel = "preload";
-  preload.href = "/oops.apng";
-  preload.as = "image";
-  const head = document.querySelector<HTMLHeadElement>("head");
-  head?.appendChild(preload);
+  const static_image = document.querySelector<HTMLImageElement>('img.error-img-static');
+  const dynamic_image = document.querySelector<HTMLImageElement>('img.error-img-dynamic');
 
-  if (!image) return;
-
-  image.addEventListener('mouseenter', () => {
-    image.src = '/oops.apng';
+  if (!static_image) return;
+  if (!dynamic_image) return;
+ 
+  static_image.addEventListener('mouseenter', () => {
+    dynamic_image.style.display = "block";
+    static_image.style.display = "none";
   });
 
-  image.addEventListener('mouseleave', () => {
-    image.src = '/oops.png';
+  dynamic_image.addEventListener('mouseleave', () => {
+    dynamic_image.style.display = "none";
+    static_image.style.display = "block";
   });
 }).catch((e: unknown) => {
   console.error(e);
