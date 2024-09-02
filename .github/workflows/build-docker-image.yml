@@ -81,6 +81,7 @@ jobs:
           thebackroomlife.azurecr.io/mastodon:thebackroom.life
           thebackroomlife.azurecr.io/mastodon/thebackroom.life:${{ github.sha }}
           thebackroomlife.azurecr.io/mastodon/thebackroom.life:latest
+          thebackroomlife.azurecr.io/thebackroom.life:latest
         pull: true
         push: true
         file: Dockerfile.thebackroom.life
