@@ -9,7 +9,6 @@
       %meta{ name: 'cdn-host', content: cdn_host }/
 
     = google_tag_manager_script_tag
-    = google_analytics_identify_user
 
     - if storage_host?
       %link{ rel: 'dns-prefetch', href: storage_host }/

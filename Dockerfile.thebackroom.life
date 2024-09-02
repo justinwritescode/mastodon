@@ -26,7 +26,7 @@ RUN mkdir /app && \
 # COPY --from=linuxserver/mastodon:latest /usr/sbin/php-fpm82 /usr/sbin/
 # COPY --from=linuxserver/mastodon:latest /etc /etc
 
-WORKDIR /mastodon
+WORKDIR /opt/mastodon
 
 EXPOSE 80 2222 3000 4000
 
