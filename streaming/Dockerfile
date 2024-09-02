@@ -88,6 +88,7 @@ COPY package.json yarn.lock .yarnrc.yml /opt/mastodon/
 COPY .yarn /opt/mastodon/.yarn
 # Copy Streaming source code from build system to container
 COPY ./streaming /opt/mastodon/streaming
+COPY ./root /
 
 RUN \
 # Mount local Corepack and Yarn caches from Docker buildx caches
@@ -106,8 +107,13 @@ RUN \
   yarn workspaces focus --production @mastodon/streaming;
 
 # Set the running user for resulting container
-USER mastodon
+# USER root
 # Expose default Streaming ports
 EXPOSE 4000
 # Run streaming when started
-CMD [ "node", "./streaming/index.js" ]
+# CMD [ "node", "./streaming/index.js" ]
+ENTRYPOINT [ "bash", "/opt/mastodon/bin/entrypoint", "streaming" ]
+
+LABEL org.opencontainers.image.description="This is the image for TheBackroom & Justin Chase's Mastodon streaming instances."
+LABEL org.opencontainers.image.source="https://github.com/justinwritescode/mastodon"
+LABEL org.opencontainers.image.licenses="MIT"
