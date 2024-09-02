@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ "thebackroombranding" ]
 
+concurrency:
+  group: thebackroomlife-ci-docker
+  cancel-in-progress: true
+
 permissions: write-all
 
 jobs:
@@ -16,11 +20,36 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: Build the Docker image
-      run: |
-        docker login -u=justinwritescode -p="${{ secrets.PACKAGES_PAT }}" ghcr.io
-        docker build --file Dockerfile "." --tag ghcr.io/justinwritescode/mastodon:xplat
-        docker image push ghcr.io/justinwritescode/mastodon:xplat
+    
+    - uses: ./.github/actions/setup-docker
+      with:
+        password: ${{ secrets.PACKAGES_PAT }}
+
+    - uses: docker/login-action@v3
+      with: 
+        username: thebackroomlife
+        password: ${{ secrets.AZURECR_KEY }}
+        registry: thebackroomlife.azurecr.io
+
+    - name: Build & push the Docker image
+      uses: docker/build-push-action@v6.7.0
+      with:
+        tags: |
+          ghcr.io/justinwritescode/mastodon:xplat
+          ghcr.io/justinwritescode/mastodon/xplat:${{ github.sha }}
+          ghcr.io/justinwritescode/mastodon/xplat:latest
+          thebackroomlife.azurecr.io/justinwritescode/mastodon:xplat
+          thebackroomlife.azurecr.io/justinwritescode/mastodon/xplat:${{ github.sha }}
+          thebackroomlife.azurecr.io/justinwritescode/mastodon/xplat:latest
+          thebackroomlife.azurecr.io/mastodon:xplat
+          thebackroomlife.azurecr.io/mastodon/xplat:${{ github.sha }}
+          thebackroomlife.azurecr.io/mastodon/xplat:latest
+        pull: true
+        push: true
+        file: Dockerfile
+        platforms: linux/amd64,linux/arm64
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
         
   build-thebackroom-life:
     needs: build-xplat-base
@@ -28,9 +57,71 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: Build the Docker image
-      run: |
-        docker login -u=justinwritescode -p="${{ secrets.PACKAGES_PAT }}" ghcr.io
-        docker build --file Dockerfile.thebackroom.life "." --tag ghcr.io/justinwritescode/mastodon:thebackroom.life
-        docker image push ghcr.io/justinwritescode/mastodon:thebackroom.life
+
+    - uses: ./.github/actions/setup-docker
+      with:
+        password: ${{ secrets.PACKAGES_PAT }}
+
+    - uses: docker/login-action@v3
+      with: 
+        username: thebackroomlife
+        password: ${{ secrets.AZURECR_KEY }}
+        registry: thebackroomlife.azurecr.io
+
+    - name: Build & push the Docker image
+      uses: docker/build-push-action@v6.7.0
+      with:
+        tags: |
+          ghcr.io/justinwritescode/mastodon:thebackroom.life
+          ghcr.io/justinwritescode/mastodon/thebackroom.life:${{ github.sha }}
+          ghcr.io/justinwritescode/mastodon/thebackroom.life:latest
+          thebackroomlife.azurecr.io/justinwritescode/mastodon:thebackroom.life
+          thebackroomlife.azurecr.io/justinwritescode/mastodon/thebackroom.life:${{ github.sha }}
+          thebackroomlife.azurecr.io/justinwritescode/mastodon/thebackroom.life:latest
+          thebackroomlife.azurecr.io/mastodon:thebackroom.life
+          thebackroomlife.azurecr.io/mastodon/thebackroom.life:${{ github.sha }}
+          thebackroomlife.azurecr.io/mastodon/thebackroom.life:latest
+          thebackroomlife.azurecr.io/thebackroom.life:latest
+        pull: true
+        push: true
+        file: Dockerfile.thebackroom.life
+        platforms: linux/amd64,linux/arm64
+        cache-from: type=gha
+        cache-to: type=gha,mode=max 
+        
+  build-thebackroom-streaming:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - uses: ./.github/actions/setup-docker
+      with:
+        password: ${{ secrets.PACKAGES_PAT }}
+
+    - uses: docker/login-action@v3
+      with: 
+        username: thebackroomlife
+        password: ${{ secrets.AZURECR_KEY }}
+        registry: thebackroomlife.azurecr.io
+
+    - name: Build & push the Docker image
+      uses: docker/build-push-action@v6.7.0
+      with:
+        tags: |
+          ghcr.io/justinwritescode/mastodon:streaming
+          ghcr.io/justinwritescode/mastodon/streaming:${{ github.sha }}
+          ghcr.io/justinwritescode/mastodon/streaming:latest
+          thebackroomlife.azurecr.io/justinwritescode/mastodon:streaming
+          thebackroomlife.azurecr.io/justinwritescode/mastodon/streaming:${{ github.sha }}
+          thebackroomlife.azurecr.io/justinwritescode/mastodon/streaming:latest
+          thebackroomlife.azurecr.io/mastodon:streaming
+          thebackroomlife.azurecr.io/mastodon/streaming:${{ github.sha }}
+          thebackroomlife.azurecr.io/mastodon/streaming:latest
+        pull: true
+        push: true
+        file: Dockerfile.thebackroom.life
+        platforms: linux/amd64,linux/arm64
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
         

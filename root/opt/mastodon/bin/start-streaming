@@ -6,4 +6,4 @@ export PATH="/mastodon/bin:${PATH}"
 
 cd /mastodon && \
     echo "**** Starting streaming ****"
-    node ./streaming
+    node ./streaming/index.js
