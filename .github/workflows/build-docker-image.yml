@@ -41,8 +41,6 @@ jobs:
       uses: docker/build-push-action@v6.7.0
       with:
         tags: |
-          mastodon:xplat
-          justinwritescode/mastodon:xplat
           ghcr.io/justinwritescode/mastodon:xplat
           thebackroomlife.azurecr.io/mastodon:xplat
           thebackroomlife.azurecr.io/justinwritescode/mastodon:xplat
@@ -80,8 +78,6 @@ jobs:
       uses: docker/build-push-action@v6.7.0
       with:
         tags: |
-          mastodon:thebackroom.life
-          justinwritescode/mastodon:thebackroom.life
           ghcr.io/justinwritescode/mastodon:thebackroom.life
           thebackroomlife.azurecr.io/mastodon:thebackroom.life
           thebackroomlife.azurecr.io/justinwritescode/mastodon:thebackroom.life
@@ -118,8 +114,6 @@ jobs:
       uses: docker/build-push-action@v6.7.0
       with:
         tags: |
-          mastodon:streaming
-          justinwritescode/mastodon:streaming
           ghcr.io/justinwritescode/mastodon:streaming
           thebackroomlife.azurecr.io/mastodon:streaming
           thebackroomlife.azurecr.io/justinwritescode/mastodon:streaming
