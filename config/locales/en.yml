@@ -1250,7 +1250,21 @@ en:
     '500':
       content: Oh fuck!! Oh fuck!! We're all gonna die!!!
       title: Shit hit the fucking fan!!
-    '503': Shit's offline temporarily.  Why don't you take another hit and try again later?
+      static_image: "images/errors/429-static.png"
+      dynamic_image: "images/errors/429-dynamic.png"
+      code: 500
+    '502': 
+      content: I'll see you in HELL!
+      title: Bad gatway to HELL!!!
+      static_image: "images/errors/502-static.png"
+      dynamic_image: "images/errors/502-dynamic.png"
+      code: 503
+    '503': 
+      content: Shit's offline temporarily.  Why don't you take another hit and try again later?
+      title: Shit's offline temporarily. 
+      static_image: "images/errors/503-static.png"
+      dynamic_image: "images/errors/503-dynamic.png"
+      code: 503
     noscript_html: To use the Mastodon web application, please enable JavaScript. Alternatively, try one of the <a href="%{apps_path}">native apps</a> for Mastodon for your platform.
   existing_username_validator:
     not_found: could not find a local user with that username

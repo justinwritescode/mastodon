@@ -1,0 +1,55 @@
+    def serve
+      css = <<~CSS
+        div.image-container {
+          height: 100%;
+          margin: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        div.image-container div.img {
+          position: absolute;
+          max-width: 50%;
+          max-height: 50%;
+          margin: auto;
+          transition: opacity 0.5s ease;
+          border-radius: 15px;
+        }
+
+        div.image-container div.dynamic {
+          opacity: 0;
+        }
+
+        div.image-container:hover div.static {
+          opacity: 0;
+        }
+
+        div.image-container:hover div.dynamic {
+          opacity: 1;
+        }
+
+        div.image-container div.static {
+          background-image: url("#{static_image_url}");
+        }
+
+        div.image-container div.dynamic {
+          background-image: url("#{dynamic_image_url}");
+        }
+      CSS
+      render plain: css, content_type: 'text/css'
+    end
+
+    private
+
+    def error_code
+      params[:error_code]
+    end
+
+    def dynamic_image_url
+      error_asset_url(I18n.t("errors.#{error_code}.dynamic_image"))
+    end
+
+    def static_image_url
+      error_asset_url(I18n.t("errors.#{error_code}.static_image"))
+    end
