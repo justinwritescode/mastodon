@@ -8,15 +8,15 @@ ready(() => {
   if (!static_image) return;
   if (!dynamic_image) return;
  
-  static_image.addEventListener('mouseenter', () => {
-    dynamic_image.style.display = "block";
-    static_image.style.display = "none";
-  });
+  // static_image.addEventListener('mouseenter', () => {
+  //   dynamic_image.style.display = "block";
+  //   static_image.style.display = "none";
+  // });
 
-  dynamic_image.addEventListener('mouseleave', () => {
-    dynamic_image.style.display = "none";
-    static_image.style.display = "block";
-  });
+  // dynamic_image.addEventListener('mouseleave', () => {
+  //   dynamic_image.style.display = "none";
+  //   static_image.style.display = "block";
+  // });
 }).catch((e: unknown) => {
   console.error(e);
 });
