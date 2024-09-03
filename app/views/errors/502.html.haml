@@ -1,0 +1,14 @@
+- content_for :page_title do
+  = t('errors.502.title')
+
+- content_for :content do
+  = t('errors.502.content')
+
+- content_for :error_code do
+  = 502
+
+- content_for :static_image do
+  = error_asset_url(t('errors.502.static_image'))
+
+- content_for :dynamic_image do
+  = error_asset_url(t('errors.502.dynamic_image'))
