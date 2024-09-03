@@ -1238,30 +1238,57 @@ en:
     hint_html: "<strong>Customize what people see on your public profile and next to your posts.</strong> Other people are more likely to follow you back and interact with you when you have a filled out profile and a profile picture."
     other: Other
   errors:
-    '400': You done fucked up!
-    '403': You're not allowed to fucking do that!
-    '404': The shit you were looking for ain't here.
-    '406': Yo no hablo el language you're-o speaking-o.
-    '410': The shit you were looking for ain't here no more.
+    '400': 
+      content: You done fucked up!
+      title: You done fucked up!
+      static_image: "images/errors/400-static.png"
+      dynamic_image: "images/errors/400-dynamic.png"
+      code: 400
+    '403': 
+      content: You're not allowed to fucking do that!
+      title: You're not allowed to fucking do that!
+      static_image: "images/errors/403-static.png"
+      dynamic_image: "images/errors/403-dynamic.png"
+      code: 403
+    '404': 
+      content: The shit you were looking for ain't fucking here.
+      title: The shit you were looking for ain't fucking here.
+      static_image: "images/errors/404-static.png"
+      dynamic_image: "images/errors/404-dynamic.png"
+      code: 404
+    '406': 
+      content: Yo no hablo el language-o you're-o speaking-o.  
+      title: Yo no hablo el language-o you're-o speaking-o.
+      static_image: "images/errors/406-static.png"
+      dynamic_image: "images/errors/406-dynamic.png"
+      code: 406
+    '410': 
+      content: The shit you were looking for ain't here no more.  I don't know where the fuck it went, but look fucking elsewhere!
+      title: The shit you were looking for ain't here no more.
+      static_image: "images/errors/410-static.png"
+      dynamic_image: "images/errors/410-dynamic.png"
+      code: 410
     '422':
       content: Security verification failed. Are you blocking cookies?
       title: Security verification failed
-    '429': Slow the fuck down!!
-    '500':
-      content: Oh fuck!! Oh fuck!! We're all gonna die!!!
-      title: Shit hit the fucking fan!!
+      static_image: "images/errors/422-static.png"
+      dynamic_image: "images/errors/422-dynamic.png"
+      code: 422
+    '429': 
+      content: Woah, woah!! Slow the fuck down!!  Geez!!
+      title: Slow the fuck down!!
       static_image: "images/errors/429-static.png"
       dynamic_image: "images/errors/429-dynamic.png"
+      code: 429
+    '500':
+      content: Oh shit!! Oh fuck!! We're all gonna die!!!
+      title: Shit hit the fucking fan!!
+      static_image: "images/errors/500-static.png"
+      dynamic_image: "images/errors/500-dynamic.png"
       code: 500
-    '502': 
-      content: I'll see you in HELL!
-      title: Bad gatway to HELL!!!
-      static_image: "images/errors/502-static.png"
-      dynamic_image: "images/errors/502-dynamic.png"
-      code: 503
     '503': 
       content: Shit's offline temporarily.  Why don't you take another hit and try again later?
-      title: Shit's offline temporarily. 
+      title: Shit's offline temporarily
       static_image: "images/errors/503-static.png"
       dynamic_image: "images/errors/503-dynamic.png"
       code: 503
@@ -1287,7 +1314,7 @@ en:
   featured_tags:
     add_new: Add new
     errors:
-      limit: You have already featured the maximum number of hashtags
+      limit: I think that's enoguh featured hashtags, BBro
     hint_html: "<strong>Feature your most important hashtags on your profile.</strong> A great tool for keeping track of your creative works and long-term projects, featured hashtags are displayed prominently on your profile and allow quick access to your own posts."
   filters:
     contexts:
@@ -1387,9 +1414,9 @@ en:
     preface: You can import data that you have exported from another server, such as a list of the people you are following or blocking.
     recent_imports: Recent imports
     states:
-      finished: Finished
-      in_progress: In progress
-      scheduled: Scheduled
+      finished: Fucking done
+      in_progress: Working on it
+      scheduled: I'm'a get to it
       unconfirmed: Unconfirmed
     status: Status
     success: Your data was successfully uploaded and will be processed in due time
@@ -1438,7 +1465,7 @@ en:
     title: Invite people
   lists:
     errors:
-      limit: You have reached the maximum number of lists
+      limit: I think that's enough lists, BBro
   login_activities:
     authentication_methods:
       otp: two-factor authentication app
@@ -1640,7 +1667,7 @@ en:
   scheduled_statuses:
     over_daily_limit: You have exceeded the limit of %{limit} scheduled posts for today
     over_total_limit: You have exceeded the limit of %{limit} scheduled posts
-    too_soon: The scheduled date must be in the future
+    too_soon: You can't schedule shit in the past, idiot
   self_destruct:
     lead_html: Unfortunately, <strong>%{domain}</strong> is permanently closing down. If you had an account there, you will not be able to continue using it, but you can still request a backup of your data.
     title: This server is closing down
@@ -1749,10 +1776,10 @@ en:
     open_in_web: Open in web
     over_character_limit: character limit of %{max} exceeded
     pin_errors:
-      direct: Posts that are only visible to mentioned users cannot be pinned
-      limit: You have already pinned the maximum number of posts
-      ownership: Someone else's post cannot be pinned
-      reblog: A boost cannot be pinned
+      direct: You can't pin direct posts (because how would your public followers see it?)
+      limit: That's enough fucking pins
+      ownership: You can't fucking pin someone else's post
+      reblog: You can't fucking pin boosts
     poll:
       total_people:
         one: "%{count} person"

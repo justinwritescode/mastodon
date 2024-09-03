@@ -230,10 +230,22 @@ Rails.application.routes.draw do
   get '/terms',          to: redirect('/privacy-policy')
 
   # Route for Google Tag Manager script at /js/gtm.js
-  get '/js/gtm.js', to: 'js/google_tag_manager#serve'
+  get '/js/google_tag_manager.js', to: 'js/google_tag_manager#serve'
 
   # Route for User Identification script at /js/ga.js
   get '/js/identify_user.js', to: 'js/analytics_identify_user#serve'
+
+  get '/css/error/:error_code.css', to: 'css/error_css#serve'
+
+  get '/400', to: 'errors#_400'
+  get '/403', to: 'errors#_403'
+  get '/404', to: 'errors#_404'
+  get '/406', to: 'errors#_406'
+  get '/410', to: 'errors#_410'
+  get '/422', to: 'errors#_422'
+  get '/429', to: 'errors#_429'
+  get '/500', to: 'errors#_500'
+  get '/503', to: 'errors#_503'
 
   match '/', via: [:post, :put, :patch, :delete], to: 'application#raise_not_found', format: false
   match '*unmatched_route', via: :all, to: 'application#raise_not_found', format: false
