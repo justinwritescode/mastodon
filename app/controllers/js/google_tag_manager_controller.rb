@@ -2,10 +2,18 @@
 
 module Js
   class GoogleTagManagerController < ApplicationController
+    def google_tag_manager_id
+      ENV.fetch('GOOGLE_TAG_MANAGER_ID', nil)
+    end
+
+    def google_tag_manager_enabled
+      ENV.fetch('GOOGLE_TAG_MANAGER_ENABLED', 'false') == 'true' && !google_tag_manager_id.nil?
+    end
+
     skip_before_action :verify_authenticity_token, only: :serve
     # Method to serve the GTM JavaScript
     def serve
-      if gtm_id.blank? || gtm_id.nil?
+      if google_tag_manager_id.blank? || google_tag_manager_id.nil?
         render js: "console.warn('GOOGLE_TAG_MANAGER_ID is required but was not found.');"
         return
       end
@@ -15,14 +23,10 @@ module Js
         new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
         j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','#{gtm_id}');
+        })(window,document,'script','dataLayer','#{google_tag_manager_id}');
       JS
 
-      render js: script_content
+      render js: script_content, content_type: 'application/javascript'
     end
-  end
-
-  def gtm_id
-    ENV.fetch('GOOGLE_TAG_MANAGER_ID', nil)
   end
 end

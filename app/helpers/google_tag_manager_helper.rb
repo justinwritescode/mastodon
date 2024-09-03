@@ -3,7 +3,8 @@
 module GoogleTagManagerHelper
   # Method to include Google Tag Manager script tag
   def google_tag_manager_script_tag
-    javascript_tag '', src: '/js/gtm.js'
+    javascript_tag '', src: '/js/google_tag_manager.js'
+    # javascript_pack_tag 'googleTagManager', crossorigin: 'anonymous'
 
     # gtm_id ||= ENV.fetch('GTM_ID', nil)
 
