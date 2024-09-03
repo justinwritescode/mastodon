@@ -1,0 +1,8 @@
+FROM ghcr.io/justinwritescode/mastodon:streaming AS streaming
+FROM ghcr.io/justinwritescode/mastodon:xplat AS mastodon
+
+COPY --from=streaming /opt/mastodon/streaming /opt/mastodon/streaming
+
+WORKDIR /opt/mastodon/bin
+
+ENTRYPOINT [ "bash", "entrypoint", "all" ]

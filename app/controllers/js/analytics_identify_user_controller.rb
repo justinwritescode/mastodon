@@ -8,11 +8,9 @@ module Js
     def serve
       # Example user identification script
       script_content = <<~JS
-        (() => {
-          #{google_analytics_identify_user_javascript}
-          #{microsoft_clarity_identify_user_javascript}
-          #{matomo_identify_user_javascript}
-        })();
+        #{google_analytics_identify_user_javascript}
+        #{microsoft_clarity_identify_user_javascript}
+        #{matomo_identify_user_javascript}
       JS
 
       render js: script_content, content_type: 'application/javascript'
@@ -38,9 +36,9 @@ module Js
 
       <<~JS
         <!-- Matomo identify user -->
-        let _paq = window._paq = window._paq || [];
-        _paq.push('setUserId', "#{user_id}")
-        <!-- Enc Matomo identify user -->
+        let _paq1 = window._paq = window._paq || [];
+        _paq1.push('setUserId', "#{user_id}")
+        <!-- End Matomo identify user -->
       JS
     end
 

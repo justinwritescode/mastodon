@@ -1,0 +1,9 @@
+FROM ghcr.io/justinwritescode/mastodon:thebackroom.life AS base
+
+SHELL [ "bash", "-c" ]
+
+WORKDIR /opt/mastodon/bin
+
+ENTRYPOINT [ "bash", "entrypoint", "sidekiq" ]
+
+LABEL org.opencontainers.image.description="Sidekiq for TheBackroom.life"
