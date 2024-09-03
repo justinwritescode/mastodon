@@ -3,3 +3,12 @@
 
 - content_for :content do
   = t('errors.500.content')
+
+- content_for :error_code do
+  = 500
+
+- content_for :static_image do
+  = error_asset_url(t('errors.500.static_image'))
+
+- content_for :dynamic_image do
+  = error_asset_url(t('errors.500.dynamic_image'))

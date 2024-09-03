@@ -1,19 +1,56 @@
 !!!
-%html{ lang: I18n.locale }
+%html{ lang: I18n.locale.to_s }
   %head
-    %meta{ 'content' => 'text/html; charset=UTF-8', 'http-equiv' => 'Content-Type' }/
-    %meta{ charset: 'utf-8' }/
+    %meta{ 'content' => 'text/html; charset=UTF-8', 'http-equiv' => 'Content-Type' }
+    %meta{ charset: 'utf-8' }
     %title= safe_join([yield(:page_title), Setting.default_settings['site_title']], ' - ')
-    %meta{ content: 'width=device-width,initial-scale=1', name: 'viewport' }/
+    %meta{ content: 'width=device-width,initial-scale=1', name: 'viewport' }
     = theme_style_tags Setting.default_settings['theme']
     = javascript_pack_tag 'common', crossorigin: 'anonymous'
     = javascript_pack_tag 'error', crossorigin: 'anonymous'
     = google_tag_manager_script_tag 
-    = google_analytics_identify_user
+    %style{ type: 'text/css' }
+      :plain
+        .dialog__illustration img {
+          margin-top: 0px;
+        }
+
+        .error-img-static,
+        .error-img-dynamic {
+          height: 100%;
+          width:100%;
+          position: absolute;
+          transition: opacity 0.5s ease-in-out;
+          top: 0;
+          left: 0;
+        }
+
+        .image-container {
+          height: 100%;
+          width:100%;
+          position: relative;
+          display: inline-block;
+        }
+
+        .error-img-dynamic {
+          height: 100%;
+          width:100%;
+          opacity: 0;
+        }
+
+        .image-container:hover .error-img-static {
+          opacity: 0;
+        }
+
+        .image-container:hover .error-img-dynamic {
+          opacity: 1;
+        }
   %body.error
     = google_tag_manager_noscript_tag
     .dialog
       .dialog__illustration
-        %img{ alt: Setting.default_settings['site_title'], src: '/oops.png' }/
+        .image-container
+          %img{ alt: safe_join([yield(:page_title), Setting.default_settings['site_title']], ' - '), class: 'error-img-static', src: yield(:static_image) }
+          %img{ alt: safe_join([yield(:page_title), Setting.default_settings['site_title']], ' - '), class: 'error-img-dynamic', src: yield(:dynamic_image) }
       .dialog__message
         %h1= yield :content

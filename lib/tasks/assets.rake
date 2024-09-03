@@ -9,6 +9,8 @@ namespace :assets do
   desc 'Generate static pages'
   task generate_static_pages: :environment do
     render_static_page 'errors/500', layout: 'error', dest: Rails.public_path.join('assets', '500.html')
+    render_static_page 'errors/502', layout: 'error', dest: Rails.public_path.join('assets', '502.html')
+    render_static_page 'errors/503', layout: 'error', dest: Rails.public_path.join('assets', '503.html')
   end
 end
 

@@ -1,5 +1,14 @@
 - content_for :page_title do
-  = t('errors.403')
+  = t('errors.403.title')
 
 - content_for :content do
-  = t('errors.403')
+  = t('errors.403.content')
+
+- content_for :error_code do
+  = 403
+
+- content_for :static_image do
+  = error_asset_url(t('errors.403.static_image'))
+
+- content_for :dynamic_image do
+  = error_asset_url(t('errors.403.dynamic_image'))
