@@ -41,6 +41,7 @@ RUN \
 COPY ./root /
 COPY app ./
 COPY config ./
+COPY public ./
 
 # ENTRYPOINT [ "bash", "entrypoint" ]
 

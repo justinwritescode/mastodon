@@ -33,6 +33,6 @@ module RoutingHelper
   end
 
   def use_storage?
-    Rails.configuration.x.use_s3 || Rails.configuration.x.use_swift
+    Rails.configuration.x.use_s3 || Rails.configuration.x.use_swift || Rails.configuration.x.use_azure
   end
 end
