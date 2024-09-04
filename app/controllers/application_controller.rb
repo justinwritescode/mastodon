@@ -25,20 +25,23 @@ class ApplicationController < ActionController::Base
   helper_method :body_class_string
   helper_method :skip_csrf_meta_tags?
 
-  rescue_from ActionController::ParameterMissing, Paperclip::AdapterRegistry::NoHandlerError, with: :bad_request
-  rescue_from Mastodon::NotPermittedError, with: :forbidden
-  rescue_from ActionController::RoutingError, ActiveRecord::RecordNotFound, with: :not_found
-  rescue_from ActionController::UnknownFormat, with: :not_acceptable
-  rescue_from ActionController::InvalidAuthenticityToken, with: :unprocessable_entity
-  rescue_from Mastodon::RateLimitExceededError, with: :too_many_requests
+  # Catch-all rescue for all exceptions
+  rescue_from StandardError, with: :handle_exception
 
-  rescue_from HTTP::Error, OpenSSL::SSL::SSLError, with: :internal_server_error
-  rescue_from Mastodon::RaceConditionError, Stoplight::Error::RedLight, ActiveRecord::SerializationFailure, with: :service_unavailable
+  # rescue_from ActionController::ParameterMissing, Paperclip::AdapterRegistry::NoHandlerError, with: :bad_request
+  # rescue_from Mastodon::NotPermittedError, with: :forbidden
+  # rescue_from ActionController::RoutingError, ActiveRecord::RecordNotFound, with: :not_found
+  # rescue_from ActionController::UnknownFormat, with: :not_acceptable
+  # rescue_from ActionController::InvalidAuthenticityToken, with: :unprocessable_entity
+  # rescue_from Mastodon::RateLimitExceededError, with: :too_many_requests
 
-  rescue_from Seahorse::Client::NetworkingError do |e|
-    Rails.logger.warn "Storage server error: #{e}"
-    service_unavailable
-  end
+  # rescue_from HTTP::Error, OpenSSL::SSL::SSLError, with: :internal_server_error
+  # rescue_from Mastodon::RaceConditionError, Stoplight::Error::RedLight, ActiveRecord::SerializationFailure, with: :service_unavailable
+
+  # rescue_from Seahorse::Client::NetworkingError do |e|
+  #   Rails.logger.warn "Storage server error: #{e}"
+  #   service_unavailable
+  # end
 
   before_action :check_self_destruct!
 
@@ -180,5 +183,22 @@ class ApplicationController < ActionController::Base
 
   def set_cache_control_defaults
     response.cache_control.replace(private: true, no_store: true)
+  end
+
+  private
+
+  # This method will handle the exceptions
+  def handle_exception(exception)
+    # Log the error message
+    logger.error "An error occurred: #{exception.message}"
+    logger.error exception.backtrace.join("\n")
+
+    # You can render an error page or message if you choose
+    # render plain: "An error occurred", status: 500
+    # Or you can redirect to a specific page
+    # redirect_to root_path, alert: "An error occurred and has been logged."
+
+    # Continue the request (if relevant)
+    # Any specific action can be taken here depending on your needs
   end
 end

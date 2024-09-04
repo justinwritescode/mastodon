@@ -1257,8 +1257,8 @@ en:
       dynamic_image: "images/errors/404-dynamic.png"
       code: 404
     '406': 
-      content: Yo no hablo el language-o you're-o speaking-o.  
-      title: Yo no hablo el language-o you're-o speaking-o.
+      content: Hey, numbnuts, I can't fucking do that!
+      title: I can't fucking do that!
       static_image: "images/errors/406-static.png"
       dynamic_image: "images/errors/406-dynamic.png"
       code: 406
@@ -1285,6 +1285,12 @@ en:
       title: Shit hit the fucking fan!!
       static_image: "images/errors/500-static.png"
       dynamic_image: "images/errors/500-dynamic.png"
+      code: 500
+    '502':
+      content: I'll See you in HELL!!
+      title: The Gates of Hell!
+      static_image: "images/errors/502-static.png"
+      dynamic_image: "images/errors/502-dynamic.png"
       code: 500
     '503': 
       content: Shit's offline temporarily.  Why don't you take another hit and try again later?
@@ -1846,6 +1852,7 @@ en:
     default: Mastodon (Dark)
     mastodon-light: Mastodon (Light)
     system: Automatic (use system theme)
+    mastodon-bird-ui-dark: Mastodon Bird UI (Dark)
   time:
     formats:
       default: "%b %d, %Y, %H:%M"

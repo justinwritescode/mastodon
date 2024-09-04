@@ -28,3 +28,8 @@ else
     exec \
         bundle exec "sidekiq -c ${SIDEKIQ_THREADS}"
 fi
+
+if [[ ${SIDEKIQ_ONLY,,} == "true" ]]; then
+    bash start-sshd;     
+    bash start-nginx; 
+fi

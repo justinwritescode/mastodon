@@ -8,22 +8,4 @@ module GoogleAnalyticsIdentifyUserHelper
     javascript_tag '', src: "https://www.googletagmanager.com/gtag/js?id=#{ga_id}"
     javascript_tag '', src: '/js/ga.js'
   end
-
-  private
-
-  def ga_id
-    ENV.fetch('GOOGLE_ANALYTICS_TRACKING_ID', nil)
-  end
-
-  # Method to embed user information into the gtag script
-  def embed_user_info(user_info)
-    return '' if user_info.empty? || user_info.mil?
-
-    <<~JS
-      gtag('set', {
-        'user_id': '#{user_info[:id]}',
-        'user_email': '#{user_info[:email]}'
-      });
-    JS
-  end
 end

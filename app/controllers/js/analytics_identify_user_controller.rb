@@ -3,20 +3,30 @@
 module Js
   class AnalyticsIdentifyUserController < ApplicationController
     skip_before_action :verify_authenticity_token, only: :serve
-    before_action :authenticate_user!
     # Method to serve the user identification JavaScript
     def serve
-      # Example user identification script
-      script_content = <<~JS
+      render js: script_content, content_type: 'application/javascript'
+    end
+
+    def script_content
+      <<~JS
+        #{identify_user_javascript}
         #{google_analytics_identify_user_javascript}
         #{microsoft_clarity_identify_user_javascript}
         #{matomo_identify_user_javascript}
       JS
-
-      render js: script_content, content_type: 'application/javascript'
     end
 
     private
+
+    def identify_user_javascript
+      return 'console.log("No currently logged-in user");' if user_info.empty?
+
+      <<~JS
+        window.currentlyLoggedInUserId = "#{user_id}";
+        window.currentlyLoggedInUserSessionId = "#{session_id}";
+      JS
+    end
 
     def matomo_site_id
       ENV.fetch('MATOMO_SITE_ID', nil)
@@ -37,7 +47,7 @@ module Js
       <<~JS
         <!-- Matomo identify user -->
         let _paq1 = window._paq = window._paq || [];
-        _paq1.push('setUserId', "#{user_id}")
+        _paq1.push('setUserId', window.currentlyLoggedInUserId)
         <!-- End Matomo identify user -->
       JS
     end
@@ -69,12 +79,13 @@ module Js
     end
 
     def microsoft_clarity_identify_user_javascript
-      return 'console.log("Microsoft Clarity Identify user is not enabled.");' if !ms_clarity_enabled || user_info.empty?
+      return 'console.log("Microsoft Clarity Identify user is not enabled.");' unless ms_clarity_enabled
+      return 'console.log("There\s nobody signed in right now.");' if user_info.empty?
 
       <<~JS
         <!-- Microsoft Clarity identify user -->
         if(window.clarity) {
-          window.clarity("identify", "#{user_id}", "#{session_id}");
+          window.clarity("identify", window.currentlyLoggedInUserId, window.currentlyLoggedInUserSessionId);
         }
         else {
           console.error("Microsoft Clarity is 'enabled' but the 'window.clarity' object was not found.");
@@ -85,13 +96,14 @@ module Js
 
     # Method to embed user information into the gtag script
     def google_analytics_identify_user_javascript
-      return 'console.log("Google Analytics Identify user is not enabled.");' if !google_analytics_enabled || user_info.empty?
+      return 'console.log("Google Analytics Identify user is not enabled.");' unless google_analytics_enabled
+      return 'console.log("There\s nobody signed in right now.");' if user_info.empty?
 
       <<~JS
         <!-- Google Analytics identify user -->
         if(dataLayer) {
           dataLayer.push({
-            'user_id': '#{user_info[:id]}'
+            'user_id': window.currentlyLoggedInUserId
           });
         }
         else {
