@@ -13,6 +13,7 @@ namespace :assets do
     render_static_page 'errors/404', layout: 'error', dest: Rails.public_path.join('assets', '404.html')
     render_static_page 'errors/406', layout: 'error', dest: Rails.public_path.join('assets', '406.html')
     render_static_page 'errors/410', layout: 'error', dest: Rails.public_path.join('assets', '410.html')
+    render_static_page 'errors/418', layout: 'error', dest: Rails.public_path.join('assets', '418.html')
     render_static_page 'errors/422', layout: 'error', dest: Rails.public_path.join('assets', '422.html')
     render_static_page 'errors/429', layout: 'error', dest: Rails.public_path.join('assets', '429.html')
     render_static_page 'errors/500', layout: 'error', dest: Rails.public_path.join('assets', '500.html')

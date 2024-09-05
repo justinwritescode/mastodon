@@ -3,7 +3,7 @@
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
-  protect_from_forgery with: :exception
+  # protect_from_forgery with: :exception
 
   include Localized
   include UserTrackingConcern
@@ -50,7 +50,7 @@ class ApplicationController < ActionController::Base
 
   before_action :set_cache_control_defaults
 
-  skip_before_action :verify_authenticity_token, only: :raise_not_found
+  # skip_before_action :verify_authenticity_token #, only: :raise_not_found
 
   def raise_not_found
     raise ActionController::RoutingError, "No route matches #{params[:unmatched_route]}"
@@ -88,8 +88,6 @@ class ApplicationController < ActionController::Base
       new_user_session_path
     end
   end
-
-  protected
 
   def truthy_param?(key)
     ActiveModel::Type::Boolean.new.cast(params[key])
@@ -129,6 +127,14 @@ class ApplicationController < ActionController::Base
 
   def too_many_requests
     respond_with_error(429)
+  end
+
+  def bad_gateway
+    respond_with_error(502)
+  end
+
+  def im_a_teapot
+    respond_with_error(418)
   end
 
   def single_user_mode?
@@ -192,6 +198,7 @@ class ApplicationController < ActionController::Base
     # Log the error message
     logger.error "An error occurred: #{exception.message}"
     logger.error exception.backtrace.join("\n")
+    respond_with_error(to_error_code(exception))
 
     # You can render an error page or message if you choose
     # render plain: "An error occurred", status: 500
