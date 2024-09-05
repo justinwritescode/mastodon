@@ -40,7 +40,7 @@ jobs:
         with:
           github-password: ${{ github.token }} 
           acr-password: ${{ secrets.AZURECR_KEY }}
-          dockerfile: ./Dockerfile.streaming.thebackroom.life
+          dockerfile: ./streaming/Dockerfile
           tag: streaming.thebackroom.life
 
   build-thebackroom-sidekiq:
