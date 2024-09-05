@@ -22,7 +22,7 @@ RUN mkdir -p /app && \
 
 WORKDIR /opt/mastodon
 
-EXPOSE 80 2222 3000 4000
+EXPOSE 81 2222 3000 4000
 
 RUN \ 
     rm -rf /usr/bin/bundle && \
