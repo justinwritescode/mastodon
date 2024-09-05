@@ -91,6 +91,7 @@ jobs:
         cache-to: type=gha,mode=max
 
   build-thebackroom-sidekiq:
+    needs: build-thebackroom-life
     runs-on: ubuntu-latest
 
     steps:
