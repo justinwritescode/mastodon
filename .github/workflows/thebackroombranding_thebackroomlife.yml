@@ -158,7 +158,7 @@ jobs:
       id: deploy-to-webapp
       uses: azure/webapps-deploy@v2
       with:
-        app-name: 'thebackroomlife'
+        app-name: 'thebackroomlife-streaming'
         slot-name: 'production'
         publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_STREAMING }}
         images: ghcr.io/justinwritescode/mastodon/streaming.thebackroom.life:${{ github.sha }}
@@ -176,7 +176,7 @@ jobs:
       id: deploy-to-webapp
       uses: azure/webapps-deploy@v2
       with:
-        app-name: 'thebackroomlife'
+        app-name: 'thebackroomlife-sidekiq'
         slot-name: 'production'
         publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_SIDEKIQ }}
         images: ghcr.io/justinwritescode/mastodon/sidekiq.thebackroom.life:${{ github.sha }}
