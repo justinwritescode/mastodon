@@ -37,7 +37,7 @@ runs:
         registry: thebackroomlife.azurecr.io
 
     - name: Calculate "MASTODON_VERSION_METADATA"
-      shell: bash
+      shell: pwsh
       run: |
         MASTODON_VERSION_METADATA="${{ github.sha }}"
         MASTODON_VERSION_METADATA="${STRING:0:8}"
