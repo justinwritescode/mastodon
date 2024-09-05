@@ -1,9 +1,43 @@
 FROM ghcr.io/justinwritescode/mastodon:thebackroom.life AS base
 
+
 SHELL [ "bash", "-c" ]
+
+ENV TZ=EST5EDT \
+    WEBSITE_TIME_ZONE=EST5EDT
+
+USER root
+
+RUN mkdir -p /app && \
+    mkdir -p /run/sshd && \
+    rm -rf /app/www && \
+    ln -s /opt/mastodon /app/www && \
+    apt-get update  && \
+    apt-get install -y --no-install-recommends dialog && \
+    apt-get install -y --no-install-recommends \
+        openssh-server \
+        nginx \
+        nodejs && \
+    echo "root:Docker!" | chpasswd 
+
+WORKDIR /opt/mastodon
+
+EXPOSE 80 2222 3000 4000
+
+RUN \ 
+    rm -rf /usr/bin/bundle && \
+    ln -s /opt/mastodon/bin/bundle /usr/bin/bundle
+
+COPY ./root /
+COPY app ./
+COPY config ./
+COPY public ./
+COPY lib ./
 
 WORKDIR /opt/mastodon/bin
 
 ENTRYPOINT [ "bash", "entrypoint", "sidekiq" ]
 
 LABEL org.opencontainers.image.description="Sidekiq for TheBackroom.life"
+LABEL org.opencontainers.image.source="https://github.com/justinwritescode/mastodon"
+LABEL org.opencontainers.image.licenses="MIT"
