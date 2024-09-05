@@ -1,0 +1,35 @@
+.dialog__illustration img {
+    margin-top: 0px;
+  }
+
+  .error-img-static,
+  .error-img-dynamic {
+    height: 100%;
+    width: 100%;
+    transition: opacity 0.5s ease-in-out;
+    border-radius: 15px;
+  }
+
+  .image-container {
+    position: relative;
+    display: inline-block;
+  }
+
+  .error-img-dynamic {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+  }
+
+  .image-container:hover .error-img-static {
+    opacity: 0;
+  }
+
+  .image-container:hover .error-img-dynamic {
+    opacity: 1;
+  }
+
+  .dialog__message {
+    margin-top: 20px; /* Add some margin to separate the message from the image */
+  }
