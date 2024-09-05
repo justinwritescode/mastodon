@@ -21,114 +21,38 @@ jobs:
     runs-on: 'ubuntu-latest'
 
     steps:
-    - uses: actions/checkout@v2
-
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
-
-    - uses: ./.github/actions/setup-docker
-      with:
-        password: ${{ secrets.PACKAGES_PAT }}
-
-    - uses: docker/login-action@v3
-      with: 
-        username: thebackroomlife
-        password: ${{ secrets.AZURECR_KEY }}
-        registry: thebackroomlife.azurecr.io
-
-    - name: Build & push the Docker image
-      uses: docker/build-push-action@v6.7.0
-      with:
-        tags: |
-          ghcr.io/justinwritescode/mastodon:thebackroom.life
-          ghcr.io/justinwritescode/mastodon/thebackroom.life:${{ github.sha }}
-          ghcr.io/justinwritescode/mastodon/thebackroom.life:latest
-          thebackroomlife.azurecr.io/justinwritescode/mastodon:thebackroom.life
-          thebackroomlife.azurecr.io/justinwritescode/mastodon/thebackroom.life:${{ github.sha }}
-          thebackroomlife.azurecr.io/justinwritescode/mastodon/thebackroom.life:latest
-          thebackroomlife.azurecr.io/mastodon:thebackroom.life
-          thebackroomlife.azurecr.io/mastodon/thebackroom.life:${{ github.sha }}
-          thebackroomlife.azurecr.io/mastodon/thebackroom.life:latest
-          thebackroomlife.azurecr.io/thebackroom.life:latest
-        pull: true
-        push: true
-        file: Dockerfile.thebackroom.life
-        platforms: linux/amd64,linux/arm64
-        cache-from: type=gha
-        cache-to: type=gha,mode=max 
+      - uses: ./.github/actions/build-and-push-docker-image
+        name: 'Build TheBackroom.life'
+        with:
+          github-password: ${{ github.token }} 
+          acr-password: ${{ secrets.AZURECR_KEY }}
+          dockerfile: ./Dockerfile.thebackroom.life
+          tag: thebackroom.life
 
   build-thebackroom-streaming:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    
-    - uses: ./.github/actions/setup-docker
-      with:
-        password: ${{ secrets.PACKAGES_PAT }}
-
-    - uses: docker/login-action@v3
-      with: 
-        username: thebackroomlife
-        password: ${{ secrets.AZURECR_KEY }}
-        registry: thebackroomlife.azurecr.io
-
-    - name: Build & push the Docker image
-      uses: docker/build-push-action@v6.7.0
-      with:
-        tags: |
-          ghcr.io/justinwritescode/mastodon:streaming.thebackroom.life
-          ghcr.io/justinwritescode/mastodon/streaming.thebackroom.life:${{ github.sha }}
-          ghcr.io/justinwritescode/mastodon/streaming.thebackroom.life:latest
-          thebackroomlife.azurecr.io/justinwritescode/mastodon:streaming.thebackroom.life
-          thebackroomlife.azurecr.io/justinwritescode/mastodon/streaming.thebackroom.life:${{ github.sha }}
-          thebackroomlife.azurecr.io/justinwritescode/mastodon/streaming.thebackroom.life:latest
-          thebackroomlife.azurecr.io/mastodon:streaming.thebackroom.life
-          thebackroomlife.azurecr.io/mastodon/streaming.thebackroom.life:${{ github.sha }}
-          thebackroomlife.azurecr.io/mastodon/streaming.thebackroom.life:latest
-        pull: true
-        push: true
-        file: ./streaming/Dockerfile
-        platforms: linux/amd64,linux/arm64
-        cache-from: type=gha
-        cache-to: type=gha,mode=max
+      - uses: ./.github/actions/build-and-push-docker-image
+        name: 'Build Streaming.TheBackroom.life'
+        with:
+          github-password: ${{ github.token }} 
+          acr-password: ${{ secrets.AZURECR_KEY }}
+          dockerfile: ./Dockerfile.streaming.thebackroom.life
+          tag: streaming.thebackroom.life
 
   build-thebackroom-sidekiq:
     needs: build-thebackroom-life
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    
-    - uses: ./.github/actions/setup-docker
-      with:
-        password: ${{ secrets.PACKAGES_PAT }}
-
-    - uses: docker/login-action@v3
-      with: 
-        username: thebackroomlife
-        password: ${{ secrets.AZURECR_KEY }}
-        registry: thebackroomlife.azurecr.io
-
-    - name: Build & push the Docker image
-      uses: docker/build-push-action@v6.7.0
-      with:
-        tags: |
-          ghcr.io/justinwritescode/mastodon:sidekiq.thebackroom.life
-          ghcr.io/justinwritescode/mastodon/sidekiq.thebackroom.life:${{ github.sha }}
-          ghcr.io/justinwritescode/mastodon/sidekiq.thebackroom.life:latest
-          thebackroomlife.azurecr.io/justinwritescode/mastodon:sidekiq.thebackroom.life
-          thebackroomlife.azurecr.io/justinwritescode/mastodon/sidekiq.thebackroom.life:${{ github.sha }}
-          thebackroomlife.azurecr.io/justinwritescode/mastodon/sidekiq.thebackroom.life:latest
-          thebackroomlife.azurecr.io/mastodon:sidekiq.thebackroom.life
-          thebackroomlife.azurecr.io/mastodon/sidekiq.thebackroom.life:${{ github.sha }}
-          thebackroomlife.azurecr.io/mastodon/sidekiq.thebackroom.life:latest
-        pull: true
-        push: true
-        file: Dockerfile.sidekiq.thebackroom.life
-        platforms: linux/amd64,linux/arm64
-        cache-from: type=gha
-        cache-to: type=gha,mode=max
+      - uses: ./.github/actions/build-and-push-docker-image
+        name: 'Build Sidekiq.TheBackroom.life'
+        with:
+          github-password: ${{ github.token }} 
+          acr-password: ${{ secrets.AZURECR_KEY }}
+          dockerfile: ./Dockerfile.sidekiq.thebackroom.life
+          tag: sidekiq.thebackroom.life
     
   deploy-to-thebackroom-life:
     runs-on: ubuntu-latest
@@ -136,7 +60,7 @@ jobs:
       - build-thebackroom-life
     environment:
       name: 'production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+      url: ${{ steps.deploy-to-thebackroom-life.webapp-url }}
 
     steps:
     - name: Deploy to Azure Web App
@@ -154,7 +78,7 @@ jobs:
       - build-thebackroom-streaming
     environment:
       name: 'production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+      url: ${{ steps.deploy-to-thebackroom-streaming.webapp-url }}
 
     steps:
     - name: Deploy to Azure Web App
@@ -172,7 +96,7 @@ jobs:
       - build-thebackroom-sidekiq
     environment:
       name: 'production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+      url: ${{ steps.deploy-to-thebackroom-sidekiq.webapp-url }}
 
     steps:
     - name: Deploy to Azure Web App
