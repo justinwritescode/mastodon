@@ -1,0 +1,1 @@
+./packs/google_tag_manager.js
