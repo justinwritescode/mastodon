@@ -13,6 +13,9 @@ concurrency:
   group: Continuous Deployment - TheBackroom.life
   cancel-in-progress: true
 
+env:
+  MASTODON_VERSION_METADATA: ${{ github.sha:0:8 }}
+
 jobs:
   build-thebackroom-life:
     runs-on: 'ubuntu-latest'
