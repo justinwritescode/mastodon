@@ -1268,6 +1268,12 @@ en:
       static_image: "images/errors/410-static.png"
       dynamic_image: "images/errors/410-dynamic.png"
       code: 410
+    '418': 
+      content: You fucking dipshit! I can't fucking do that because I'm a fucking TEAPOT!!!
+      title: I'm a fucking teapot!!
+      static_image: "images/errors/418-static.png"
+      dynamic_image: "images/errors/418-dynamic.png"
+      code: 418
     '422':
       content: Security verification failed. Are you blocking cookies?
       title: Security verification failed
