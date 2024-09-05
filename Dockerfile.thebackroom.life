@@ -3,7 +3,8 @@ FROM ghcr.io/justinwritescode/mastodon:xplat AS base
 SHELL [ "bash", "-c" ]
 
 ENV TZ=EST5EDT \
-    WEBSITE_TIME_ZONE=EST5EDT
+    WEBSITE_TIME_ZONE=EST5EDT \
+    PATH=/opt/mastodon/bin:${PATH}
 
 USER root
 
@@ -42,7 +43,10 @@ COPY ./root /
 COPY app ./
 COPY config ./
 COPY public ./
+COPY lib ./
 
-# ENTRYPOINT [ "bash", "entrypoint" ]
+ENTRYPOINT [ "bash", "bin/entrypoint", "mastodon" ]
 
 LABEL org.opencontainers.image.description="Modifications to the base image for the site TheBackroom.life"
+LABEL org.opencontainers.image.source="https://github.com/justinwritescode/mastodon"
+LABEL org.opencontainers.image.licenses="MIT"

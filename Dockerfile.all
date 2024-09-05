@@ -1,8 +1,11 @@
-FROM ghcr.io/justinwritescode/mastodon:streaming AS streaming
-FROM ghcr.io/justinwritescode/mastodon:xplat AS mastodon
+FROM ghcr.io/justinwritescode/mastodon:streaming.thebackroom.life AS streaming
+FROM ghcr.io/justinwritescode/mastodon:sidekiq.thebackroom.life AS sidekiq
+FROM ghcr.io/justinwritescode/mastodon:thebackroom.life AS mastodon
 
 COPY --from=streaming /opt/mastodon/streaming /opt/mastodon/streaming
 
 WORKDIR /opt/mastodon/bin
 
 ENTRYPOINT [ "bash", "entrypoint", "all" ]
+
+LABEL org.opencontainers.image.description="This is an all-component image for TheBackroom.life"
