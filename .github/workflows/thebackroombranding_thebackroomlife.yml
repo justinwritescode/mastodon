@@ -9,6 +9,10 @@ on:
       - thebackroombranding
   workflow_dispatch:
 
+concurrency: 
+  group: Continuous Deployment - TheBackroom.life
+  cancel-in-progress: true
+
 jobs:
   build-thebackroom-life:
     runs-on: 'ubuntu-latest'
@@ -75,11 +79,11 @@ jobs:
           ghcr.io/justinwritescode/mastodon/streaming.thebackroom.life:latest
           thebackroomlife.azurecr.io/justinwritescode/mastodon:streaming.thebackroom.life
           thebackroomlife.azurecr.io/justinwritescode/mastodon/streaming.thebackroom.life:${{ github.sha }}
-          thebackroomlife.azurecr.io/justinwritescode/mastodon/streaming.thebackroom.life-:latest
+          thebackroomlife.azurecr.io/justinwritescode/mastodon/streaming.thebackroom.life:latest
           thebackroomlife.azurecr.io/mastodon:streaming.thebackroom.life
           thebackroomlife.azurecr.io/mastodon/streaming.thebackroom.life:${{ github.sha }}
           thebackroomlife.azurecr.io/mastodon/streaming.thebackroom.life:latest
-          'ghcr.io/${{ secrets.AzureAppService_ContainerUsername_67e0016c3cbd4daa8dbea73dc3b99808 }}/justinwritescode/mastodon:streaming.thebackroom.life:${{ github.sha }}'
+          ghcr.io/${{ secrets.AzureAppService_ContainerUsername_67e0016c3cbd4daa8dbea73dc3b99808 }}/justinwritescode/mastodon:streaming.thebackroom.life:${{ github.sha }}
         pull: true
         push: true
         file: ./streaming/Dockerfile
@@ -115,8 +119,7 @@ jobs:
           thebackroomlife.azurecr.io/justinwritescode/mastodon/sidekiq.thebackroom.life:latest
           thebackroomlife.azurecr.io/mastodon:sidekiq.thebackroom.life
           thebackroomlife.azurecr.io/mastodon/sidekiq.thebackroom.life:${{ github.sha }}
-          thebackroomlife.azurecr.io/mastodon/sidekiq.thebackroom.life:$atest
-          'ghcr.io/${{ secrets.AzureAppService_ContainerUsername_67e0016c3cbd4daa8dbea73dc3b99808 }}/justinwritescode/mastodon/sidekiq.thebackroom.life:${{ github.sha }}'
+          thebackroomlife.azurecr.io/mastodon/sidekiq.thebackroom.life:latest
         pull: true
         push: true
         file: Dockerfile.sidekiq.thebackroom.life
