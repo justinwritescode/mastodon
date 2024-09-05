@@ -14,7 +14,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  MASTODON_VERSION_METADATA: ${{ github.sha:0:8 }}
+  MASTODON_VERSION_METADATA: ${{ github.sha }}
 
 jobs:
   build-thebackroom-life:
