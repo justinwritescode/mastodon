@@ -39,9 +39,8 @@ runs:
     - name: Calculate "MASTODON_VERSION_METADATA"
       shell: pwsh
       run: |
-        MASTODON_VERSION_METADATA="${{ github.sha }}"
-        MASTODON_VERSION_METADATA="${STRING:0:8}"
-        echo "MASTODON_VERSION_METADATA=$MASTODON_VERSION_METADATA" >> $GITHUB_ENV
+        $MASTODON_VERSION_METADATA="${{ github.sha }}".Substring(0, 8)
+        Write-Output "MASTODON_VERSION_METADATA=${MASTODON_VERSION_METADATA}" >> $GITHUB_ENV
 
     - name: Build & push the Docker image
       uses: docker/build-push-action@v6.7.0
