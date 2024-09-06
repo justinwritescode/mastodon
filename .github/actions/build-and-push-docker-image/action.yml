@@ -48,6 +48,12 @@ runs:
         $env:MASTODON_VERSION_METADATA="${{ github.sha }}".Substring(0, 8)
         Write-Output "MASTODON_VERSION_METADATA=${env:MASTODON_VERSION_METADATA}" >> $GITHUB_ENV
 
+    - name: Docker meta
+      id: meta
+      uses: docker/metadata-action@v5
+      with:
+        images: ${{ inputs.tag }}
+
     - uses: thefringeninja/action-minver@2.0.0-preview1
       id: minver
       with:
@@ -60,7 +66,7 @@ runs:
         # Optional. Specifies the minimum version to use when no tags exist.
         minimum-major-minor: 0.0
         # Optional. Specifies the prefix of the tags
-        tag-prefix: v
+        tag-prefix: blv
         # Optional. Specifies the log level.
         verbosity: trace
 
@@ -71,6 +77,8 @@ runs:
         pull: true
         push: true
         tags: |
+          ghcr.io/justinwritescode/mastodon/${{ inputs.tag }}:${{ github.sha }}
+          ghcr.io/justinwritescode/mastodon/${{ inputs.tag }}:latest
           thebackroomlife.azurecr.io/${{ inputs.tag }}:${{ github.sha }}
           thebackroomlife.azurecr.io/${{ inputs.tag }}:latest
           thebackroomlife.azurecr.io/${{ inputs.tag }}:latest
@@ -89,4 +97,5 @@ runs:
         platforms: linux/amd64,linux/arm64
         cache-from: type=gha
         cache-to: type=gha,mode=max
-        build-args: MASTODON_VERSION_METADATA="${{ env.MASTODON_VERSION_METADATA }}"
+        build-args: |
+          MASTODON_VERSION_METADATA: ${{ env.MASTODON_VERSION_METADATA }}
