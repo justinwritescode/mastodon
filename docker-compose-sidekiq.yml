@@ -1,0 +1,12 @@
+services:
+  sidekiq:
+    image: ghcr.io/justinwritescode/mastodon:sidekiq.thebackroom.life  
+    restart: always
+    env_file: .env.production
+    # entrypoint: ["bash", "/opt/mastodon/bin/entrypoint", "sidekiq"]
+    volumes:
+      - ./public/system:/mastodon/public/system
+    healthcheck:
+      test: ['CMD-SHELL', "ps aux | grep '[s]idekiq\ 6' || false"]
+    expose: 
+      - 80
