@@ -71,9 +71,9 @@ runs:
         pull: true
         push: true
         tags: |
-          ghcr.io/justinwritescode/${{ inputs.tag }}
-          ghcr.io/justinwritescode/${{ inputs.tag }}:${{ github.sha }}
-          ghcr.io/justinwritescode/${{ inputs.tag }}:latest
+          # ghcr.io/justinwritescode/${{ inputs.tag }}
+          # ghcr.io/justinwritescode/${{ inputs.tag }}:${{ github.sha }}
+          # ghcr.io/justinwritescode/${{ inputs.tag }}:latest
           ghcr.io/justinwritescode/mastodon:${{ inputs.tag }}
           ghcr.io/justinwritescode/mastodon/${{ inputs.tag }}:${{ github.sha }}
           ghcr.io/justinwritescode/mastodon/${{ inputs.tag }}:latest
