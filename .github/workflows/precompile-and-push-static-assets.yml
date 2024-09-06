@@ -2,13 +2,14 @@
 
 name: Precompile & Push Static Assets
 
-concurrency: 
-  group: precompile-and-push-static-assets
-  cancel-in-progress: true
 # Controls when the action will run. Workflow runs when manually triggered using the UI
 # or API.
 on:
   workflow_dispatch:
+
+concurrency: 
+  group: precompile-and-push-static-assets
+  cancel-in-progress: true
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
