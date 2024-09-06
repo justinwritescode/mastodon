@@ -21,7 +21,7 @@ jobs:
       RAILS_ENV: production
 
     steps:
-    - uses: actions/checkout@4.1.7
+    - uses: actions/checkout@v4.1.7
 
     - uses: clupprich/ruby-build-action@v1.3.0
       with:
