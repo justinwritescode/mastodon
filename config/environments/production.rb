@@ -123,6 +123,9 @@ Rails.application.configure do
   enable_starttls = nil
   enable_starttls_auto = nil
 
+  enable_starttls = false
+  enable_starttls_auto = false
+
   case ENV['SMTP_ENABLE_STARTTLS']
   when 'always'
     enable_starttls = true
@@ -134,6 +137,9 @@ Rails.application.configure do
     enable_starttls_auto = ENV['SMTP_ENABLE_STARTTLS_AUTO'] != 'false'
   end
 
+  tls = ENV['SMTP_TLS'].present? && ENV['SMTP_TLS'] == 'true'
+  ssl = ENV['SMTP_SSL'].present? && ENV['SMTP_SSL'] == 'true'
+
   config.action_mailer.smtp_settings = {
     port: ENV['SMTP_PORT'],
     address: ENV['SMTP_SERVER'],
@@ -142,15 +148,17 @@ Rails.application.configure do
     domain: ENV['SMTP_DOMAIN'] || ENV['LOCAL_DOMAIN'],
     authentication: ENV['SMTP_AUTH_METHOD'] == 'none' ? nil : ENV['SMTP_AUTH_METHOD'] || :plain,
     ca_file: ENV['SMTP_CA_FILE'].presence || '/etc/ssl/certs/ca-certificates.crt',
-    openssl_verify_mode: ENV['SMTP_OPENSSL_VERIFY_MODE'],
+    openssl_verify_mode: ENV['SMTP_OPENSSL_VERIFY_MODE'].presence || 'none',
     enable_starttls: enable_starttls,
     enable_starttls_auto: enable_starttls_auto,
-    tls: ENV['SMTP_TLS'].presence && ENV['SMTP_TLS'] == 'true',
-    ssl: ENV['SMTP_SSL'].presence && ENV['SMTP_SSL'] == 'true',
+    tls: tls,
+    ssl: ssl,
     read_timeout: 20,
   }
 
   config.action_mailer.delivery_method = ENV.fetch('SMTP_DELIVERY_METHOD', 'smtp').to_sym
+
+  Rails.logger.debug { "SMTP Settings: #{config.action_mailer.smtp_settings.inspect}" }
 
   config.action_dispatch.default_headers = {
     'Server' => 'Mastodon',
