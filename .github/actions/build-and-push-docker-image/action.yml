@@ -68,13 +68,11 @@ runs:
       id: meta
       with:
         images: |
-          ghcr.io/justinwritescode/mastodon:${{ inputs.tag }}
-          ghcr.io/justinwritescode/mastodon/${{ inputs.tag }}
-          thebackroomlife.azurecr.io/justinwritescode/mastodon:${{ inputs.tag }}
-          thebackroomlife.azurecr.io/justinwritescode/mastodon/${{ inputs.tag }}
+          ghcr.io/justinwritescode/mastodon
+          thebackroomlife.azurecr.io/justinwritescode/mastodon
         tags: |
-          type=raw,value=${{ github.sha }}
-          type=raw,value=${{ steps.minver.outputs.version }}
+          type=raw,value=${{ inputs.tag }}-${{ github.sha }}
+          type=raw,value=${{ inputs.tag }}-${{ steps.minver.outputs.version }}
 
     - name: Build & push the Docker image
       uses: docker/build-push-action@v6.7.0
