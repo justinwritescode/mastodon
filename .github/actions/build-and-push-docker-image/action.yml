@@ -66,13 +66,13 @@ runs:
 
     - uses: docker/metadata-action@v5
       id: meta
-      with:
-        images: |
-          ghcr.io/justinwritescode/mastodon
-          thebackroomlife.azurecr.io/justinwritescode/mastodon
-        tags: |
-          type=raw,value=${{ inputs.tag }}-${{ github.sha }}
-          type=raw,value=${{ inputs.tag }}-${{ steps.minver.outputs.version }}
+      # with:
+      #   images: |
+      #     ghcr.io/justinwritescode/mastodon
+      #     thebackroomlife.azurecr.io/justinwritescode/mastodon
+      #   tags: |
+      #     type=raw,value=${{ inputs.tag }}-${{ github.sha }}
+      #     type=raw,value=${{ inputs.tag }}-${{ steps.minver.outputs.version }}
 
     - name: Build & push the Docker image
       uses: docker/build-push-action@v6.7.0
@@ -80,17 +80,17 @@ runs:
         context: .
         pull: true
         push: true
-        tags: ${{ steps.meta.outputs.tags }} #|
-          # ghcr.io/justinwritescode/mastodon:${{ inputs.tag }}
-          # ghcr.io/justinwritescode/mastodon/${{ inputs.tag }}:${{ github.sha }}
-          # ghcr.io/justinwritescode/mastodon/${{ inputs.tag }}:latest
-          # thebackroomlife.azurecr.io/justinwritescode/${{ inputs.tag }}
-          # thebackroomlife.azurecr.io/justinwritescode/mastodon/${{ inputs.tag }}:${{ github.sha }}
-          # thebackroomlife.azurecr.io/justinwritescode/mastodon/${{ inputs.tag }}:latest
-          # thebackroomlife.azurecr.io/mastodon:${{ inputs.tag }}
-          # thebackroomlife.azurecr.io/mastodon/${{ inputs.tag }}:${{ github.sha }}
-          # thebackroomlife.azurecr.io/mastodon/${{ inputs.tag }}:latest
-          # thebackroomlife.azurecr.io/${{ inputs.tag }}:latest
+        tags: 
+          ghcr.io/justinwritescode/mastodon:${{ inputs.tag }}
+          ghcr.io/justinwritescode/mastodon/${{ inputs.tag }}:${{ github.sha }}
+          ghcr.io/justinwritescode/mastodon/${{ inputs.tag }}:latest
+          thebackroomlife.azurecr.io/justinwritescode/${{ inputs.tag }}
+          thebackroomlife.azurecr.io/justinwritescode/mastodon/${{ inputs.tag }}:${{ github.sha }}
+          thebackroomlife.azurecr.io/justinwritescode/mastodon/${{ inputs.tag }}:latest
+          thebackroomlife.azurecr.io/mastodon:${{ inputs.tag }}
+          thebackroomlife.azurecr.io/mastodon/${{ inputs.tag }}:${{ github.sha }}
+          thebackroomlife.azurecr.io/mastodon/${{ inputs.tag }}:latest
+          thebackroomlife.azurecr.io/${{ inputs.tag }}:latest
         labels: ${{ steps.meta.outputs.labels }}
         file: ${{ inputs.dockerfile }}
         platforms: linux/amd64,linux/arm64
