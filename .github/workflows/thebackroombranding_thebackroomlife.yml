@@ -21,27 +21,27 @@ jobs:
     runs-on: 'ubuntu-latest'
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: ./.github/actions/build-and-push-docker-image
-        name: 'Build TheBackroom.life'
-        with:
-          github-password: ${{ github.token }} 
-          acr-password: ${{ secrets.AZURECR_KEY }}
-          dockerfile: ./Dockerfile.thebackroom.life
-          tag: thebackroom.life
+    - uses: actions/checkout@v2
+    - uses: ./.github/actions/build-and-push-docker-image
+      name: 'Build TheBackroom.life'
+      with:
+        github-password: ${{ github.token }} 
+        acr-password: ${{ secrets.AZURECR_KEY }}
+        dockerfile: ./Dockerfile.thebackroom.life
+        tag: thebackroom.life
 
   build-thebackroom-streaming:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: ./.github/actions/build-and-push-docker-image
-        name: 'Build Streaming.TheBackroom.life'
-        with:
-          github-password: ${{ github.token }} 
-          acr-password: ${{ secrets.AZURECR_KEY }}
-          dockerfile: ./streaming/Dockerfile
-          tag: streaming.thebackroom.life
+    - uses: actions/checkout@v2
+    - uses: ./.github/actions/build-and-push-docker-image
+      name: 'Build Streaming.TheBackroom.life'
+      with:
+        github-password: ${{ github.token }} 
+        acr-password: ${{ secrets.AZURECR_KEY }}
+        dockerfile: ./streaming/Dockerfile
+        tag: streaming.thebackroom.life
 
   build-thebackroom-sidekiq:
     needs: build-thebackroom-life
@@ -62,7 +62,7 @@ jobs:
     needs: 
       - build-thebackroom-life
     environment:
-      name: 'production'
+      name: 'thebackroom.life'
       url: ${{ steps.deploy-to-thebackroom-life.webapp-url }}
 
     steps:
@@ -81,7 +81,7 @@ jobs:
     needs: 
       - build-thebackroom-streaming
     environment:
-      name: 'production'
+      name: 'streaming.thebackroom.life'
       url: ${{ steps.deploy-to-thebackroom-streaming.webapp-url }}
 
     steps:
@@ -100,7 +100,7 @@ jobs:
     needs: 
       - build-thebackroom-sidekiq
     environment:
-      name: 'production'
+      name: 'sidekiq.thebackroom.life'
       url: ${{ steps.deploy-to-thebackroom-sidekiq.webapp-url }}
 
     steps:
