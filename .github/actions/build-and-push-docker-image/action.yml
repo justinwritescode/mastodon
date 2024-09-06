@@ -45,8 +45,8 @@ runs:
     - name: Calculate "MASTODON_VERSION_METADATA"
       shell: pwsh
       run: |
-        $MASTODON_VERSION_METADATA="${{ github.sha }}".Substring(0, 8)
-        Write-Output "MASTODON_VERSION_METADATA=${MASTODON_VERSION_METADATA}" >> $GITHUB_ENV
+        $env:MASTODON_VERSION_METADATA="${{ github.sha }}".Substring(0, 8)
+        Write-Output "MASTODON_VERSION_METADATA=${env:MASTODON_VERSION_METADATA}" >> $GITHUB_ENV
 
     - uses: thefringeninja/action-minver@2.0.0-preview1
       id: minver
@@ -54,7 +54,7 @@ runs:
         # Optional. Specifies which part of the version to auto-increment.
         auto-increment: patch
         # Optional. Sets custom build metadata for your semantic version.
-        build-metadata: ${{ github.sha }}
+        # build-metadata: ${{ github.sha }}
         # Optional. Specifies the default pre-release phase.
         default-pre-release-phase: preview
         # Optional. Specifies the minimum version to use when no tags exist.
