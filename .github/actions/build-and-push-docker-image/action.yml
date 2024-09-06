@@ -64,9 +64,6 @@ runs:
         # Optional. Specifies the log level.
         verbosity: trace
 
-    - uses: docker/metadata-action@v5
-      id: meta
-
     - name: Build & push the Docker image
       uses: docker/build-push-action@v6.7.0
       with:
@@ -91,7 +88,10 @@ runs:
           thebackroomlife.azurecr.io/mastodon/${{ inputs.tag }}:${{ github.sha }}
           thebackroomlife.azurecr.io/mastodon/${{ inputs.tag }}:${{ steps.minver.outputs.version }}
           thebackroomlife.azurecr.io/mastodon/${{ inputs.tag }}:latest
-        labels: ${{ steps.meta.outputs.labels }}
+        labels: |
+          org.opencontainers.image.licenses=AGPL-3.0,MIT
+          org.opencontainers.image.revision=${{ github.sha }}
+          org.opencontainers.image.source=${{ github.server_url }}/${{ github.action_repository }}
         file: ${{ inputs.dockerfile }}
         platforms: linux/amd64,linux/arm64
         cache-from: type=local,src=./cache
