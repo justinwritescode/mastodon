@@ -15,7 +15,7 @@ concurrency:
 jobs:
   # This workflow contains a single job called "greet"
   precompile-and-push:
-    runs-on: ubuntu-latesy
+    runs-on: ubuntu-latest
     env:
       PATH: ./bin:${PATH}
       RAILS_ENV: production
