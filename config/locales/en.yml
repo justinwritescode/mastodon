@@ -1301,7 +1301,7 @@ en:
     '422':
       content: Security verification failed. Are you blocking cookies?
       title: Security verification failed
-      static_image: "images/zerrors/422-static.png"
+      static_image: "images/errors/422-static.png"
       dynamic_image: "images/errors/422-dynamic.png"
       code: 422
     '429': 
