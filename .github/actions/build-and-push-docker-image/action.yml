@@ -71,6 +71,8 @@ runs:
         pull: true
         push: true
         tags: |
+          thebackroomlife.azurecr.io/${{ inputs.tag }}:${{ github.sha }}
+          thebackroomlife.azurecr.io/${{ inputs.tag }}:latest
           thebackroomlife.azurecr.io/${{ inputs.tag }}:latest
           thebackroomlife.azurecr.io/justinwritescode/${{ inputs.tag }}:${{ github.sha }}
           thebackroomlife.azurecr.io/justinwritescode/${{ inputs.tag }}:latest
