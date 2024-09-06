@@ -42,24 +42,56 @@ runs:
         $MASTODON_VERSION_METADATA="${{ github.sha }}".Substring(0, 8)
         Write-Output "MASTODON_VERSION_METADATA=${MASTODON_VERSION_METADATA}" >> $GITHUB_ENV
 
+    - uses: actions-ecosystem/action-get-latest-tag@v1
+      id: get-latest-tag
+
+    - uses: actions-ecosystem/action-bump-semver@v1
+      id: bump-semver
+      with:
+        current_version: ${{ steps.get-latest-tag.outputs.tag }}
+        level: patch
+
+    - uses: actions-ecosystem/action-push-tag@v1
+      with:
+        tag: ${{ steps.bump-semver.outputs.new_version }}
+        message: '${{ steps.bump-semver.outputs.new_version }}: PR #${{ github.event.pull_request.number }} ${{ github.event.pull_request.title }}'
+
+    - uses: docker/metadata-action@v5
+      id: meta
+      with:
+        images: |
+          ghcr.io/justinwritescode/mastodon
+          thebackroomlife.azurecr.io/justinwritescode/mastodon
+        tags: |
+          type=schedule
+          type=ref,event=tag
+          type=semver,pattern={{version}}
+          type=semver,pattern={{major}}.{{minor}}.{{patch}}
+          type=sha,
+          type=raw,value=
+
     - name: Build & push the Docker image
       uses: docker/build-push-action@v6.7.0
       with:
-        tags: |
-          ghcr.io/justinwritescode/mastodon:${{ inputs.tag }}
-          ghcr.io/justinwritescode/mastodon/${{ inputs.tag }}:${{ github.sha }}
-          ghcr.io/justinwritescode/mastodon/${{ inputs.tag }}:latest
-          thebackroomlife.azurecr.io/justinwritescode/${{ inputs.tag }}
-          thebackroomlife.azurecr.io/justinwritescode/mastodon/${{ inputs.tag }}:${{ github.sha }}
-          thebackroomlife.azurecr.io/justinwritescode/mastodon/${{ inputs.tag }}:latest
-          thebackroomlife.azurecr.io/mastodon:${{ inputs.tag }}
-          thebackroomlife.azurecr.io/mastodon/${{ inputs.tag }}:${{ github.sha }}
-          thebackroomlife.azurecr.io/mastodon/${{ inputs.tag }}:latest
-          thebackroomlife.azurecr.io/${{ inputs.tag }}:latest
+        context: .
         pull: true
         push: true
+        tags: ${{ steps.meta.outputs.tags }} #|
+          # ghcr.io/justinwritescode/mastodon:${{ inputs.tag }}
+          # ghcr.io/justinwritescode/mastodon/${{ inputs.tag }}:${{ github.sha }}
+          # ghcr.io/justinwritescode/mastodon/${{ inputs.tag }}:latest
+          # thebackroomlife.azurecr.io/justinwritescode/${{ inputs.tag }}
+          # thebackroomlife.azurecr.io/justinwritescode/mastodon/${{ inputs.tag }}:${{ github.sha }}
+          # thebackroomlife.azurecr.io/justinwritescode/mastodon/${{ inputs.tag }}:latest
+          # thebackroomlife.azurecr.io/mastodon:${{ inputs.tag }}
+          # thebackroomlife.azurecr.io/mastodon/${{ inputs.tag }}:${{ github.sha }}
+          # thebackroomlife.azurecr.io/mastodon/${{ inputs.tag }}:latest
+          # thebackroomlife.azurecr.io/${{ inputs.tag }}:latest
+        labels: ${{ steps.meta.outputs.labels }}
         file: ${{ inputs.dockerfile }}
         platforms: linux/amd64,linux/arm64
-        cache-from: type=gha
-        cache-to: type=gha,mode=max 
-        args: MASTODON_VERSION_METADATA="${{ env.MASTODON_VERSION_METADATA }}"
+        cache-from: type=local,src=./cache
+        cache-to: type=gha,dest=./cache
+        build-args: MASTODON_VERSION_METADATA="${{ env.MASTODON_VERSION_METADATA }}"
+
+      
