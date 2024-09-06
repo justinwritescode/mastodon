@@ -1,4 +1,4 @@
-FROM ghcr.io/justinwritescode/mastodon:xplat AS base
+FROM ghcr.io/mastodon/mastodon:nightly AS base
 
 SHELL [ "bash", "-c" ]
 
