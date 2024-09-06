@@ -74,7 +74,7 @@ jobs:
         app-name: 'thebackroomlife'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_0f6e008cec6e4cf595ee12656ee0592d }}
-        images: ghcr.io/justinwritescode/mastodon/thebackroom.life:${{ github.sha }}
+        images: thebackroomlife.azurecr.io/thebackroom.life:${{ github.sha }}
 
   deploy-to-thebackroom-streaming:
     runs-on: ubuntu-latest
@@ -93,7 +93,7 @@ jobs:
         app-name: 'thebackroomlife-streaming'
         slot-name: 'production'
         publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_STREAMING }}
-        images: ghcr.io/justinwritescode/mastodon/streaming.thebackroom.life:${{ github.sha }}
+        images: thebackroomlife.azurecr.io/streaming.thebackroom.life:${{ github.sha }}
 
   deploy-to-thebackroom-sidekiq:
     runs-on: ubuntu-latest
@@ -112,4 +112,4 @@ jobs:
         app-name: 'thebackroomlife-sidekiq'
         slot-name: 'production'
         publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_SIDEKIQ }}
-        images: ghcr.io/justinwritescode/mastodon/sidekiq.thebackroom.life:${{ github.sha }}
+        images: thebackroomlife.azurecr.io/sidekiq.thebackroom.life:${{ github.sha }}
