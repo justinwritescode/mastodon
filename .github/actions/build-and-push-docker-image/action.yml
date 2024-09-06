@@ -74,20 +74,22 @@ runs:
         pull: true
         push: true
         tags: 
+          ghcr.io/justinwritescode/${{ inputs.tag }}
+          ghcr.io/justinwritescode/${{ inputs.tag }}:${{ github.sha }}
+          ghcr.io/justinwritescode/${{ inputs.tag }}:${{ steps.minver.outputs.version }}
+          ghcr.io/justinwritescode/${{ inputs.tag }}:latest
           ghcr.io/justinwritescode/mastodon:${{ inputs.tag }}
           ghcr.io/justinwritescode/mastodon/${{ inputs.tag }}:${{ github.sha }}
           ghcr.io/justinwritescode/mastodon/${{ inputs.tag }}:latest
-          ghcr.io/justinwritescode/${{ inputs.tag }}
-          ghcr.io/justinwritescode/${{ inputs.tag }}:latest
-          ghcr.io/justinwritescode/${{ inputs.tag }}:${{ github.sha }}
-          ghcr.io/justinwritescode/${{ inputs.tag }}:${{ steps.minver.outputs.version }}
           thebackroomlife.azurecr.io/${{ inputs.tag }}:latest
           thebackroomlife.azurecr.io/justinwritescode/${{ inputs.tag }}:${{ github.sha }}
           thebackroomlife.azurecr.io/justinwritescode/${{ inputs.tag }}:latest
           thebackroomlife.azurecr.io/justinwritescode/mastodon/${{ inputs.tag }}:${{ github.sha }}
+          thebackroomlife.azurecr.io/justinwritescode/mastodon/${{ inputs.tag }}:${{ steps.minver.outputs.version }}
           thebackroomlife.azurecr.io/justinwritescode/mastodon/${{ inputs.tag }}:latest
           thebackroomlife.azurecr.io/mastodon:${{ inputs.tag }}
           thebackroomlife.azurecr.io/mastodon/${{ inputs.tag }}:${{ github.sha }}
+          thebackroomlife.azurecr.io/mastodon/${{ inputs.tag }}:${{ steps.minver.outputs.version }}
           thebackroomlife.azurecr.io/mastodon/${{ inputs.tag }}:latest
         labels: ${{ steps.meta.outputs.labels }}
         file: ${{ inputs.dockerfile }}
