@@ -64,11 +64,6 @@ runs:
         # Optional. Specifies the log level.
         verbosity: trace
 
-    - uses: actions-ecosystem/action-push-tag@v1
-      with:
-        tag: ${{ steps.bump-semver.outputs.new_version }}
-        message: '${{ steps.bump-semver.outputs.new_version }}: PR #${{ github.event.pull_request.number }} ${{ github.event.pull_request.title }}'
-
     - uses: docker/metadata-action@v5
       id: meta
       with:
