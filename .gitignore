@@ -77,3 +77,6 @@ ruby-3.3.4.tar.gz
 bin/
 obj/
 letsencrypt/
+
+# Ignore local-only rspec configuration
+.rspec-local
