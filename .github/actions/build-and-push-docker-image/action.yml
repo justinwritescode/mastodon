@@ -48,6 +48,12 @@ runs:
         $env:MASTODON_VERSION_METADATA="${{ github.sha }}".Substring(0, 8)
         Write-Output "MASTODON_VERSION_METADATA=${env:MASTODON_VERSION_METADATA}" >> $GITHUB_ENV
 
+    - uses: actions/cache/restore@v4
+      id: cache
+      with:
+        path: ./cache
+        key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
+
     - uses: thefringeninja/action-minver@2.0.0-preview1
       id: minver
       with:
@@ -88,7 +94,11 @@ runs:
         file: ${{ inputs.dockerfile }}
         platforms: linux/amd64,linux/arm64
         cache-from: type=local,src=./cache
-        cache-to: type=gha,dest=./cache
+        cache-to: type=local,src=./cache
         build-args: MASTODON_VERSION_METADATA="${{ env.MASTODON_VERSION_METADATA }}"
 
-      
+    - uses: actions/cache/save@v4
+      id: cache
+      with:
+        path: ./cache
+        key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
