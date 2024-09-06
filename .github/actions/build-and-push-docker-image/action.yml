@@ -48,7 +48,7 @@ runs:
         $MASTODON_VERSION_METADATA="${{ github.sha }}".Substring(0, 8)
         Write-Output "MASTODON_VERSION_METADATA=${MASTODON_VERSION_METADATA}" >> $GITHUB_ENV
 
-    - uses: thefringeninja/action-minver
+    - uses: thefringeninja/action-minver@2.0.0-preview1
       id: minver
       with:
         # Optional. Specifies which part of the version to auto-increment.
