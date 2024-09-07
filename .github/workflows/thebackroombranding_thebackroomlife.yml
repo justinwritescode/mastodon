@@ -27,6 +27,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: ./.github/actions/build-and-push-docker-image
+      id: build-mastodon
       name: 'Build TheBackroom.life'
       with:
         github-password: ${{ github.token }} 
@@ -40,6 +41,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: ./.github/actions/build-and-push-docker-image
+      id: build-streaming
       name: 'Build Streaming.TheBackroom.life'
       with:
         github-password: ${{ github.token }} 
@@ -54,6 +56,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: ./.github/actions/build-and-push-docker-image
+        id: build-sidekiq
         name: 'Build Sidekiq.TheBackroom.life'
         with:
           github-password: ${{ github.token }} 
@@ -78,7 +81,7 @@ jobs:
         app-name: 'thebackroomlife'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_0f6e008cec6e4cf595ee12656ee0592d }}
-        images: thebackroomlife.azurecr.io/thebackroom.life:${{ github.sha }}
+        images: ${{ steps.build-mastodon.outputs.image }}
 
   deploy-to-thebackroom-streaming:
     runs-on: ubuntu-latest
@@ -97,7 +100,7 @@ jobs:
         app-name: 'thebackroomlife-streaming'
         slot-name: 'production'
         publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_STREAMING }}
-        images: thebackroomlife.azurecr.io/streaming.thebackroom.life:${{ github.sha }}
+        images: ${{ steps.build-streaming.outputs.image }}
 
   deploy-to-thebackroom-sidekiq:
     runs-on: ubuntu-latest
@@ -116,4 +119,4 @@ jobs:
         app-name: 'thebackroomlife-sidekiq'
         slot-name: 'production'
         publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_SIDEKIQ }}
-        images: thebackroomlife.azurecr.io/sidekiq.thebackroom.life:${{ github.sha }}
+        images: ${{ steps.build-sidekiq.outputs.image }}
