@@ -13,7 +13,7 @@ jobs:
     steps:
       - id: version_vars
         env:
-          TZ: Etc/UTC
+          TZ: EST5EDT
         run: |
           echo mastodon_version_prerelease=nightly.$(date --date='next day' +'%Y-%m-%d')-security>> $GITHUB_OUTPUT
     outputs:
