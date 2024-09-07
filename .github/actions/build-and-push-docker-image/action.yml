@@ -21,6 +21,10 @@ inputs:
     required: false
     default: ${{ github.token }}
     description: The GitHub token to use for authenticating with the repo
+outputs:
+  image:
+    description: The image to push to the Azure Web App
+    value: ghcr.io/justinwritescode/mastodon:${{ inputs.tag }}-${{ steps.minver.outputs.version }}
 
 runs:
   using: 'composite'
