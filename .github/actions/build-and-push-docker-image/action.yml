@@ -24,7 +24,7 @@ inputs:
 outputs:
   image:
     description: The image to push to the Azure Web App
-    value: ghcr.io/justinwritescode/mastodon:${{ inputs.tag }}-${{ steps.minver.outputs.version }}
+    value: ghcr.io/justinwritescode/mastodon:${{ inputs.tag }}
 
 runs:
   using: 'composite'
