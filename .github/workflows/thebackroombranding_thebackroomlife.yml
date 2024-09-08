@@ -26,6 +26,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+      with:
+        ref: ${{ github.ref }}
+        
     - uses: ./.github/actions/build-and-push-docker-image
       id: build-mastodon
       name: 'Build TheBackroom.life'
