@@ -23,7 +23,7 @@ module ErrorTranslatorHelper
 
   def to_error_code(*args)
     to_error_code(args[0].class.to_s) if args.length == 1 && args[0].is_a?(Exception)
-    ERROR_CODE_MAP[class_name] if args.length == 1 && args[0].is_a?(String)
+    ERROR_CODE_MAP[args[0].to_s] if args.length == 1 && args[0].is_a?(String)
     500 unless args.length == 1 && (args[0].is_a?(Exception) || args[0].is_a?(String))
   end
 end
