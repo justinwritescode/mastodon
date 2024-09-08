@@ -29,7 +29,7 @@ RUN mkdir /app && \
 
 WORKDIR /opt/mastodon
 
-EXPOSE 80 2222 3000 4000
+EXPOSE 8080 2222 3000 4000
 
 RUN \ 
     # find /etc -name init-php -exec rm -rf {} + && \
