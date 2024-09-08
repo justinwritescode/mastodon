@@ -22,10 +22,10 @@ class Js::AnalyticsIdentifyUserController < ApplicationController
     return 'console.log("No currently logged-in user");' if user_info.empty?
 
     <<~JS
-      <!-- Identify User -->
+      /* Identify User */
       window.currentlyLoggedInUserId = "#{user_id}";
       window.currentlyLoggedInUserSessionId = "#{session_id}";
-      <!-- End Identify User -->
+      /* End Identify User */
     JS
   end
 
@@ -46,10 +46,10 @@ class Js::AnalyticsIdentifyUserController < ApplicationController
     return 'console.log("No currently logged-in user");' if user_info.empty?
 
     <<~JS
-      <!-- Matomo identify user -->
+      /* Matomo identify user */
       let _paq1 = window._paq = window._paq || [];
       _paq1.push('setUserId', window.currentlyLoggedInUserId)
-      <!-- End Matomo identify user -->
+      /* End Matomo identify user */
     JS
   end
 
@@ -84,14 +84,14 @@ class Js::AnalyticsIdentifyUserController < ApplicationController
     return 'console.log("There\s nobody signed in right now.");' if user_info.empty?
 
     <<~JS
-      <!-- Microsoft Clarity identify user -->
+      /* Microsoft Clarity identify user */
       if(window.clarity) {
         window.clarity("identify", window.currentlyLoggedInUserId, window.currentlyLoggedInUserSessionId);
       }
       else {
         console.error("Microsoft Clarity is 'enabled' but the 'window.clarity' object was not found.");
       }
-      <!-- End Microsoft Clarity identify user -->
+      /* End Microsoft Clarity identify user */
     JS
   end
 
@@ -101,7 +101,7 @@ class Js::AnalyticsIdentifyUserController < ApplicationController
     return 'console.log("There\s nobody signed in right now.");' if user_info.empty?
 
     <<~JS
-      <!-- Google Analytics identify user -->
+      /* Google Analytics identify user */
       if(dataLayer) {
         dataLayer.push({
           'user_id': window.currentlyLoggedInUserId
@@ -110,7 +110,7 @@ class Js::AnalyticsIdentifyUserController < ApplicationController
       else {
         console.error('Google Analytics Identify user is enabled but the gtag was not found on the page.');
       }
-      <!-- End Google Analytics identify user -->
+      /* End Google Analytics identify user */
     JS
   end
 end

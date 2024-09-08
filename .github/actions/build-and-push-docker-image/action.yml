@@ -52,12 +52,6 @@ runs:
         $env:MASTODON_VERSION_METADATA="${{ github.sha }}".Substring(0, 8)
         Write-Output "MASTODON_VERSION_METADATA=${env:MASTODON_VERSION_METADATA}" >> $GITHUB_ENV
 
-    - name: Docker meta
-      id: meta
-      uses: docker/metadata-action@v5
-      with:
-        images: ${{ inputs.tag }}
-
     - uses: thefringeninja/action-minver@2.0.0-preview1
       id: minver
       with:
@@ -74,31 +68,35 @@ runs:
         # Optional. Specifies the log level.
         verbosity: trace
 
+    - name: Docker meta
+      id: meta
+      uses: docker/metadata-action@v5
+      with:
+        images: ${{ inputs.tag }}
+        tags: |
+          type=raw,value=ghcr.io/justinwritescode/mastodon:${{ inputs.tag }}-${{ github.sha }}
+          type=raw,value=ghcr.io/justinwritescode/mastodon:${{ inputs.tag }}-latest
+          type=raw,value=ghcr.io/justinwritescode/mastodon:${{ inputs.tag }}-${{ steps.minver.outputs.version }}
+          type=raw,value=thebackroomlife.azurecr.io/${{ inputs.tag }}:${{ github.sha }}
+          type=raw,value=thebackroomlife.azurecr.io/${{ inputs.tag }}:latest
+          type=raw,value=thebackroomlife.azurecr.io/justinwritescode/${{ inputs.tag }}:${{ github.sha }}
+          type=raw,value=thebackroomlife.azurecr.io/justinwritescode/${{ inputs.tag }}:latest
+          type=raw,value=thebackroomlife.azurecr.io/justinwritescode/mastodon/${{ inputs.tag }}:${{ github.sha }}
+          type=raw,value=thebackroomlife.azurecr.io/justinwritescode/mastodon/${{ inputs.tag }}:latest
+          type=raw,value=thebackroomlife.azurecr.io/justinwritescode/mastodon/${{ inputs.tag }}:${{ steps.minver.outputs.version }}
+          type=raw,value=thebackroomlife.azurecr.io/mastodon:${{ inputs.tag }}
+          type=raw,value=thebackroomlife.azurecr.io/mastodon/${{ inputs.tag }}:${{ github.sha }}
+          type=raw,value=thebackroomlife.azurecr.io/mastodon/${{ inputs.tag }}:latest
+          type=raw,value=thebackroomlife.azurecr.io/mastodon/${{ inputs.tag }}:${{ steps.minver.outputs.version }}
+
     - name: Build & push the Docker image
       uses: docker/build-push-action@v6.7.0
       with:
         context: .
         pull: true
         push: true
-        tags: |
-          ghcr.io/justinwritescode/mastodon:${{ inputs.tag }}-${{ github.sha }}
-          ghcr.io/justinwritescode/mastodon:${{ inputs.tag }}-latest
-          ghcr.io/justinwritescode/mastodon:${{ inputs.tag }}-${{ steps.minver.outputs.version }}
-          thebackroomlife.azurecr.io/${{ inputs.tag }}:${{ github.sha }}
-          thebackroomlife.azurecr.io/${{ inputs.tag }}:latest
-          thebackroomlife.azurecr.io/justinwritescode/${{ inputs.tag }}:${{ github.sha }}
-          thebackroomlife.azurecr.io/justinwritescode/${{ inputs.tag }}:latest
-          thebackroomlife.azurecr.io/justinwritescode/mastodon/${{ inputs.tag }}:${{ github.sha }}
-          thebackroomlife.azurecr.io/justinwritescode/mastodon/${{ inputs.tag }}:latest
-          thebackroomlife.azurecr.io/justinwritescode/mastodon/${{ inputs.tag }}:${{ steps.minver.outputs.version }}
-          thebackroomlife.azurecr.io/mastodon:${{ inputs.tag }}
-          thebackroomlife.azurecr.io/mastodon/${{ inputs.tag }}:${{ github.sha }}
-          thebackroomlife.azurecr.io/mastodon/${{ inputs.tag }}:latest
-          thebackroomlife.azurecr.io/mastodon/${{ inputs.tag }}:${{ steps.minver.outputs.version }}
-        labels: |
-          org.opencontainers.image.licenses=AGPL-3.0,MIT
-          org.opencontainers.image.revision=${{ github.sha }}
-          org.opencontainers.image.source=${{ github.server_url }}/${{ github.action_repository }}
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
         file: ${{ inputs.dockerfile }}
         platforms: linux/amd64,linux/arm64
         cache-from: type=gha
