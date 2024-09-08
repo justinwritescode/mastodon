@@ -4,8 +4,6 @@ class InstancePresenter < ActiveModelSerializers::Model
   attributes :domain, :title, :version, :source_url,
              :description, :languages, :rules, :contact
 
-  include MascotHelper
-
   class ContactPresenter < ActiveModelSerializers::Model
     attributes :email, :account
 
@@ -82,7 +80,8 @@ class InstancePresenter < ActiveModelSerializers::Model
 
   def mascot
     # @mascot ||= Rails.cache.fetch('site_uploads/mascot') { SiteUpload.find_by(var: 'mascot') }
-    @mascot ||= { file: { url: my_mascot_image_url } }
+    # @mascot ||= my_mascot_image_url
+    '/mascot.png'
   end
 
   def favicon

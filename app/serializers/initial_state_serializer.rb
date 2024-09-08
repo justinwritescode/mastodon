@@ -94,7 +94,7 @@ class InitialStateSerializer < ActiveModel::Serializer
       domain: Addressable::IDNA.to_unicode(instance_presenter.domain),
       limited_federation_mode: Rails.configuration.x.limited_federation_mode,
       locale: I18n.locale,
-      mascot: instance_presenter.mascot&.file&.url,
+      mascot: instance_presenter.mascot, # &.file&.url,
       profile_directory: Setting.profile_directory,
       registrations_open: Setting.registrations_mode != 'none' && !Rails.configuration.x.single_user_mode,
       repository: Mastodon::Version.repository,
