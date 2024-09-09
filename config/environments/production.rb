@@ -47,10 +47,14 @@ Rails.application.configure do
   config.action_dispatch.trusted_proxies = ENV['TRUSTED_PROXY_IP'].split(/(?:\s*,\s*|\s+)/).map { |item| IPAddr.new(item) } if ENV['TRUSTED_PROXY_IP'].present?
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
+  # Ensuring we actually set that non-SSL requests are allowed and no redirect should occur
   config.force_ssl = false
+  config.hosts << '127.0.0.1:3000'
+
+  # If SSL configuration is defined, it should ensure no redirects occur
   config.ssl_options = {
     redirect: {
-      exclude: ->(_request) { true },
+      exclude: ->(request) { true },
     },
   }
 

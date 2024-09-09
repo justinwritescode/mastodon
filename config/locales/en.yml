@@ -1189,7 +1189,7 @@ en:
       x_months: "%{count}mo"
       x_seconds: "%{count}s"
   deletes:
-    challenge_not_passed: The information you entered was not correct
+    challenge_not_passed: The shit you entered was wrong
     confirm_password: Enter your current password to verify your identity
     confirm_username: Enter your username to confirm the procedure
     proceed: Delete account
