@@ -15,6 +15,7 @@ class ApplicationController < ActionController::Base
   include AuthorizedFetchHelper
   include SelfDestructHelper
   include ErrorTranslatorHelper
+  include ErrorsAssetHelper
 
   helper_method :current_account
   helper_method :current_session
