@@ -40,10 +40,8 @@ RUN \
     ln -s /opt/mastodon/bin/bundle /usr/bin/bundle
 
 COPY ./root /
-COPY app ./
-COPY config ./
-COPY public ./
-COPY lib ./
+COPY app lib config public ./
+COPY config /config
 
 ENTRYPOINT [ "bash", "bin/entrypoint", "mastodon" ]
 
