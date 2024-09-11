@@ -54,7 +54,7 @@ server {
     # If Docker is used for deployment and Rails serves static files,
     # then needed must replace line `try_files $uri =404;` with `try_files $uri @proxy;`.
     location = oops.gif {
-        return 307 https://$cdn_host}$request_uri;
+        return 307 https://$cdn_host$request_uri;
     }
 
     location ~ ^/assets/ {
