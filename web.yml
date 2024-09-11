@@ -16,14 +16,14 @@ services:
       - '80:8080'
       - '8443:443'
     volumes:
-      # - ./app:/opt/mastodon/app
+      - ./app:/opt/mastodon/app
       # - ./app:/app/www/app
       # - ./app:/mastodon/app
       - ./config:/config
       - ./config:/opt/mastodon/config
       # - ./config:/app/www/config
       # - ./config:/mastodon/config
-      # - ./public:/opt/mastodon/public
+      - ./public:/opt/mastodon/public
       # - ./public:/app/www/public
       # - ./public:/mastodon/public
       # - ./public/system:/opt/mastodon/public/system
