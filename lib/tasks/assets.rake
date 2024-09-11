@@ -9,9 +9,11 @@ namespace :assets do
   desc 'Generate static pages'
   task generate_static_pages: :environment do
     render_static_page 'errors/400', layout: 'error', dest: Rails.public_path.join('assets', '400.html')
+    render_static_page 'errors/401', layout: 'error', dest: Rails.public_path.join('assets', '401.html')
     render_static_page 'errors/403', layout: 'error', dest: Rails.public_path.join('assets', '403.html')
     render_static_page 'errors/404', layout: 'error', dest: Rails.public_path.join('assets', '404.html')
     render_static_page 'errors/406', layout: 'error', dest: Rails.public_path.join('assets', '406.html')
+    render_static_page 'errors/409', layout: 'error', dest: Rails.public_path.join('assets', '409.html')
     render_static_page 'errors/410', layout: 'error', dest: Rails.public_path.join('assets', '410.html')
     render_static_page 'errors/418', layout: 'error', dest: Rails.public_path.join('assets', '418.html')
     render_static_page 'errors/422', layout: 'error', dest: Rails.public_path.join('assets', '422.html')
