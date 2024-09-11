@@ -78,7 +78,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Deploy to Azure Web App
-      id: deploy-to-webapp
+      id: deploy-to-thebackroom-life
       uses: azure/webapps-deploy@v3.0.1
       with:
         app-name: 'thebackroomlife'
@@ -97,7 +97,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Deploy to Azure Web App
-      id: deploy-to-webapp
+      id: deploy-to-thebackroom-streaming
       uses: azure/webapps-deploy@v3.0.1
       with:
         app-name: 'thebackroomlife-streaming'
@@ -116,7 +116,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Deploy to Azure Web App
-      id: deploy-to-webapp
+      id: deploy-to-thebackroom-sidekiq
       uses: azure/webapps-deploy@v3.0.1
       with:
         app-name: 'thebackroomlife-sidekiq'
