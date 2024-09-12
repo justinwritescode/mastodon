@@ -83,7 +83,7 @@ jobs:
       with:
         app-name: 'thebackroomlife'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_0f6e008cec6e4cf595ee12656ee0592d }}
+        publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_THEBACKROOMLIFE }}
         images: ${{ steps.build-mastodon.outputs.image }}
 
   deploy-to-thebackroom-streaming:
