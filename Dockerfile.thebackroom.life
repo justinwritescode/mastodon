@@ -4,7 +4,8 @@ SHELL [ "bash", "-c" ]
 
 ENV TZ=EST5EDT \
     WEBSITE_TIME_ZONE=EST5EDT \
-    PATH=/opt/mastodon/bin:${PATH}
+    PATH=/opt/mastodon/bin:${PATH} \
+    RAILS_ENV=production
 
 USER root
 

@@ -49,8 +49,9 @@ runs:
     - name: Calculate "MASTODON_VERSION_METADATA"
       shell: pwsh
       run: |
-        $env:MASTODON_VERSION_METADATA="${{ github.sha }}".Substring(0, 8)
-        Write-Output "MASTODON_VERSION_METADATA=${env:MASTODON_VERSION_METADATA}" >> $GITHUB_ENV
+        $GITHUB_SHA="${{ github.sha }}"
+        $GITHUB_SHA_TRUNCATED=$GITHUB_SHA.Substring(0, 8)
+        Write-Output "MASTODON_VERSION_METADATA="$GITHUB_SHA_TRUNCATED" >> $GITHUB_ENV
 
     - uses: thefringeninja/action-minver@2.0.0-preview1
       id: minver
@@ -73,6 +74,9 @@ runs:
       uses: docker/metadata-action@v5
       with:
         images: ${{ inputs.tag }}
+        labels: |
+          org.opencontainers.image.version=${{ steps.minver.outputs.version }}
+          org.opencontainers.image.licenses=MIT,agpl-3.0
 
     - name: Build & push the Docker image
       uses: docker/build-push-action@v6.7.0
