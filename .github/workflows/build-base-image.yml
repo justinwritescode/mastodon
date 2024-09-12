@@ -21,7 +21,7 @@ jobs:
     
     - uses: ./.github/actions/build-and-push-docker-image
       id: build-mastodon
-      name: 'Build TheBackroom.life'
+      name: 'Build Cross-Platform Base Image'
       with:
         github-password: ${{ github.token }} 
         acr-password: ${{ secrets.AZURECR_KEY }}
