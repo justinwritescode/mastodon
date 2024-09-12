@@ -163,6 +163,9 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = ENV.fetch('SMTP_DELIVERY_METHOD', 'smtp').to_sym
 
+  config.action_mailer.logger = config.logger
+  config.action_mailer.logger.level = Logger::DEBUG
+
   config.logger.debug { "SMTP Settings: #{config.action_mailer.smtp_settings.inspect}" }
 
   config.action_dispatch.default_headers = {
