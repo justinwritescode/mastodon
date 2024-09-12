@@ -238,7 +238,11 @@ Rails.application.routes.draw do
   # get '/css/error/:error_code.css', to: 'css/error_css#serve'
 
   get '/.well-known/did.json', to: 'well_known/did#did'
+  get '/.well-known/did-configuration.json', to: 'well_known/did#configuration'
   get '/mascot.png', to: 'mascot#serve'
+
+  # Route to display environment variables
+  get '/js/environment.js', to: 'js/environment#js'
 
   get '/400', to: 'application#bad_request'
   get '/403', to: 'application#forbidden'

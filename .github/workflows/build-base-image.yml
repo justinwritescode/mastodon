@@ -19,32 +19,11 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     
-    - uses: ./.github/actions/setup-docker
+    - uses: ./.github/actions/build-and-push-docker-image
+      id: build-mastodon
+      name: 'Build Cross-Platform Base Image'
       with:
-        password: ${{ secrets.PACKAGES_PAT }}
-
-    - uses: docker/login-action@v3
-      with: 
-        username: thebackroomlife
-        password: ${{ secrets.AZURECR_KEY }}
-        registry: thebackroomlife.azurecr.io
-
-    - name: Build & push the Docker image
-      uses: docker/build-push-action@v6.7.0
-      with:
-        tags: |
-          ghcr.io/justinwritescode/mastodon:xplat
-          ghcr.io/justinwritescode/mastodon/xplat:${{ github.sha }}
-          ghcr.io/justinwritescode/mastodon/xplat:latest
-          thebackroomlife.azurecr.io/justinwritescode/mastodon:xplat
-          thebackroomlife.azurecr.io/justinwritescode/mastodon/xplat:${{ github.sha }}
-          thebackroomlife.azurecr.io/justinwritescode/mastodon/xplat:latest
-          thebackroomlife.azurecr.io/mastodon:xplat
-          thebackroomlife.azurecr.io/mastodon/xplat:${{ github.sha }}
-          thebackroomlife.azurecr.io/mastodon/xplat:latest
-        pull: true
-        push: true
-        file: Dockerfile
-        platforms: linux/amd64,linux/arm64
-        cache-from: type=gha
-        cache-to: type=gha,mode=max
+        github-password: ${{ github.token }} 
+        acr-password: ${{ secrets.AZURECR_KEY }}
+        dockerfile: ./Dockerfile
+        tag: xplat

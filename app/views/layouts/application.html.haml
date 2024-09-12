@@ -4,12 +4,13 @@
     %meta{ charset: 'utf-8' }/
     %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1' }/
 
+    = environment_script_tag
+    = identify_user_javascript_tag
+    = google_tag_manager_script_tag
+
     - if cdn_host?
       %link{ rel: 'dns-prefetch', href: cdn_host }/
       %meta{ name: 'cdn-host', content: cdn_host }/
-
-    = identify_user_javascript
-    = google_tag_manager_script_tag
 
     - if storage_host?
       %link{ rel: 'dns-prefetch', href: storage_host }/

@@ -2,8 +2,11 @@
 # shellcheck shell=bash
 
 export RAILS_ENV=production
-export PATH="/mastodon/bin:${PATH}"
+export PATH="/opt/mastodon/bin:${PATH}"
 
-cd /mastodon && \
-    echo "**** Starting streaming ****"
-    node ./streaming/index.js
+cd /opt/mastodon && \
+bash bin/display-branding && \
+bash bin/start-sshd && \
+bash bin/start-nginx && \
+echo "**** Starting streaming ****" && \
+node ./streaming/index.js;

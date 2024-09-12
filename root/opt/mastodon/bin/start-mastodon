@@ -2,12 +2,12 @@
 # shellcheck shell=bash
 
 export RAILS_ENV=production
-export PATH="/mastodon/bin:${PATH}"
+export PATH="/opt/mastodon/bin:${PATH}"
 
-PATH="/mastodon/bin:${PATH}"
+PATH="/opt/mastodon/bin:${PATH}"
 
 bash display-branding;
 bash start-sshd;
 bash start-nginx; 
 echo "**** Starting Mastodon ****";
-/mastodon/bin/bundle exec rails server -p 3000;
+/opt/mastodon/bin/bundle exec rails server -p 3000;

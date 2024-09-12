@@ -4,7 +4,7 @@ SHELL [ "bash", "-c" ]
 
 ENV TZ=EST5EDT \
     WEBSITE_TIME_ZONE=EST5EDT \
-    PATH=/opt/mastodon/bin:${PATH} \
+    PATH="${PATH}:/opt/ruby/bin:/opt/mastodon/bin" \
     RAILS_ENV=production
 
 USER root
@@ -20,29 +20,48 @@ RUN mkdir /app && \
         nodejs && \
     echo "root:Docker!" | chpasswd 
 
-# COPY --from=linuxserver/mastodon:latest /etc /etc
-# COPY --from=linuxserver/mastodon:latest /usr/bin/with-contenv /usr/bin/
-# COPY --from=linuxserver/mastodon:latest /usr/bin/crontab /usr/bin/
-# COPY --from=linuxserver/mastodon:latest /usr/bin/lsiown /usr/bin/
-# COPY --from=linuxserver/mastodon:latest /usr/bin/bundle /usr/bin/
-# COPY --from=linuxserver/mastodon:latest /usr/sbin/php-fpm82 /usr/sbin/
-# COPY --from=linuxserver/mastodon:latest /etc /etc
+
+RUN apt-get install -y \
+    build-essential \ 
+    libssl-dev \
+    git \
+    libicu-dev \
+    libidn11-dev \
+    libpq-dev
 
 WORKDIR /opt/mastodon
 
 EXPOSE 8080 2222 3000 4000
 
 RUN \ 
-    # find /etc -name init-php -exec rm -rf {} + && \
-    # find /etc -name php-fpm82 -exec rm -rf {} + && \
-    # find / -name php-fpm* -exec rm -rf {} + && \
-    # find / -name init-crontab-config -exec rm -rf {} + && \
     rm -rf /usr/bin/bundle && \
-    ln -s /opt/mastodon/bin/bundle /usr/bin/bundle
+    ln -s /opt/mastodon/bin/bundle /usr/bin/bundle;
 
 COPY ./root /
-COPY app lib config public ./
+COPY . /opt/mastodon/
 COPY config /config
+
+RUN \ 
+    mkdir -p vendor/bundle && \
+    bundle clean --force && \
+    # Configure bundle to prevent changes to Gemfile and Gemfile.lock
+    bundle config set --global frozen "true"; \
+    # Configure bundle to not cache downloaded Gems
+    bundle config set --global cache_all "false"; \
+    # Configure bundle to only process production Gems
+    bundle config set --local without "development test"; \
+    # Configure bundle to not warn about root user
+    bundle config set silence_root_warning "true"; \
+    bundle config set --global path $(readlink -f "vendor/bundle"); \
+    # Download and install required Gems
+    bundle install -j"$(nproc)"
+    # Use Ruby on Rails to create Mastodon assets
+
+RUN \ 
+    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
+    SECRET_KEY_BASE_DUMMY=1 \
+    bundle exec rake assets:precompile; 
 
 ENTRYPOINT [ "bash", "bin/entrypoint", "mastodon" ]
 

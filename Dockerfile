@@ -37,7 +37,7 @@ ARG RAILS_SERVE_STATIC_FILES="true"
 # See: https://github.com/ruby/ruby/blob/v3_2_4/doc/yjit/yjit.md
 ARG RUBY_YJIT_ENABLE="1"
 # Timezone used by the Docker container and runtime, change with [--build-arg TZ=Europe/Berlin]
-ARG TZ="EST5EDT"
+ARG TZ="Etc/UTC"
 # Linux UID (user id) for the mastodon user, change with [--build-arg UID=1234]
 ARG UID="991"
 # Linux GID (group id) for the mastodon user, change with [--build-arg GID=1234]
@@ -291,7 +291,7 @@ RUN \
 --mount=type=cache,id=corepack-cache-${TARGETPLATFORM},target=/usr/local/share/.cache/corepack,sharing=locked \
 --mount=type=cache,id=yarn-cache-${TARGETPLATFORM},target=/usr/local/share/.cache/yarn,sharing=locked \
 # Install Node packages
-  yarn workspaces focus --production @mastodon/mastodon;
+  yarn workspaces focus --production @justinwritescode/mastodon;
 
 # Create temporary assets build layer from build layer
 FROM build AS precompiler
@@ -404,11 +404,3 @@ RUN \
 
 # Set the running user for resulting container
 USER mastodon
-# Expose default Puma ports
-EXPOSE 3000
-# Set container tini as default entry point
-# ENTRYPOINT ["/usr/bin/tini", "--"]
-
-LABEL org.opencontainers.image.description="This is the base image for TheBackroom & Justin Chase's Mastodon instances."
-LABEL org.opencontainers.image.source="https://github.com/justinwritescode/mastodon"
-LABEL org.opencontainers.image.licenses="MIT"
