@@ -10,20 +10,17 @@ class Js::AnalyticsIdentifyUserController < ApplicationController
   def script_content
     <<~JS
       #{identify_user_javascript}
-      #{google_analytics_identify_user_javascript}
-      #{microsoft_clarity_identify_user_javascript}
-      #{matomo_identify_user_javascript}
     JS
   end
 
   private
 
   def identify_user_javascript
-    return 'console.log("No currently logged-in user");' if user_info.empty?
-
     <<~JS
       /* Identify User */
+      #{'console.log("No user is currently logged in")' if user_info.empty?}
       window.currentlyLoggedInUserId = "#{user_id}";
+      window.currentlyLoggedInUserName = "#{user_name}";
       window.currentlyLoggedInUserSessionId = "#{session_id}";
       /* End Identify User */
     JS
@@ -57,6 +54,12 @@ class Js::AnalyticsIdentifyUserController < ApplicationController
     return nil if user_info.empty?
 
     user_info[:id]
+  end
+
+  def user_name
+    return nil if user_info.empty?
+
+    user_info[:name]
   end
 
   def user_info

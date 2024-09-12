@@ -2,7 +2,9 @@
 # shellcheck shell=bash
 
 export RAILS_ENV=production
-export PATH="/mastodon/bin:${PATH}"
+export PATH="/opt/mastodon/bin:${PATH}"
+
+bash nginx-branding;
 
 if pgrep -f "[n]ginx:" >/dev/null; then
     echo "Zombie nginx processes detected, sending SIGTERM"

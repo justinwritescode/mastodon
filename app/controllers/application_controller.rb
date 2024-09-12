@@ -173,10 +173,11 @@ class ApplicationController < ActionController::Base
     @body_classes || ''
   end
 
-  def respond_with_error(code)
+  def respond_with_error(code, exception = nil)
     respond_to do |format|
-      format.any  { render "errors/#{code}", layout: 'error', status: code, formats: [:html] }
-      format.json { render json: { error: Rack::Utils::HTTP_STATUS_CODES[code] }, status: code }
+      format.any  { render 'errors/500', layout: 'error', status: '500', formats: [:html], exception: exception } if code.blank? || code.nil?
+      format.any  { render "errors/#{code}", layout: 'error', status: code, formats: [:html], exception: exception } if code.present?
+      format.json { render json: { error: Rack::Utils::HTTP_STATUS_CODES[code], exception: exception }, status: code }
     end
   end
 
@@ -198,9 +199,9 @@ class ApplicationController < ActionController::Base
   # This method will handle the exceptions
   def handle_exception(exception)
     # Log the error message
-    logger.error "An error occurred: #{exception.message}"
+    logger.error "An error occurred; type: #{exception.class.name}, message: #{exception.message}"
     logger.error exception.backtrace.join("\n")
-    respond_with_error(to_error_code(exception))
+    respond_with_error(to_error_code(exception), exception: exception)
 
     # You can render an error page or message if you choose
     # render plain: "An error occurred", status: 500

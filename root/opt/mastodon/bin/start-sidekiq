@@ -2,7 +2,7 @@
 # shellcheck shell=bash
 
 export RAILS_ENV=production
-export PATH="/mastodon/bin:${PATH}"
+export PATH="/opt/mastodon/bin:${PATH}"
 
 if [[ -n ${SIDEKIQ_THREADS} ]]; then
     SIDEKIQ_THREADS=$(printf '%d' "${SIDEKIQ_THREADS}")
@@ -11,6 +11,8 @@ else
 fi
 
 cd /mastodon || exit 1
+
+bash sidekiq-branding;
 
 if [[ ${SIDEKIQ_ONLY,,} == "true" ]] && [[ -n ${SIDEKIQ_QUEUE} ]]; then
     echo "*** Starting sidekiq handling ${SIDEKIQ_QUEUE} queue with ${SIDEKIQ_THREADS} threads ***"

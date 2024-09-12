@@ -22,6 +22,7 @@ namespace :assets do
     render_static_page 'errors/502', layout: 'error', dest: Rails.public_path.join('assets', '502.html')
     render_static_page 'errors/503', layout: 'error', dest: Rails.public_path.join('assets', '503.html')
     Rails.public_path.join('packs/google_tag_manager.js').write(Js::GoogleTagManagerController.new.script_content)
+    # Rails.public_path.join('packs/identify_user.js').write(Js::AnalyticsIdentifyUserController.new.script_content)
   end
 end
 

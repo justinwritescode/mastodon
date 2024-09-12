@@ -3,7 +3,7 @@ FROM ghcr.io/justinwritescode/mastodon:thebackroom.life AS base
 
 SHELL [ "bash", "-c" ]
 
-EXPOSE 8081 2222 3000 4000
+EXPOSE 8080 2222 3000 4000
 
 WORKDIR /opt/mastodon/bin
 

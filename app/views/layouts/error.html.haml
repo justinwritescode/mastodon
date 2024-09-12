@@ -8,7 +8,8 @@
     = theme_style_tags Setting.default_settings['theme']
     = javascript_pack_tag 'common', crossorigin: 'anonymous'
     = javascript_pack_tag 'error', crossorigin: 'anonymous'
-    = identify_user_javascript
+    = environment_script_tag
+    = identify_user_javascript_tag
     = google_tag_manager_script_tag 
   %body.error
     = google_tag_manager_noscript_tag
@@ -19,3 +20,4 @@
           %img{ alt: safe_join([yield(:page_title), Setting.default_settings['site_title']], ' - '), class: 'error-img-dynamic', src: yield(:dynamic_image) }
       .dialog__message
         %h1= yield :content
+        = yield :exception_message
