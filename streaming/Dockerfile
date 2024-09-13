@@ -78,6 +78,7 @@ RUN \
     curl \
     tzdata \
     wget \
+    procps \
   ;
 
 # Set /opt/mastodon as working directory
