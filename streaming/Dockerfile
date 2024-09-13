@@ -92,8 +92,8 @@ COPY ./streaming /opt/mastodon/streaming
 COPY ./root /
 COPY ./config /config
 
-RUN mkdir /app && \
-    mkdir /run/sshd && \
+RUN mkdir -p /app && \
+    mkdir -p /run/sshd && \
     ln -s /opt/mastodon /app/www && \
     apt-get update  && \
     apt-get install -y --no-install-recommends dialog && \
