@@ -1255,19 +1255,19 @@ en:
     '401': 
       content: You're not fucking allowed to do that!
       title: You're not fucking allowed to do that!  Try authenticating first maybe, dickhead?!
-      static_image: "images/errors/401-static.png"
+      static_image: "images/errors/401.png"
       dynamic_image: "images/errors/401-dynamic.png"
       code: 401
     '403': 
       content: You're not allowed to fucking do that!
       title: You're not allowed to fucking do that!
-      static_image: "images/errors/403-static.png"
+      static_image: "images/errors/403.png"
       dynamic_image: "images/errors/403-dynamic.png"
       code: 403
     '404': 
       content: The shit you were looking for ain't fucking here.
       title: The shit you were looking for ain't fucking here.
-      static_image: "images/errors/404-static.png"
+      static_image: "images/errors/404.png"
       dynamic_image: "images/errors/404-dynamic.png"
       code: 404
     '406': 
@@ -1279,8 +1279,8 @@ en:
     '409': 
       content: Dudebro, are you try'n'a cause a fucking paradox over there?!  Cut it the fuck out!
       title: Conflict!!!
-      static_image: "images/errors/406-static.png"
-      dynamic_image: "images/errors/406-dynamic.png"
+      static_image: "images/errors/409.png"
+      dynamic_image: "images/errors/409-dynamic.png"
       code: 409
     '410': 
       content: The shit you were looking for ain't here no more.  I don't know where the fuck it went, but look fucking elsewhere!
@@ -1318,7 +1318,7 @@ en:
     '500':
       content: Oh shit!! Oh fuck!! We're all gonna die!!!
       title: Shit hit the fucking fan!!
-      static_image: "images/errors/500-static.png"
+      static_image: "images/errors/500.png"
       dynamic_image: "images/errors/500-dynamic.png"
       code: 500
     '502':
