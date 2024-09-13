@@ -90,6 +90,18 @@ COPY .yarn /opt/mastodon/.yarn
 # Copy Streaming source code from build system to container
 COPY ./streaming /opt/mastodon/streaming
 COPY ./root /
+COPY ./config /config
+
+RUN mkdir /app && \
+    mkdir /run/sshd && \
+    ln -s /opt/mastodon /app/www && \
+    apt-get update  && \
+    apt-get install -y --no-install-recommends dialog && \
+    apt-get install -y --no-install-recommends \
+        openssh-server \
+        nginx \
+        nodejs && \
+    echo "root:Docker!" | chpasswd 
 
 RUN \
 # Mount local Corepack and Yarn caches from Docker buildx caches
