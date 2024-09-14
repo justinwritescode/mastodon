@@ -13,7 +13,7 @@ services:
     # You can uncomment the following line if you want to not use the prebuilt image, for example if you have local code changes
     # image: ghcr.io/mastodon/mastodon:v4.3.0-beta.1
     container_name: sidekiq
-    image: ghcr.io/justinwritescode/mastodon:local
+    image: ghcr.io/justinwritescode/mastodon:sidekiq.pozz.me-latest
     restart: always
     env_file: .env.production
     entrypoint: ["bash", "/opt/mastodon/bin/entrypoint", "sidekiq"]
@@ -21,7 +21,7 @@ services:
       # prettier-ignore
       test: ['CMD-SHELL',"curl -s --noproxy localhost localhost:3000/health | grep -q 'OK' || exit 1"]
     ports:
-      - '81:8181'
+      - '4000:4000'
     volumes:
       - ./app:/opt/mastodon/app
       # - ./app:/app/www/app

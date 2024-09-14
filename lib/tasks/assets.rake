@@ -6,6 +6,8 @@ def render_static_page(action, dest:, **opts)
 end
 
 namespace :assets do
+  include ActionView::Helpers::AssetTagHelper
+  include Webpacker::Helper
   desc 'Generate static pages'
   task generate_static_pages: :environment do
     render_static_page 'errors/400', layout: 'error', dest: Rails.public_path.join('assets', '400.html')
