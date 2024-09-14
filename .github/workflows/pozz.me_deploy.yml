@@ -30,7 +30,7 @@ env:
   MASTODON_VERSION_METADATA: ${{ github.sha }}
 
 jobs:
-  build-thebackroom-life:
+  build-pozz-me:
     runs-on: 'ubuntu-latest'
 
     steps:
