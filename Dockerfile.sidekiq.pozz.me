@@ -1,0 +1,16 @@
+ARG TAG=latest
+
+FROM ghcr.io/justinwritescode/mastodon:pozz.me-${TAG} AS base
+
+
+SHELL [ "bash", "-c" ]
+
+EXPOSE 8081 2222
+
+WORKDIR /opt/mastodon/bin
+
+ENTRYPOINT [ "bash", "/opt/mastodon/bin/entrypoint", "sidekiq" ]
+
+LABEL org.opencontainers.image.description="Sidekiq for POZZ.me"
+LABEL org.opencontainers.image.source="https://github.com/justinwritescode/mastodon"
+LABEL org.opencontainers.image.licenses="MIT"
