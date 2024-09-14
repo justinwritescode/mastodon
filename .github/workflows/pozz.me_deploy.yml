@@ -10,7 +10,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy container app to Azure Web App - thebackroomlife
+name: Build and deploy container app to pozz.me
 
 on:
   push:
@@ -44,7 +44,7 @@ jobs:
       with:
         github-password: ${{ github.token }} 
         acr-password: ${{ secrets.AZURECR_KEY }}
-        dockerfile: ./Dockerfile.thebackroom.life
+        dockerfile: ./Dockerfile.pozz.me
         tag: pozz.me
 
   build-pozz-me-streaming:
@@ -58,7 +58,7 @@ jobs:
       with:
         github-password: ${{ github.token }} 
         acr-password: ${{ secrets.AZURECR_KEY }}
-        dockerfile: ./streaming/Dockerfile
+        dockerfile: ./Dockerfile.streaming.pozz.me
         tag: streaming.pozz.me
 
   build-pozz-me-sidekiq:
