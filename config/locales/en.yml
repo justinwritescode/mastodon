@@ -1272,7 +1272,7 @@ en:
     '406': 
       content: Hey, numbnuts, I can't fucking do that!
       title: I can't fucking do that!
-      static_image: "images/errors/406-static.png"
+      static_image: "images/errors/406.png"
       dynamic_image: "images/errors/406-dynamic.png"
       code: 406
     '409': 
@@ -1284,7 +1284,7 @@ en:
     '410': 
       content: The shit you were looking for ain't here no more.  I don't know where the fuck it went, but look fucking elsewhere!
       title: The shit you were looking for ain't here no more.
-      static_image: "images/errors/410-static.png"
+      static_image: "images/errors/410.png"
       dynamic_image: "images/errors/410-dynamic.png"
       code: 410
     '418': 
@@ -1311,7 +1311,7 @@ en:
     '429': 
       content: Woah, woah!! Slow the fuck down!! Geez!! You've gotta give me time to catch up!  You're not the fucking MicroMachines™ spokesperson try'n'a set a fucking speed-talking record here!
       title: Slow the fuck down!!
-      static_image: "images/errors/429-static.png"
+      static_image: "images/errors/429.png"
       dynamic_image: "images/errors/429-dynamic.png"
       code: 429
     '500':
@@ -1323,7 +1323,7 @@ en:
     '502':
       content: You can't get much worse than the gateway to fucking HELL!  But you've fucking succeeded!  You've followed a BAD GATEWAY!
       title: The Gates of Hell!
-      static_image: "images/errors/502-static.png"
+      static_image: "images/errors/502.png"
       dynamic_image: "images/errors/502-dynamic.png"
       code: 500
     '503': 

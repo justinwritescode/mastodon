@@ -6,6 +6,7 @@
 if ENV.keys.any? { |name| name.match?(/OTEL_.*_ENDPOINT/) }
   require 'opentelemetry/sdk'
   require 'opentelemetry/exporter/otlp'
+  require 'opentelemetry/instrumentation/all'
 
   require 'opentelemetry/instrumentation/active_job'
   require 'opentelemetry/instrumentation/active_model_serializers'
@@ -58,12 +59,25 @@ if ENV.keys.any? { |name| name.match?(/OTEL_.*_ENDPOINT/) }
 
     prefix = ENV.fetch('OTEL_SERVICE_NAME_PREFIX', 'mastodon')
 
-    c.service_name =  case $PROGRAM_NAME
-                      when /puma/ then "#{prefix}/web"
-                      else
-                        "#{prefix}/#{$PROGRAM_NAME.split('/').last}"
-                      end
+    c.service_name = case $PROGRAM_NAME
+                     when /puma/ then "#{prefix}/web"
+                     else
+                       "#{prefix}/#{$PROGRAM_NAME.split('/').last}"
+                     end
     c.service_version = Mastodon::Version.to_s
+
+    # Configure OTLP exporter with Azure Application Insights endpoint
+    azure_endpoint = ENV['APPLICATIONINSIGHTS_ENDPOINT'] || raise('APPLICATIONINSIGHTS_ENDPOINT environment variable not set')
+    azure_instrumentation_key = ENV['APPLICATIONINSIGHTS_INSTRUMENTATION_KEY'] || raise('APPLICATIONINSIGHTS_INSTRUMENTATION_KEY environment variable not set')
+
+    otlp_exporter = OpenTelemetry::Exporter::OTLP::Exporter.new(
+      endpoint: azure_endpoint,
+      headers: { 'x-ms-authkey' => azure_instrumentation_key } # Including the instrumentation key in the headers
+    )
+
+    simple_exporter = OpenTelemetry::SDK::Trace::Export::SimpleSpanProcessor.new(otlp_exporter)
+
+    c.add_span_processor simple_exporter
   end
 end
 
