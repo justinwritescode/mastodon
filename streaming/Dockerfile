@@ -123,7 +123,7 @@ RUN \
 # Set the running user for resulting container
 # USER root
 # Expose default Streaming ports
-EXPOSE 4000
+EXPOSE 4000 2222
 # Run streaming when started
 # CMD [ "node", "./streaming/index.js" ]
 ENTRYPOINT [ "bash", "/opt/mastodon/bin/entrypoint", "streaming" ]
