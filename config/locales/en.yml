@@ -1248,7 +1248,7 @@ en:
     '400': 
       content: You done fucked up!
       title: You done fucked up!
-      static_image: "images/errors/400-static.png"
+      static_image: "images/errors/400.png"
       dynamic_image: "images/errors/400-dynamic.png"
       code: 400
     '401': 
