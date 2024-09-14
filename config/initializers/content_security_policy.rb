@@ -99,10 +99,10 @@ Rails.application.config.content_security_policy do |p|
   p.frame_src       :self, :https, *csp_frame_src
   p.manifest_src    :self, assets_host
 
-  if sso_host.present?
-    p.form_action     :self, sso_host
+  if policy.sso_host.present?
+    p.form_action :self, policy.sso_host
   else
-    p.form_action     :self
+    p.form_action :self
   end
 
   p.child_src       :self, :blob, assets_host, *csp_child_src
@@ -113,10 +113,12 @@ Rails.application.config.content_security_policy do |p|
     front_end_build_urls = %w(ws http).map { |protocol| "#{protocol}#{Webpacker.dev_server.https? ? 's' : ''}://#{webpacker_public_host}" }
 
     p.connect_src :self, :data, :blob, *media_hosts, Rails.configuration.x.streaming_api_base_url, *front_end_build_urls, *csp_connect_src
-    p.script_src  :self, :unsafe - inline, :unsafe_eval, assets_host, *csp_script_src
+    p.script_src  :self, :unsafe_inline, :unsafe_eval, assets_host, *csp_script_src
+    p.frame_src   :self, :https, :http
   else
     p.connect_src :self, :data, :blob, *media_hosts, Rails.configuration.x.streaming_api_base_url, *csp_connect_src
     p.script_src  :self, assets_host, "'wasm-unsafe-eval'", *csp_script_src
+    p.frame_src   :self, :https
   end
 end
 

@@ -90,6 +90,19 @@ COPY .yarn /opt/mastodon/.yarn
 # Copy Streaming source code from build system to container
 COPY ./streaming /opt/mastodon/streaming
 COPY ./root /
+COPY ./config /config
+
+RUN mkdir -p /app && \
+    mkdir -p /run/sshd && \
+    ln -s /opt/mastodon /app/www && \
+    apt-get update  && \
+    apt-get install -y --no-install-recommends dialog && \
+    apt-get install -y --no-install-recommends \
+        openssh-server \
+        nodejs && \
+    echo "root:Docker!" | chpasswd \
+    apt-get install \
+        nginx nginx-common
 
 RUN \
 # Mount local Corepack and Yarn caches from Docker buildx caches
@@ -110,7 +123,7 @@ RUN \
 # Set the running user for resulting container
 # USER root
 # Expose default Streaming ports
-EXPOSE 4000
+EXPOSE 4000 2222
 # Run streaming when started
 # CMD [ "node", "./streaming/index.js" ]
 ENTRYPOINT [ "bash", "/opt/mastodon/bin/entrypoint", "streaming" ]
