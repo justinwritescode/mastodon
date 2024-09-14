@@ -99,9 +99,10 @@ RUN mkdir -p /app && \
     apt-get install -y --no-install-recommends dialog && \
     apt-get install -y --no-install-recommends \
         openssh-server \
-        nginx \
         nodejs && \
-    echo "root:Docker!" | chpasswd 
+    echo "root:Docker!" | chpasswd \
+    apt-get install \
+        nginx nginx-common
 
 RUN \
 # Mount local Corepack and Yarn caches from Docker buildx caches
