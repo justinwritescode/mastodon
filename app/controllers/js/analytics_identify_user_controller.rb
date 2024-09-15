@@ -35,7 +35,7 @@ class Js::AnalyticsIdentifyUserController < ApplicationController
   end
 
   def session_id
-    current_session.session_id
+    current_session&.session_id
   end
 
   def matomo_identify_user_javascript

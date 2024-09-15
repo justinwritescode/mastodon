@@ -23,7 +23,7 @@ ARG MASTODON_VERSION_PRERELEASE=""
 ARG MASTODON_VERSION_METADATA=""
 
 # Timezone used by the Docker container and runtime, change with [--build-arg TZ=Europe/Berlin]
-ARG TZ="EST5EDT"
+ARG TZ="Etc/UTC"
 # Linux UID (user id) for the mastodon user, change with [--build-arg UID=1234]
 ARG UID="991"
 # Linux GID (group id) for the mastodon user, change with [--build-arg GID=1234]
@@ -78,7 +78,6 @@ RUN \
     curl \
     tzdata \
     wget \
-    procps \
   ;
 
 # Set /opt/mastodon as working directory
@@ -89,20 +88,6 @@ COPY package.json yarn.lock .yarnrc.yml /opt/mastodon/
 COPY .yarn /opt/mastodon/.yarn
 # Copy Streaming source code from build system to container
 COPY ./streaming /opt/mastodon/streaming
-COPY ./root /
-COPY ./config /config
-
-RUN mkdir -p /app && \
-    mkdir -p /run/sshd && \
-    ln -s /opt/mastodon /app/www && \
-    apt-get update  && \
-    apt-get install -y --no-install-recommends dialog && \
-    apt-get install -y --no-install-recommends \
-        openssh-server \
-        nodejs && \
-    echo "root:Docker!" | chpasswd \
-    apt-get install \
-        nginx nginx-common
 
 RUN \
 # Mount local Corepack and Yarn caches from Docker buildx caches
@@ -121,13 +106,8 @@ RUN \
   yarn workspaces focus --production @mastodon/streaming;
 
 # Set the running user for resulting container
-# USER root
+USER mastodon
 # Expose default Streaming ports
-EXPOSE 4000 2222
+EXPOSE 4000
 # Run streaming when started
-# CMD [ "node", "./streaming/index.js" ]
-ENTRYPOINT [ "bash", "/opt/mastodon/bin/entrypoint", "streaming" ]
-
-LABEL org.opencontainers.image.description="This is the image for TheBackroom & Justin Chase's Mastodon streaming instances."
-LABEL org.opencontainers.image.source="https://github.com/justinwritescode/mastodon"
-LABEL org.opencontainers.image.licenses="MIT"
+CMD [ "node", "./streaming/index.js" ]

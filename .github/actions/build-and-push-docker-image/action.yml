@@ -21,6 +21,14 @@ inputs:
     required: false
     default: ${{ github.token }}
     description: The GitHub token to use for authenticating with the repo
+  tag-prefix:
+    required: false
+    default: v
+    description: The tag prefix to use when calculating the version number using MinVer
+  description:
+    required: false
+    default: Your self-hosted social media platform
+    description: The descritpion label to attach to the image
 outputs:
   image:
     description: The image to push to the Azure Web App
@@ -47,11 +55,12 @@ runs:
         registry: thebackroomlife.azurecr.io
 
     - name: Calculate "MASTODON_VERSION_METADATA"
+      id: mastodon_version_metadata
       shell: pwsh
       run: |
         $GITHUB_SHA="${{ github.sha }}"
         $GITHUB_SHA_TRUNCATED=$GITHUB_SHA.Substring(0, 8)
-        Write-Output "MASTODON_VERSION_METADATA=$GITHUB_SHA_TRUNCATED" >> $GITHUB_ENV
+        Write-Output "::set-output name=MASTODON_VERSION_METADATA::$GITHUB_SHA_TRUNCATED"
 
     - uses: thefringeninja/action-minver@2.0.0-preview1
       id: minver
@@ -65,9 +74,9 @@ runs:
         # Optional. Specifies the minimum version to use when no tags exist.
         minimum-major-minor: 0.0
         # Optional. Specifies the prefix of the tags
-        tag-prefix: blv
+        tag-prefix: ${{ inputs.tag-prefix }}
         # Optional. Specifies the log level.
-        verbosity: trace
+        verbosity: info
 
     - name: Docker meta
       id: meta
@@ -77,6 +86,7 @@ runs:
         labels: |
           org.opencontainers.image.version=${{ steps.minver.outputs.version }}
           org.opencontainers.image.licenses=MIT,agpl-3.0
+          orc.opencontainers.image.description="${{ inputs.description }}"
 
     - name: Build & push the Docker image
       uses: docker/build-push-action@v6.7.0
@@ -85,9 +95,9 @@ runs:
         pull: true
         push: true
         tags: |
-          ghcr.io/justinwritescode/mastodon:${{ inputs.tag }}-${{ github.sha }}
-          ghcr.io/justinwritescode/mastodon:${{ inputs.tag }}-latest
-          ghcr.io/justinwritescode/mastodon:${{ inputs.tag }}-${{ steps.minver.outputs.version }}
+          ghcr.io/justinwritescode/${{ inputs.tag }}:${{ github.sha }}
+          ghcr.io/justinwritescode/${{ inputs.tag }}:latest
+          ghcr.io/justinwritescode/${{ inputs.tag }}:${{ steps.minver.outputs.version }}
           thebackroomlife.azurecr.io/${{ inputs.tag }}:${{ github.sha }}
           thebackroomlife.azurecr.io/${{ inputs.tag }}:latest
           thebackroomlife.azurecr.io/justinwritescode/${{ inputs.tag }}:${{ github.sha }}
@@ -105,4 +115,6 @@ runs:
         cache-from: type=gha
         cache-to: type=gha,mode=max
         build-args: |
-          MASTODON_VERSION_METADATA: ${{ env.MASTODON_VERSION_METADATA }}
+          MASTODON_VERSION_METADATA: ${{ steps.mastodon_version_metadata.outputs.MASTODON_VERSION_METADATA }}
+          AZURE_STORAGE_CONNECTION_STRING: ${{ env.AZURE_STORAGE_CONNECTION_STRING }}
+          AZURE_STORAGE_CONTAINER_NAME: ${{ env.AZURE_STORAGE_CONTAINER_NAME }}

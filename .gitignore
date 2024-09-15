@@ -80,3 +80,5 @@ letsencrypt/
 
 # Ignore local-only rspec configuration
 .rspec-local
+
+./error.txt
