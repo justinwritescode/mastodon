@@ -116,3 +116,5 @@ runs:
         cache-to: type=gha,mode=max
         build-args: |
           MASTODON_VERSION_METADATA: ${{ steps.mastodon_version_metadata.outputs.MASTODON_VERSION_METADATA }}
+          AZURE_STORAGE_CONNECTION_STRING: ${{ env.AZURE_STORAGE_CONNECTION_STRING }}
+          AZURE_STORAGE_CONTAINER_NAME: ${{ env.AZURE_STORAGE_CONTAINER_NAME }}
