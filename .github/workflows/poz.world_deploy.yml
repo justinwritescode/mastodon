@@ -28,6 +28,8 @@ permissions: write-all
 
 env:
   MASTODON_VERSION_METADATA: ${{ github.sha }}
+  AZURE_STORAGE_CONNECTION_STRING: "${{ secrets.POZ_WORLD_AZURE_STORAGE_CONNECTION_STRING }}"
+  AZURE_STORAGE_CONTAINER_NAME: "cdn"
 
 jobs:
   build-poz-world:
@@ -48,9 +50,6 @@ jobs:
         tag: poz.world
         tag-prefix: pwv
         description: Mastodon image for POZ.world
-      env:
-        AZURE_STORAGE_CONNECTION_STRING: "${{ secrets.POZ_WORLD_AZURE_STORAGE_CONNECTION_STRING }}"
-        AZURE_STORAGE_CONTAINER_NAME: "cdn"
 
   build-poz-world-streaming:
     runs-on: ubuntu-latest
