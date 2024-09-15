@@ -46,6 +46,7 @@ jobs:
         acr-password: ${{ secrets.AZURECR_KEY }}
         dockerfile: ./Dockerfile.poz.world
         tag: poz.world
+        tag-prefix: pwv
 
   build-poz-world-streaming:
     runs-on: ubuntu-latest
@@ -60,6 +61,7 @@ jobs:
         acr-password: ${{ secrets.AZURECR_KEY }}
         dockerfile: ./Dockerfile.streaming.poz.world
         tag: streaming.poz.world
+        tag-prefix: pwv
 
   build-poz-world-sidekiq:
     needs: build-poz-world
@@ -75,6 +77,7 @@ jobs:
           acr-password: ${{ secrets.AZURECR_KEY }}
           dockerfile: ./Dockerfile.sidekiq.poz.world
           tag: sidekiq.poz.world
+          tag-prefix: pwv
     
   deploy-to-poz-world:
     runs-on: ubuntu-latest
