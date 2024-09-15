@@ -48,13 +48,13 @@ Rails.application.configure do
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # Ensuring we actually set that non-SSL requests are allowed and no redirect should occur
-  config.force_ssl = false
   config.hosts << '127.0.0.1:3000'
 
   # If SSL configuration is defined, it should ensure no redirects occur
+  config.force_ssl = false
   config.ssl_options = {
     redirect: {
-      exclude: ->(request) { true },
+      exclude: ->(_) { true }, # { request.path.start_with?('/health') || request.headers['Host'].end_with?('.onion') || request.headers['Host'].end_with?('.i2p') },
     },
   }
 

@@ -112,7 +112,7 @@ class Account < ApplicationRecord
   validates_with UnreservedUsernameValidator, if: -> { local? && will_save_change_to_username? && actor_type != 'Application' }
   validates :display_name, length: { maximum: DISPLAY_NAME_LENGTH_LIMIT }, if: -> { local? && will_save_change_to_display_name? }
   validates :note, note_length: { maximum: NOTE_LENGTH_LIMIT }, if: -> { local? && will_save_change_to_note? }
-  validates :fields, length: { maximum: DEFAULT_FIELDS_SIZE }, if: -> { local? && will_save_change_to_fields? }
+  # validates :fields, length: { maximum: DEFAULT_FIELDS_SIZE }, if: -> { local? && will_save_change_to_fields? }
   with_options on: :create do
     validates :uri, absence: true, if: :local?
     validates :inbox_url, absence: true, if: :local?
@@ -259,6 +259,10 @@ class Account < ApplicationRecord
     suspended_at.present? && !instance_actor?
   end
 
+  def suspended_locally?
+    suspended? && suspension_origin_local?
+  end
+
   def suspended_permanently?
     suspended? && deletion_request.nil?
   end
@@ -379,6 +383,24 @@ class Account < ApplicationRecord
     end
 
     self.fields = tmp
+  end
+
+  def set_default_fields
+    # Fetch all field templates and their defaults
+    field_templates = FieldTemplate.includes(:field_values)
+    default_fields = field_templates.map do |template|
+      default_value = template.default_value
+      { name: template.name, value: default_value }
+    end
+
+    existing_fields = self[:fields] || []
+
+    # Merge existing fields with default fields, giving priority to existing fields
+    default_fields.each do |default_field|
+      existing_fields << default_field unless existing_fields.any? { |field| field['name'] == default_field[:name] }
+    end
+
+    self[:fields] = existing_fields
   end
 
   def save_with_optional_media!

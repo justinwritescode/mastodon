@@ -25,47 +25,72 @@
         %label= t('simple_form.labels.defaults.fields')
         %span.hint= t('simple_form.hints.account.fields')
 
-        = f.simple_fields_for :fields do |fields_f|
-          .row
-            = fields_f.input :name, placeholder: t('simple_form.labels.account.fields.name'), input_html: { maxlength: 255 }
-            = fields_f.input :value, placeholder: t('simple_form.labels.account.fields.value'), input_html: { maxlength: 255 }
+        // Existing Fields Rendering
+        = f.simple_fields_for :fields, @account.fields do |fields_f|
+          - fields_f.object.each_with_index do |field, index|
+            - template = FieldTemplate.find_by(name: field.name)
+            .row
+              = fields_f.input :name, input_html: { value: field.name, name: "account[fields_attributes][#{index}][name]" }
+              - if template&.dropdown
+                = fields_f.input :value, as: :select, collection: template.dropdown_options, include_blank: false, input_html: { name: "account[fields_attributes][#{index}][value]", value: field.value }
+              - else
+                = fields_f.input :value, placeholder: template&.default_value || t('simple_form.labels.account.fields.value'), input_html: { maxlength: 255, name: "account[fields_attributes][#{index}][value]", value: field.value }
 
-  .fields-row
-    .fields-row__column.fields-row__column-6
-      .fields-group
-        = f.input :avatar,
-                  hint: t('simple_form.hints.defaults.avatar', dimensions: '400x400', size: number_to_human_size(Account::Avatar::LIMIT)),
-                  input_html: { accept: Account::Avatar::IMAGE_MIME_TYPES.join(',') },
-                  wrapper: :with_block_label
+        .new-fields-container
 
-    .fields-row__column.fields-row__column-6
-      .fields-group
-        = image_tag @account.avatar.url, class: 'fields-group__thumbnail', id: 'account_avatar-preview'
-        - if @account.avatar.present?
-          = link_to settings_profile_picture_path('avatar'), data: { method: :delete }, class: 'link-button link-button--destructive' do
-            = material_symbol 'delete'
-            = t('generic.delete')
+.buttons
+  %button.add-field-btn = t('settings.add_field')
 
-  .fields-row
-    .fields-row__column.fields-row__column-6
-      .fields-group
-        = f.input :header,
-                  hint: t('simple_form.hints.defaults.header', dimensions: '1500x500', size: number_to_human_size(Account::Header::LIMIT)),
-                  input_html: { accept: Account::Header::IMAGE_MIME_TYPES.join(',') },
-                  wrapper: :with_block_label
+.fields-row
+  .fields-row__column.fields-row__column-6
+    .fields-group
+      = f.input :avatar,
+                hint: t('simple_form.hints.defaults.avatar', dimensions: '400x400', size: number_to_human_size(Account::Avatar::LIMIT)),
+                input_html: { accept: Account::Avatar::IMAGE_MIME_TYPES.join(',') },
+                wrapper: :with_block_label
 
-    .fields-row__column.fields-row__column-6
-      .fields-group
-        = image_tag @account.header.url, class: 'fields-group__thumbnail', id: 'account_header-preview'
-        - if @account.header.present?
-          = link_to settings_profile_picture_path('header'), data: { method: :delete }, class: 'link-button link-button--destructive' do
-            = material_symbol 'delete'
-            = t('generic.delete')
+  .fields-row__column.fields-row__column-6
+    .fields-group
+      = image_tag @account.avatar.url, class: 'fields-group__thumbnail', id: 'account_avatar-preview'
+      - if @account.avatar.present?
+        = link_to settings_profile_picture_path('avatar'), data: { method: :delete }, class: 'link-button link-button--destructive' do
+          = material_symbol 'delete'
+          = t('generic.delete')
 
-  %h4= t('edit_profile.other')
+.fields-row
+  .fields-row__column.fields-row__column-6
+    .fields-group
+      = f.input :header,
+                hint: t('simple_form.hints.defaults.header', dimensions: '1500x500', size: number_to_human_size(Account::Header::LIMIT)),
+                input_html: { accept: Account::Header::IMAGE_MIME_TYPES.join(',') },
+                wrapper: :with_block_label
 
-  .fields-group
-    = f.input :bot, as: :boolean, wrapper: :with_label, hint: t('simple_form.hints.defaults.bot')
+  .fields-row__column.fields-row__column-6
+    .fields-group
+      = image_tag @account.header.url, class: 'fields-group__thumbnail', id: 'account_header-preview'
+      - if @account.header.present?
+        = link_to settings_profile_picture_path('header'), data: { method: :delete }, class: 'link-button link-button--destructive' do
+          = material_symbol 'delete'
+          = t('generic.delete')
 
-  .actions
-    = f.button :button, t('generic.save_changes'), type: :submit
+%h4= t('edit_profile.other')
+
+.fields-group
+  = f.input :bot, as: :boolean, wrapper: :with_label, hint: t('simple_form.hints.defaults.bot')
+
+.actions
+  = f.button :button, t('generic.save_changes'), type: :submit
+
+:javascript
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelector('.add-field-btn').addEventListener('click', function(e) {
+      e.preventDefault();
+      const fieldIndex = document.querySelectorAll('.new-fields-container .row').length + document.querySelectorAll('.fields-container .row').length;
+      const newFieldHTML = `
+        <div class="row">
+          <input name="account[fields_attributes][${fieldIndex}][name]" placeholder="Field Name" maxlength="255" type="text" />
+          <input name="account[fields_attributes][${fieldIndex}][value]" placeholder="Field Value" maxlength="255" type="text" />
+        </div>`;
+      document.querySelector('.new-fields-container').insertAdjacentHTML('beforeend', newFieldHTML);
+    });
+  });
