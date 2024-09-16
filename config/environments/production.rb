@@ -166,7 +166,7 @@ Rails.application.configure do
   config.action_mailer.logger = config.logger
   config.action_mailer.logger.level = Logger::DEBUG
 
-  config.logger.debug { "SMTP Settings: #{config.action_mailer.smtp_settings.inspect}" }
+  # config.logger.debug { "SMTP Settings: #{config.action_mailer.smtp_settings.inspect}" }
 
   config.action_dispatch.default_headers = {
     'Server' => 'Mastodon',
