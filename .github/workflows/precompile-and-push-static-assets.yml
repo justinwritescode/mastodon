@@ -2,6 +2,16 @@
 
 name: Precompile & Push Static Assets
 
+inputs:
+  connection-string: 
+    description: the connection string to use for the storage account
+    required: false
+    default: ${{ secrets.POZ_WORLD_AZURE_STORAGE_CONNECTION_STRING }}
+  container-name:
+    description: the name of the container to push the resources to
+    required: false
+    default: cdn
+
 # Controls when the action will run. Workflow runs when manually triggered using the UI
 # or API.
 on:
@@ -13,7 +23,6 @@ concurrency:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "greet"
   precompile-and-push:
     runs-on: ubuntu-latest
     env:
