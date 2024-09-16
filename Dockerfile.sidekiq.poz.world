@@ -1,6 +1,6 @@
 ARG TAG=latest
 
-FROM ghcr.io/justinwritescode/pozz.me:${TAG} AS base
+FROM ghcr.io/justinwritescode/poz.world:${TAG} AS base
 
 
 SHELL [ "bash", "-c" ]
