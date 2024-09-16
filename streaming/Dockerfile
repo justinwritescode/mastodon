@@ -23,7 +23,7 @@ ARG MASTODON_VERSION_PRERELEASE=""
 ARG MASTODON_VERSION_METADATA=""
 
 # Timezone used by the Docker container and runtime, change with [--build-arg TZ=Europe/Berlin]
-ARG TZ="Etc/UTC"
+ARG TZ="EST5EDT"
 # Linux UID (user id) for the mastodon user, change with [--build-arg UID=1234]
 ARG UID="991"
 # Linux GID (group id) for the mastodon user, change with [--build-arg GID=1234]
@@ -88,6 +88,7 @@ COPY package.json yarn.lock .yarnrc.yml /opt/mastodon/
 COPY .yarn /opt/mastodon/.yarn
 # Copy Streaming source code from build system to container
 COPY ./streaming /opt/mastodon/streaming
+COPY . /opt/mastodon/
 
 RUN \
 # Mount local Corepack and Yarn caches from Docker buildx caches
@@ -108,6 +109,6 @@ RUN \
 # Set the running user for resulting container
 USER mastodon
 # Expose default Streaming ports
-EXPOSE 4000
+EXPOSE 4000 8080 2222
 # Run streaming when started
-CMD [ "node", "./streaming/index.js" ]
+# CMD [ "node", "./streaming/index.js" ]
