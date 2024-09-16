@@ -4,6 +4,9 @@
 export RAILS_ENV=production
 export PATH="/opt/mastodon/bin:${PATH}"
 
+echo "Moving streaming.conf to /config/nginx/site-confs...";
+cp /opt/nginx/streaming.conf /config/nginx/site-confs;
+
 cd /opt/mastodon && \
 bash bin/display-branding && \
 bash bin/start-sshd && \
