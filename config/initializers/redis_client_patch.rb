@@ -33,6 +33,8 @@ module RedisClientPatch
         element.name
       when Integer, Float, TrueClass, FalseClass
         element.to_s
+      when NilClass
+        ''
       else
         raise TypeError, "Unsupported command argument type: #{element.class}"
       end
