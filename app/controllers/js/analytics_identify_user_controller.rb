@@ -45,7 +45,9 @@ class Js::AnalyticsIdentifyUserController < ApplicationController
     <<~JS
       /* Matomo identify user */
       let _paq1 = window._paq = window._paq || [];
-      _paq1.push('setUserId', window.currentlyLoggedInUserId)
+      _paq1.push('setUserId', window.currentlyLoggedInUserId);
+      _paq1.push('setUserName', window.currentlyLoggedInUserName);
+      _paq1.push('setSessionId', window.currentlyLoggedInUserSessionId);
       /* End Matomo identify user */
     JS
   end
