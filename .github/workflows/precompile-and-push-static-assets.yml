@@ -2,15 +2,9 @@
 
 name: Precompile & Push Static Assets
 
-inputs:
-  connection-string: 
-    description: the connection string to use for the storage account
-    required: false
-    default: ${{ secrets.POZ_WORLD_AZURE_STORAGE_CONNECTION_STRING }}
-  container-name:
-    description: the name of the container to push the resources to
-    required: false
-    default: cdn
+env:
+  connection_string: ${{ secrets.POZ_WORLD_AZURE_STORAGE_CONNECTION_STRING }}
+  container_name: cdn
 
 # Controls when the action will run. Workflow runs when manually triggered using the UI
 # or API.
@@ -58,9 +52,9 @@ jobs:
     - uses: LanceMcCarthy/Action-AzureBlobUpload@v3.1.5
       with:
         # Azure Storage ConnectionString for the container (Azure Portal - select Storage Account - Access Keys blade).
-        connection_string: ${{ inputs.connection-string }}
+        connection_string: ${{ env.connection_string }}
         # Blob Container name (e.g. my-container).
-        container_name: ${{ inputs.container-name }}
+        container_name: ${{ env.container_name }}
         # The local folder containing all the files and subfolders to upload to the blob container (use a trailing slash).
         source_folder: ./public
         # The target folder to use in the blob container with (do not use a leading or trailing slash).
