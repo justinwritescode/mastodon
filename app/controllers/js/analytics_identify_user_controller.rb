@@ -68,6 +68,11 @@ class Js::AnalyticsIdentifyUserController < ApplicationController
     current_user ? { id: current_account.id, name: "#{current_account.username}@#{current_account.domain}" } : {}
   end
 
+  def current_user_name
+    current_account.username if current_account.local?
+    "#{current_account.username}@#{current_account.domain}" unless current_account.local?
+  end
+
   def google_analytics_tracking_id
     ENV.fetch('GOOGLE_ANALYTICS_TRACKING_ID', nil)
   end
