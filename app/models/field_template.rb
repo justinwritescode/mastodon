@@ -7,6 +7,7 @@ class FieldTemplate < ApplicationRecord
 
   # Validations
   validates :name, presence: true
+  validates :description, presence: true
 
   # Methods for retrieving drop-down options
   def dropdown_options

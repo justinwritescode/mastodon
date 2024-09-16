@@ -22,17 +22,15 @@
 
     .fields-row__column.fields-group.fields-row__column-6
       .input.with_block_label
-        %label= t('simple_form.labels.defaults.fields')
+        %label{ title: t('simple_form.hints.account.fields') }= t('simple_form.labels.defaults.fields')
         %span.hint= t('simple_form.hints.account.fields')
-
-        - puts '@account.fields.inspect: ' + @account.fields.inspect
-        - puts '@account.fields.class: ' + @account.fields.class.name
 
         // Existing Fields Rendering
         = f.simple_fields_for :fields, @account.fields do |fields_f|
           .row
-            = fields_f.input :name, input_html: { value: fields_f.object.name, name: "account[fields_attributes][#{fields_f.index}][name]" }
             - template = FieldTemplate.find_by(name: fields_f.object.name)
+            - tooltip = template&.description.presence || fields_f.object.name
+            = fields_f.input :name, input_html: { value: fields_f.object.name, name: "account[fields_attributes][#{fields_f.index}][name]" }, label_html: { title: tooltip }
             - if template&.dropdown
               = fields_f.input :value, as: :select, collection: template.dropdown_options.map { |option| [option.value, option.value, { title: option.description }] }, include_blank: false, input_html: { name: "account[fields_attributes][#{fields_f.index}][value]", value: fields_f.object.value, class: 'dropdown-with-tooltip' }
             - else
@@ -41,7 +39,7 @@
         .new-fields-container
 
   .buttons
-    %button.add-field-btn = t('settings.add_field')
+    %button.add-field-btn= t('settings.add_field')
 
   .fields-row
     .fields-row__column.fields-row__column-6

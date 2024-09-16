@@ -5,6 +5,7 @@ class CreateFieldTemplates < ActiveRecord::Migration[6.1]
   def change
     create_table :field_templates do |t|
       t.string :name, null: false
+      t.string :description, null: true
       t.boolean :dropdown, default: false
 
       t.timestamps
