@@ -3,6 +3,9 @@
 # Exit script if any command fails
 set -e
 
+$AZURE_STORAGE_CONTAINER_NAME = "$1"
+$AZURE_STORAGE_CONNECTION_STRING = "$2"
+
 # Variables (replace these with your actual values)
 # CONNECTION_STRING="your_azure_storage_connection_string"
 # CONTAINER_NAME="your_container_name"
