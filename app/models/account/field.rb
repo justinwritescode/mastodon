@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Account::Field < ActiveModelSerializers::Model
+  attr_accessor :name, :value, :verified_at
+
   MAX_CHARACTERS_LOCAL  = 255
   MAX_CHARACTERS_COMPAT = 2_047
   ACCEPTED_SCHEMES      = %w(https).freeze
@@ -65,7 +67,7 @@ class Account::Field < ActiveModelSerializers::Model
   private
 
   def sanitize(str)
-    str.strip[0, character_limit]
+    str.strip[0, character_limit] unless str.nil?
   end
 
   def character_limit

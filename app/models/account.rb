@@ -95,6 +95,11 @@ class Account < ApplicationRecord
   include Paginable
   include Reviewable
 
+  before_validation :prepare_contents, if: :local?
+  before_create :set_default_fields
+  before_create :generate_keys
+  before_update :set_default_fields
+
   enum :protocol, { ostatus: 0, activitypub: 1 }
   enum :suspension_origin, { local: 0, remote: 1 }, prefix: true
 
@@ -345,31 +350,30 @@ class Account < ApplicationRecord
   end
 
   def fields
-    (self[:fields] || []).filter_map do |f|
+    (self[:fields] || []).map do |f|
       Account::Field.new(self, f)
-    rescue
-      nil
     end
   end
 
   def fields_attributes=(attributes)
-    fields     = []
-    old_fields = self[:fields] || []
-    old_fields = [] if old_fields.is_a?(Hash)
+    # fields     = []
+    # old_fields = self[:fields] || []
+    # old_fields = [] if old_fields.is_a?(Hash)
 
-    if attributes.is_a?(Hash)
-      attributes.each_value do |attr|
-        next if attr[:name].blank?
+    # if attributes.is_a?(Hash)
+    #   attributes.each_value do |attr|
+    #     next if attr[:name].blank?
 
-        previous = old_fields.find { |item| item['value'] == attr[:value] }
+    #     previous = old_fields.find { |item| item['value'] == attr[:value] }
 
-        attr[:verified_at] = previous['verified_at'] if previous && previous['verified_at'].present?
+    #     attr[:verified_at] = previous['verified_at'] if previous && previous['verified_at'].present?
 
-        fields << attr
-      end
-    end
+    #     fields << attr
+    #   end
+    # end
 
-    self[:fields] = fields
+    # self[:fields] = fields
+    self[:fields] = attributes.values.reject { |attr| attr[:name].blank? && attr[:value].blank? }
   end
 
   def build_fields
@@ -506,8 +510,6 @@ class Account < ApplicationRecord
     @emojis ||= CustomEmoji.from_text(emojifiable_text, domain)
   end
 
-  before_validation :prepare_contents, if: :local?
-  before_create :generate_keys
   before_destroy :clean_feed_manager
 
   def ensure_keys!

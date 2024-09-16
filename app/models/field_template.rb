@@ -10,7 +10,7 @@ class FieldTemplate < ApplicationRecord
 
   # Methods for retrieving drop-down options
   def dropdown_options
-    field_values.order(:value).pluck(:value)
+    field_values.order(:value)
   end
 
   # Method to retrieve the default value

@@ -7,8 +7,8 @@ FieldTemplate.create([
                        { name: 'cock length', dropdown: true },
                        { name: 'dominance', dropdown: true },
                        { name: 'drinker', dropdown: true },
-                       { name: 'drug user', dropdown: true },
-                       { name: 'drugs of choice', dropdown: true },
+                       { name: 'drug use', dropdown: true },
+                       { name: 'drugs of choice', dropdown: false },
                        { name: 'hair color', dropdown: true },
                        { name: 'hair length/style', dropdown: true },
                        { name: 'hiv status', dropdown: true },
@@ -19,10 +19,12 @@ FieldTemplate.create([
                        { name: 'smoker', dropdown: true },
                      ])
 
+FieldTemplate.find_or_create_by(name: 'location').field_values.create([{ value: '[not entered]', description: 'the user hasn\'t entered his location (yet)', default: true }])
+
 FieldTemplate.find_or_create_by(name: 'hiv status').field_values.create([
                                                                           { value: '[not entered]', description: 'the user hasn\'t entered a value for his HIV status', default: true },
                                                                           { value: '???', description: 'an unknown HIV status' },
-                                                                          { value: 'neg (chasing)', description: '"HIV-negative, actively chasing HIV' },
+                                                                          { value: 'neg (chasing)', description: 'HIV-negative, actively chasing HIV' },
                                                                           { value: 'neg (on PrEP)', description: 'HIV-negative, on pre-exposure prophylaxis' },
                                                                           { value: 'neg', description: 'HIV-negative' },
                                                                           { value: 'poz (undetectable)', description: 'HIV-positive, on medication, with an undetectable viral load' },
@@ -194,7 +196,7 @@ FieldTemplate.find_or_create_by(name: 'drinker').field_values.create([
                                                                      ])
 
 FieldTemplate.find_or_create_by(name: 'dominance').field_values.create([
-                                                                         { value: '[not entered]', description: 'The user hasn\'t selected how \"dominant\" he is (yet)', default: true },
+                                                                         { value: '[not entered]', description: 'The user hasn\'t selected how "dominant" he is (yet)', default: true },
                                                                          { value: 'total faggot', description: '100% fag - A total submissive faggot.  Not a bone of dominance in its body.  He lives omly to serve at the feet of real Alpha Men.' },
                                                                          { value: 'faggot',
                                                                            description: '90% fag/10% dom - A faggot that knows its place in this world is at the feet of real Alpha Men.  No dominance in its body, save for a fleeting glimmer of self-confidence before it comes to its senses and ' \
@@ -210,19 +212,19 @@ FieldTemplate.find_or_create_by(name: 'dominance').field_values.create([
                                                                          { value: 'alpha dom', description: '100% dom - Total dominant arrogant as fuck Alpha male.  This man exudes dominance whenever he walks into a room.  He NEVER submits.  To anyone.' },
                                                                        ])
 
-FieldTemplate.find_or_create_by(name: 'drug user').field_values.create([
-                                                                         { value: '[not entered]', description: 'The user hasn\'t selected whether he uses recreational drugs (yet)',
-                                                                           default: true },
-                                                                         { value: 'addict', description: 'the user is a drug addict' },
-                                                                         { value: 'junkie', description: 'the user is a junkie' },
-                                                                         { value: 'yes, heavily', description: 'the user uses recreational drugs a lot' },
-                                                                         { value: 'yes', description: 'the user uses recreational drugs' },
-                                                                         { value: 'socially', description: 'the user uses recreational drugs when he\'s out with friends' },
-                                                                         { value: 'quitting', description: 'the user is trying to quit using recreational drugs' },
-                                                                         { value: 'no', description: 'the user doesn\'t use recreational drugs' },
-                                                                         { value: 'in recovery', description: 'the user is in recovery from drug addiction' },
-                                                                         { value: 'fuck no', description: 'the user has never and will never use recreational drugs' },
-                                                                       ])
+FieldTemplate.find_or_create_by(name: 'drug use').field_values.create([
+                                                                        { value: '[not entered]', description: 'The user hasn\'t selected whether he uses recreational drugs (yet)',
+                                                                          default: true },
+                                                                        { value: 'addict', description: 'the user is a drug addict' },
+                                                                        { value: 'junkie', description: 'the user is a junkie' },
+                                                                        { value: 'yes, heavily', description: 'the user uses recreational drugs a lot' },
+                                                                        { value: 'yes', description: 'the user uses recreational drugs' },
+                                                                        { value: 'socially', description: 'the user uses recreational drugs when he\'s out with friends' },
+                                                                        { value: 'quitting', description: 'the user is trying to quit using recreational drugs' },
+                                                                        { value: 'no', description: 'the user doesn\'t use recreational drugs' },
+                                                                        { value: 'in recovery', description: 'the user is in recovery from drug addiction' },
+                                                                        { value: 'fuck no', description: 'the user has never and will never use recreational drugs' },
+                                                                      ])
 
 FieldTemplate.find_or_create_by(name: 'drugs of choice').field_values.create([
                                                                                { value: '[not entered]', description: 'the user hasn\'t entered any drugs of choice (yet)', default: true },
