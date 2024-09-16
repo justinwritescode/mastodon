@@ -751,6 +751,7 @@ en:
         preamble: Provide in-depth information about how the server is operated, moderated, funded.
         rules_hint: There is a dedicated area for rules that your users are expected to adhere to.
         title: About
+      add_field: Add another field
       appearance:
         preamble: Customize Mastodon's web interface.
         title: Appearance
