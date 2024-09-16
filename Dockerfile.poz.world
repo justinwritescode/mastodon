@@ -71,8 +71,8 @@ ENV \
     AZURE_STORAGE_CONNECTION_STRING=${AZURE_STORAGE_CONNECTION_STRING} \
     AZURE_STORAGE_CONTAINER_NAME=${AZURE_STORAGE_CONTAINER_NAME}
 
-RUN bash bin/install-azure-cli && \
-    bash bin/upload-static-files "${AZURE_STORAGE_CONTAINER_NAME}" "${AZURE_STORAGE_CONNECTION_STRING}"
+# RUN bash bin/install-azure-cli && \
+#     bash bin/upload-static-files "${AZURE_STORAGE_CONTAINER_NAME}" "${AZURE_STORAGE_CONNECTION_STRING}"
 
 
 ENTRYPOINT [ "bash", "bin/entrypoint", "mastodon" ]
