@@ -6,9 +6,6 @@ export PATH="/opt/mastodon/bin:${PATH}"
 
 PATH="/opt/mastodon/bin:${PATH}"
 
-echo "Moving mastodon.conf to /config/nginx/site-confs...";
-cp /opt/nginx/mastodon.conf /config/nginx/site-confs;
-
 bash display-branding;
 bash start-sshd;
 bash start-nginx; 

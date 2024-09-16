@@ -14,9 +14,6 @@ cd /mastodon || exit 1
 
 bash sidekiq-branding;
 
-echo "Moving sidekiq.conf to /config/nginx/site-confs...";
-cp /opt/nginx/sidekiq.conf /config/nginx/site-confs;
-
 bash start-sshd;     
 bash start-nginx; 
 
