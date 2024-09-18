@@ -256,6 +256,8 @@ Rails.application.routes.draw do
   get '/502', to: 'application#bad_gateway'
   get '/503', to: 'application#service_unavailable'
 
+  get '/api/vnext/fields/templates.json', to: 'fields#templates'
+
   match '/', via: [:post, :put, :patch, :delete], to: 'application#raise_not_found', format: false
   match '*unmatched_route', via: :all, to: 'application#raise_not_found', format: false
 end
