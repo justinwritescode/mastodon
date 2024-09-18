@@ -1878,6 +1878,18 @@ en:
     mastodon-light: Mastodon (Light)
     system: Automatic (use system theme)
     mastodon-bird-ui-dark: Mastodon Bird UI (Dark)
+    purple-haze: Purple Haze for Mastodon
+    colorful-light: Colorful Mastodon (Light)
+    colorful-dark: Colorful Mastodon (Dark)
+    feelin-blue: "Feelin' Blue"
+    elephant: Elephant (Twitter-like) Theme (Dark)
+    elephant-light: Elephant (Twitter-like) Theme (Light)
+    elephant-contrast: Elephant (Twitter-like) Theme (High Contrast)
+    canta-dark: Canta Dark
+    tangerineui: Tangerine UI
+    tangerineui-lagoon: Tangerine UI (Lagoon)
+    tangerineui-cherry: Tangerine UI (Cherry)
+    tangerineui-purple: Tangerine UI (Purple)
   time:
     formats:
       default: "%b %d, %Y, %H:%M"
