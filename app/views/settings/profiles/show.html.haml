@@ -1,3 +1,6 @@
+- content_for :header_tags do
+  = javascript_pack_tag 'profile-fields', crossorigin: 'anonymous'
+
 - content_for :page_title do
   = t('settings.edit_profile')
 
@@ -23,23 +26,25 @@
     .fields-row__column.fields-group.fields-row__column-6
       .input.with_block_label
         %label{ title: t('simple_form.hints.account.fields') }= t('simple_form.labels.defaults.fields')
-        %span.hint= t('simple_form.hints.account.fields')
+        %span.hint= t('simple_form.hints.account.fields') 
+        %span.hint= "To add multiple values for a single field, just add multiple fields with the same label (e.g., \"kinks/fetishes\": \"#bugchasing\", \"kinks/fetishes\": \"#watersports\", \"kinks/fetishes\": \"#pozplay\", etc.)"
 
         // Existing Fields Rendering
         = f.simple_fields_for :fields, @account.fields do |fields_f|
           .row
             - template = FieldTemplate.find_by(name: fields_f.object.name)
             - tooltip = template&.description.presence || fields_f.object.name
-            = fields_f.input :name, input_html: { value: fields_f.object.name, name: "account[fields_attributes][#{fields_f.index}][name]" }, label_html: { title: tooltip }
+            = fields_f.input :name, input_html: { value: fields_f.object.name, name: "account[fields_attributes][#{fields_f.index}][name]", title: tooltip }, label_html: { title: tooltip, class: 'tooltip' }
             - if template&.dropdown
-              = fields_f.input :value, as: :select, collection: template.dropdown_options.map { |option| [option.value, option.value, { title: option.description }] }, include_blank: false, input_html: { name: "account[fields_attributes][#{fields_f.index}][value]", value: fields_f.object.value, class: 'dropdown-with-tooltip' }
+              = fields_f.input :value, as: :select, collection: template.dropdown_options.map { |option| [option.value, option.value, { title: option.description }] }, include_blank: false, input_html: { name: "account[fields_attributes][#{fields_f.index}][value]", value: fields_f.object.value, class: 'dropdown-with-tooltip', title: template&.default_value || "Enter Value" }
             - else
-              = fields_f.input :value, placeholder: template&.default_value || t('simple_form.labels.account.fields.value'), input_html: { maxlength: 255, name: "account[fields_attributes][#{fields_f.index}][value]", value: fields_f.object.value }
+              = fields_f.input :value, placeholder: template&.default_value || t('simple_form.labels.account.fields.value'), input_html: { maxlength: 255, name: "account[fields_attributes][#{fields_f.index}][value]", value: fields_f.object.value, title: fields_f.object.value || template&.default_value || "Enter Value" }
+            = fields_f.input :marked_for_deletion, as: :boolean, label: 'Mark for Deletion', input_html: { name: "account[fields_attributes][#{fields_f.index}][marked_for_deletion]", value: '1', id: "account_fields_attributes_#{fields_f.index}_marked_for_deletion", title: "Mark for deletion" }
 
         .new-fields-container
 
   .buttons
-    %button.add-field-btn= t('settings.add_field')
+    %button.add-field-btn{ type: 'button' }= t('settings.add_field')
 
   .fields-row
     .fields-row__column.fields-row__column-6
@@ -80,24 +85,3 @@
 
   .actions
     = f.button :button, t('generic.save_changes'), type: :submit
-
-:javascript
-  document.addEventListener('DOMContentLoaded', function() {
-    document.querySelector('.add-field-btn').addEventListener('click', function(e) {
-      e.preventDefault();
-      const fieldIndex = document.querySelectorAll('.new-fields-container .row').length + document.querySelectorAll('.fields-container .row').length;
-      const newFieldHTML = `
-        <div class="row">
-          <input name="account[fields_attributes][${fieldIndex}][name]" placeholder="Field Name" maxlength="255" type="text" />
-          <input name="account[fields_attributes][${fieldIndex}][value]" placeholder="Field Value" maxlength="255" type="text" />
-        </div>`;
-      document.querySelector('.new-fields-container').insertAdjacentHTML('beforeend', newFieldHTML);
-    });
-  });
-
-  document.addEventListener('DOMContentLoaded', function() {
-    tippy('.dropdown-with-tooltip option', {
-      content: (reference) => reference.getAttribute('title'),
-      placement: 'top',
-    });
-  });

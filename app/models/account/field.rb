@@ -7,7 +7,7 @@ class Account::Field < ActiveModelSerializers::Model
   MAX_CHARACTERS_COMPAT = 2_047
   ACCEPTED_SCHEMES      = %w(https).freeze
 
-  attributes :name, :value, :verified_at, :account
+  attributes :name, :value, :verified_at, :account, :display_value
 
   def initialize(account, attributes)
     # Keeping this as reference allows us to update the field on the account
@@ -18,6 +18,7 @@ class Account::Field < ActiveModelSerializers::Model
     super(
       name: sanitize(attributes['name']),
       value: sanitize(attributes['value']),
+      display_value: sanitize(attributes['display_value']).presence || sanitize(attributes['value']),
       verified_at: attributes['verified_at']&.to_datetime,
     )
   end
@@ -62,6 +63,30 @@ class Account::Field < ActiveModelSerializers::Model
 
   def to_h
     { name: name, value: value, verified_at: verified_at }
+  end
+
+  def mark_for_deletion
+    @original_field['marked_for_deletion'] = true
+  end
+
+  def marked_for_deletion
+    @original_field['marked_for_deletion'] == true unless @original_field['marked_for_deletion'].nil?
+  end
+
+  def third_person_masculine_display_value
+    translate(display_value, :third_singular_masculine)
+  end
+
+  def second_person_singular_display_value
+    translate(display_value, :second_singular)
+  end
+
+  def third_person_masculine_description
+    translate(description, :third_singular_masculine)
+  end
+
+  def second_person_singular_description
+    translate(description, :second_singular)
   end
 
   private

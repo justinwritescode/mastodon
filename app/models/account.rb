@@ -352,7 +352,7 @@ class Account < ApplicationRecord
   def fields
     (self[:fields] || []).map do |f|
       Account::Field.new(self, f)
-    end
+    end.sort_by { |field| field.name.downcase } # Sort case-insensitively # rubocop:disable Style/MultilineBlockChain
   end
 
   def fields_attributes=(attributes)
@@ -373,7 +373,7 @@ class Account < ApplicationRecord
     # end
 
     # self[:fields] = fields
-    self[:fields] = attributes.values.reject { |attr| attr[:name].blank? && attr[:value].blank? }
+    self[:fields] = attributes.values.reject { |attr| (attr[:name].blank? && attr[:value].blank?) || attr['marked_for_deletion'] == true }
   end
 
   def build_fields
