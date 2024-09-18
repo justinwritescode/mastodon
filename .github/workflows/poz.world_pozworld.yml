@@ -3,6 +3,10 @@
 
 name: Build and deploy container app to Azure Web App - pozworld
 
+concurrency: 
+  group: POZ.world CD
+  cancel-in-progress: true
+
 on:
   push:
     branches:
@@ -31,7 +35,7 @@ jobs:
       with:
         push: true
         tags: ghcr.io/${{ secrets.AzureAppService_ContainerUsername_24c66707976845cfb7cb6360bf574946 }}/poz.world:${{ github.sha }}
-        file: ./Dockerfile
+        file: ./Dockerfile.poz.world
 
   deploy:
     runs-on: ubuntu-latest
