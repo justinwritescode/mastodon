@@ -42,7 +42,7 @@ COPY ./root /
 COPY . /opt/mastodon/
 COPY config /config
 
-ENTRYPOINT [ "bash", "/opt/mastodon/bin/entrypoint", "streaming" ]
+ENTRYPOINT [ "bash", "/opt/mastodon/bin/start-streaming" ]
 
 LABEL org.opencontainers.image.description="This is the image for the POZZ.me Mastodon streaming instances."
 LABEL org.opencontainers.image.source="https://github.com/justinwritescode/mastodon"

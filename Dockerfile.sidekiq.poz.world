@@ -9,7 +9,7 @@ EXPOSE 8081 2222
 
 WORKDIR /opt/mastodon/bin
 
-ENTRYPOINT [ "bash", "/opt/mastodon/bin/entrypoint", "sidekiq" ]
+ENTRYPOINT [ "bash", "/opt/mastodon/bin/start-sidekiq" ]
 
 LABEL org.opencontainers.image.description="Sidekiq for POZZ.me"
 LABEL org.opencontainers.image.source="https://github.com/justinwritescode/mastodon"

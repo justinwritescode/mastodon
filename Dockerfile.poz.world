@@ -67,15 +67,15 @@ RUN \
     SECRET_KEY_BASE_DUMMY=1 \
     bundle exec rake assets:precompile; 
 
-ENV \
-    AZURE_STORAGE_CONNECTION_STRING=${AZURE_STORAGE_CONNECTION_STRING} \
-    AZURE_STORAGE_CONTAINER_NAME=${AZURE_STORAGE_CONTAINER_NAME}
+# ENV \
+#     AZURE_STORAGE_CONNECTION_STRING=${AZURE_STORAGE_CONNECTION_STRING} \
+#     AZURE_STORAGE_CONTAINER_NAME=${AZURE_STORAGE_CONTAINER_NAME}
 
 # RUN bash bin/install-azure-cli && \
 #     bash bin/upload-static-files "${AZURE_STORAGE_CONTAINER_NAME}" "${AZURE_STORAGE_CONNECTION_STRING}"
 
 
-ENTRYPOINT [ "bash", "bin/entrypoint", "mastodon" ]
+ENTRYPOINT [ "bash", "/opt/mastodon/bin/start-mastodon" ]
 
 LABEL org.opencontainers.image.description="Modifications to the base image for the site POZ.world"
 LABEL org.opencontainers.image.source="https://github.com/justinwritescode/mastodon"
