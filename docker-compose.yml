@@ -59,9 +59,7 @@ services:
   web:
     # You can uncomment the following line if you want to not use the prebuilt image, for example if you have local code changes
     # build: .
-    # image: ghcr.io/mastodon/mastodon:v4.3.0-beta.1
-    container_name: web
-    image: ghcr.io/justinwritescode/mastodon:thebackroom.life  
+    image: ghcr.io/mastodon/mastodon:v4.3.0-beta.2
     restart: always
     env_file: .env.production
     entrypoint: ["bash", "/opt/mastodon/bin/entrypoint", "mastodon"]
@@ -95,8 +93,7 @@ services:
     # build:
     #   dockerfile: ./streaming/Dockerfile
     #   context: .
-    container_name: streaming
-    image: ghcr.io/justinwritescode/mastodon:streaming.thebackroom.life
+    image: ghcr.io/mastodon/mastodon-streaming:v4.3.0-beta.2
     restart: always
     env_file: .env.production
     entrypoint: ["bash", "/opt/mastodon/bin/entrypoint", "streaming"]
@@ -111,10 +108,8 @@ services:
       - '4000:4000'
 
   sidekiq:
-    # build: .
-    # image: ghcr.io/mastodon/mastodon:v4.3.0-beta.1
-    container_name: sidekiq
-    image: ghcr.io/justinwritescode/mastodon:sidekiq.thebackroom.life  
+    build: .
+    image: ghcr.io/mastodon/mastodon:v4.3.0-beta.2
     restart: always
     env_file: .env.production
     entrypoint: ["bash", "/opt/mastodon/bin/entrypoint", "sidekiq"]
