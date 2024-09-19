@@ -1162,8 +1162,10 @@ fi:
     use_security_key: Käytä suojausavainta
   author_attribution:
     example_title: Esimerkkiteksti
+    hint_html: Määrää, kuinka tulet tunnustetuksi, kun Mastodonissa jaetaan linkkejä.
     more_from_html: Lisää tekijältä %{name}
     s_blog: Käyttäjän %{name} blogi
+    title: Tekijän tunnustus
   challenge:
     confirm: Jatka
     hint_html: "<strong>Vihje:</strong> Emme pyydä sinulta salasanaa uudelleen seuraavan tunnin aikana."
@@ -1172,7 +1174,6 @@ fi:
   crypto:
     errors:
       invalid_key: ei ole kelvollinen Ed25519- tai Curve25519-avain
-      invalid_signature: ei ole kelvollinen Ed25519-allekirjoitus
   date:
     formats:
       default: "%b %d, %Y"
