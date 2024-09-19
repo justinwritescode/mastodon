@@ -31,7 +31,7 @@ jobs:
       with:
         push: true
         tags: ghcr.io/${{ secrets.AzureAppService_ContainerUsername_32724370ad0d4352bb71cc0d75b3d505 }}/justinwritescode/sidekiq.poz.world:${{ github.sha }}
-        file: ./Dockerfile
+        file: ./Dockerfile.sidekiq.poz.world
 
   deploy:
     runs-on: ubuntu-latest
