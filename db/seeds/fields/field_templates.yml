@@ -1,0 +1,151 @@
+---
+- name: 'build'
+  dropdown: true
+  description: '{{possessive}} build/body type'
+  multiple: false
+  type: 'string'
+  source: 'db/seeds/fields/field_values/build.yml'
+  category: 'physical'
+
+- name: 'cock girth'
+  dropdown: true
+  description: 'how thick around {{possessive}} cock is; its circumference, in inches'
+  multiple: false
+  type: 'float'
+  source: 'db/seeds/fields/field_values/cock-girth.yml'
+  category: 'sex'
+
+- name: 'cock length'
+  dropdown: true
+  description: 'how long {{possessive}} cock is, measured from the base along the top, in inches'
+  multiple: false
+  type: 'float'
+  source: 'db/seeds/fields/field_values/cock-length.yml'
+  category: 'sex'
+
+- name: 'dominance'
+  dropdown: true
+  description: 'how "dominant" {{be}} {{subject}} in the sack (or dungeon)?'
+  multiple: false
+  type: 'integer'
+  source: 'db/seeds/fields/field_values/dominance.yml'
+  category: 'sex'
+
+- name: 'drinker'
+  dropdown: true
+  description: '{{possessive}} habits with alcohol'
+  multiple: false
+  type: 'string'
+  source: 'db/seeds/fields/field_values/drinker.yml'
+  category: 'lifestyle'
+
+- name: 'drug use'
+  dropdown: true
+  description: '{{possessive}} habits as they relate to recreational drug usage'
+  multiple: false
+  type: 'string'
+  source: 'db/seeds/fields/field_values/drug-use.yml'
+  category: 'lifestyle'
+
+- name: 'drugs of choice'
+  dropdown: true
+  description: 'when/if {{subject}} {{verb:use}} recreational drugs, which one(s) {{do}} {{subject}} use?'
+  multiple: true
+  type: 'string'
+  source: 'db/seeds/fields/field_values/drug-of-choice.yml'
+  category: 'lifestyle'
+
+- name: 'eye color'
+  dropdown: false
+  description: 'what color are {{possessive}} eyes? (note: if you have heterochromia, you can select more than one)'
+  multiple: true
+  type: 'string'
+  source: 'db/seeds/fields/field_values/eye-color.yml'
+  category: 'physical'
+
+- name: 'hair color'
+  dropdown: true
+  description: 'what color is {{possessive}} hair?'
+  multiple: false
+  type: 'string'
+  source: 'db/seeds/fields/field_values/hair-color.yml'
+  category: 'physical'
+
+- name: 'hair length/style'
+  dropdown: true
+  description: 'how {{do}} {{subject}} {{verb:wear}} {{possessive}} hair?'
+  multiple: false
+  type: 'string'
+  source: 'db/seeds/fields/field_values/hair-length-style.yml'
+  category: 'physical'
+
+- name: 'hiv status'
+  dropdown: true
+  description: '{{possessive}} HIV status'
+  multiple: false
+  type: 'string'
+  source: 'db/seeds/fields/field_values/hiv-status.yml'
+
+- name: 'kinks/fetishes'
+  dropdown: false
+  description: 'the fuck {{be}} {{subject}} into, BBro?'
+  multiple: true
+  type: 'string'
+  source: 'db/seeds/fields/field_values/kinks.yml'
+  category: 'sex'
+
+- name: 'location'
+  dropdown: false
+  description: '{{possessive}} current location (city, state)'
+  multiple: false
+  type: 'object'
+  source: 'db/seeds/fields/field_values/location.yml'
+  category: 'location'
+
+- name: 'race'
+  dropdown: true
+  description: '{{possessive}} racial makeup'
+  multiple: true
+  type: 'string'
+  source: 'db/seeds/fields/field_values/race.yml'
+  category: 'identity'
+
+- name: 'sexual role'
+  dropdown: true
+  description: '{{do}} {{subject}} prefer the top or the bottom bunk?'
+  multiple: false
+  type: 'string'
+  source: 'db/seeds/fields/field_values/sexual-role.yml'
+  category: 'sex'
+
+- name: 'smoker'
+  dropdown: true
+  description: '{{do}} {{subject}} use cigarettes?'
+  multiple: false
+  type: 'string'
+  source: 'db/seeds/fields/field_values/smoker.yml'
+  category: 'lifestyle'
+
+- name: 'body hair'
+  dropdown: true
+  description: 'how hairy {{be}} {{subject}}?'
+  multiple: false
+  type: 'string'
+  source: 'db/seeds/fields/field_values/body-hair.yml'
+  category: 'physical'
+
+- name: 'height'
+  dropdown: true
+  description: 'how tall {{be}} {{subject}}?'
+  multiple: false
+  type: 'float'
+  source: 'db/seeds/fields/field_values/height.yml'
+  category: 'physical'
+
+- name: 'weight'
+  dropdown: true
+  description: 'how much {{do}} {{subject}} weigh?'
+  multiple: false
+  type: 'float'
+  source: 'db/seeds/fields/field_values/weight.yml'
+  category: 'physical'

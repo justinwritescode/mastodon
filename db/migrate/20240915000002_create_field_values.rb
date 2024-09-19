@@ -5,9 +5,9 @@ class CreateFieldValues < ActiveRecord::Migration[7.1]
   def up
     create_table :field_values do |t|
       t.references :field_template, null: false, foreign_key: true
-      t.float :value, null: true
-      t.string :display_value, null: false
-      t.text :description
+      t.text :value, null: true
+      t.text :display_value, null: false
+      t.text :description, null: false
       t.boolean :default, default: false
 
       t.timestamps

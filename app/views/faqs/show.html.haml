@@ -1,0 +1,6 @@
+%h1= @faq.question
+%p= @faq.answer
+
+= link_to t('faqs.edit'), edit_faq_path(@faq)
+|
+= link_to 'Back', faqs_path

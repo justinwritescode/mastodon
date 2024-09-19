@@ -10,6 +10,7 @@ namespace :assets do
   include Webpacker::Helper
   desc 'Generate static pages'
   task generate_static_pages: :environment do
+    render_static_page 'errors/200', layout: 'error', dest: Rails.public_path.join('assets', '200.html')
     render_static_page 'errors/400', layout: 'error', dest: Rails.public_path.join('assets', '400.html')
     render_static_page 'errors/401', layout: 'error', dest: Rails.public_path.join('assets', '401.html')
     render_static_page 'errors/403', layout: 'error', dest: Rails.public_path.join('assets', '403.html')
@@ -28,7 +29,7 @@ namespace :assets do
   namespace :javascript do
     task precompile: :environment do
       desc 'Copy the "dynamic" JavaScript files to the output directory'
-      Rails.public_path.join('packs/google_tag_manager.js').write(Js::GoogleTagManagerController.new.script_content)
+      Rails.public_path.join('packs/google_tag_manager.js').write(Api::Vnext::Js::GoogleTagManagerController.new.script_content)
       Rails.logger.info { 'google_tag_manager.js precompiled.' }
     end
   end

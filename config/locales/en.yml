@@ -1246,6 +1246,12 @@ en:
     hint_html: "<strong>Customize what people see on your public profile and next to your posts.</strong> Other people are more likely to follow you back and interact with you when you have a filled out profile and a profile picture."
     other: Other
   errors:
+    '200': 
+      content: Everything's A-OK!
+      title: Everything's A-OK!
+      static_image: "images/errors/200.png"
+      dynamic_image: "images/errors/200-dynamic.png"
+      code: 200
     '400': 
       content: You done fucked up!
       title: You done fucked up!

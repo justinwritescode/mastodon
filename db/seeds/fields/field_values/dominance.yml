@@ -1,0 +1,50 @@
+---
+- display_value: '[not entered]'
+  value: null
+  description: "{{subject}} {{have}}n't selected how \"dominant\" {{subject}} {{be}} (yet)"
+  default: true
+  order: 0
+- display_value: 'total faggot'
+  value: 0
+  description: 'A total submissive faggot.  Not a bone of dominance in its body.  It lives only to serve at the feet of real Alpha Men.'
+  order: 1
+- display_value: 'faggot'
+  value: 1
+  description: 'A faggot that knows its place in the world is at the feet of real Alpha Men.  No dominance in its body, save for a fleeting glimmer of self-confidence before it comes to its senses and remembers its true place and purpose.'
+  order: 2
+- display_value: 'mostly fag'
+  value: 2
+  description: "Mostly a faggot.  Might stand up for itself once in a while but it's not comfortable doing it and looks hella dumb trying."
+  order: 3
+- display_value: 'sub'
+  value: 3
+  description: 'Submissive, but not a faggot.  Has some self-respect.  Stands up for himself occasionally and has {{possessive}} own life apart from the Alphas whom {{subject}} serves.'
+  order: 4
+- display_value: 'switchy sub'
+  value: 4
+  description: 'Switchy sub.  A switch who leans sub.  Might dom occasionally, but prefers to be sub.'
+  order: 5
+- display_value: 'switch'
+  value: 5
+  description: 'Equal parts dom and sub.'
+  order: 6
+- display_value: 'switchy dom'
+  value: 6
+  description: 'Switchy dom.  A switch who leans dom.  Might sub occasionally, but prefers to be dom.'
+  order: 7
+- display_value: 'dom'
+  value: 7
+  description: 'Predominantly dominant, but might enjoy subbing for the right guy or under the right circumstances.'
+  order: 8
+- display_value: 'mostly dom'
+  value: 8
+  description: 'Mostly dominant, but not an arrogant asshole about it.  Knows how to let his hair down on occasion.'
+  order: 9
+- display_value: 'beta dom'
+  value: 9
+  description: 'Mostly dominant; might defer (but never submit) to an alpha dom'
+  order: 10
+- display_value: 'alpha dom'
+  value: 10
+  description: 'Total dominant arrogant-as-fuck Alpha male.  The man exudes dominance whenever he walks into a room.  {{subject}} NEVER submits.  To anyone.'
+  order: 11

@@ -33,10 +33,29 @@ class FieldValue < ApplicationRecord
       display_value: display_value.presence || value,
       description: description,
       default: default,
-      third_person_masculine_display_value: third_person_masculine_display_value,
-      second_person_singular_display_value: second_person_singular_display_value,
-      third_person_masculine_description: third_person_masculine_description,
-      second_person_singular_description: second_person_singular_description,
+      third_person_masculine_display_value: escape_special_characters(third_person_masculine_display_value),
+      second_person_singular_display_value: escape_special_characters(second_person_singular_display_value),
+      third_person_masculine_description: escape_special_characters(third_person_masculine_description),
+      second_person_singular_description: escape_special_characters(second_person_singular_description),
     }
+  end
+
+  def self.seed_field_values_from_yaml(field_template_name, file_path)
+    field_template = FieldTemplate.find_by(name: field_template_name)
+    raise "Field Template \"#{field_template_name}\" not found" if field_template.nil?
+
+    # Convert the relative path to an absolute path
+    absolute_path = Rails.root.join(file_path).to_s
+
+    yaml_content = YAML.load_file(absolute_path)
+
+    yaml_content.each do |field_value|
+      FieldValue.find_or_create_by(value: field_value['value']) do |value|
+        value.value = field_value['value']
+        value.display_value = field_value['display_value']
+        value.description = field_value['description']
+        value.default = field_value['default']
+      end
+    end
   end
 end

@@ -1,0 +1,11 @@
+%h1 FAQs
+= link_to 'New FAQ', new_faq_path
+
+%ul
+  - @faqs.each do |faq|
+    %li
+      = link_to faq.question, faq_path(faq)
+      | 
+      = link_to 'Edit', edit_faq_path(faq)
+      | 
+      = link_to 'Destroy', faq, method: :delete, data: { confirm: 'Are you sure?' }

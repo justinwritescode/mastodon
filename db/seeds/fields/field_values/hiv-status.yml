@@ -1,0 +1,38 @@
+---
+- display_value: '[not entered]'
+  value: null
+  description: "{{subject}} {{have}}n't entered a value for {{possessive}} HIV status"
+  default: true
+  order: 0
+- display_value: '???'
+  value: 'unknown'
+  description: "{{possessive}} HIV status is unknown"
+  order: 1
+- display_value: 'neg (chasing)'
+  value: 'chaser'
+  description: "{{subject}} {{be}} HIV-negative and {{be}} actively chasing HIV"
+  order: 2
+- display_value: 'neg (on PrEP)'
+  value: 'prep'
+  description: "{{subject}} {{be}} HIV-negative and on pre-exposure prophylaxis"
+  order: 3
+- display_value: 'neg'
+  value: 'neg'
+  description: "{{subject}} {{be}} HIV-negative"
+  order: 4
+- display_value: 'poz (undetectable)'
+  value: 'tasp'
+  description: "{{subject}} {{be}} HIV-positive, on medication, and {{have}} an undetectable viral load"
+  order: 5
+- display_value: 'poz (toxic)'
+  value: 'toxic'
+  description: "{{subject}} {{be}} HIV-positive, not on medication, and {{have}} a 'toxic' viral load"
+  order: 6
+- display_value: 'poz'
+  value: 'poz'
+  description: "{{subject}} {{be}} HIV-positive"
+  order: 7
+- display_value: 'other'
+  value: 'other'
+  description: "{{subject}} {{be}} some other status not otherwise listed"
+  order: 8

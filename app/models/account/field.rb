@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Account::Field < ActiveModelSerializers::Model
+  include HumanizerHelper
   attr_accessor :name, :value, :verified_at
 
   MAX_CHARACTERS_LOCAL  = 255

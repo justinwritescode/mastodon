@@ -1,0 +1,54 @@
+---
+- display_value: '[not entered]'
+  value: null
+  description: "{{subject}} {{have}}n't selected a hair color (yet)"
+  default: true
+  order: 0
+- display_value: 'light blond'
+  value: 'lbl'
+  description: 'light blond'
+  order: 1
+- display_value: 'blond'
+  value: 'bln'
+  description: 'blond'
+  order: 2
+- display_value: 'dark blond'
+  value: 'dbl'
+  description: 'dark blond'
+  order: 3
+- display_value: 'light brown'
+  value: 'lbr'
+  description: 'light brown'
+  order: 4
+- display_value: 'brown'
+  value: 'brn'
+  description: 'brown'
+  order: 5
+- display_value: 'dark brown'
+  value: 'dbr'
+  description: 'dark brown'
+  order: 6
+- display_value: 'red'
+  value: 'red'
+  description: 'auburn/red'
+  order: 7
+- display_value: 'black'
+  value: 'blk'
+  description: 'black'
+  order: 8
+- display_value: 'gray'
+  value: 'gry'
+  description: 'gray'
+  order: 9
+- display_value: 'bald'
+  value: 'bld'
+  description: 'bald'
+  order: 10
+- display_value: 'dyed'
+  value: 'dye'
+  description: 'dyed'
+  order: 11
+- display_value: 'other'
+  value: 'oth'
+  description: 'some other color'
+  order: 12

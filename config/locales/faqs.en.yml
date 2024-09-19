@@ -1,0 +1,12 @@
+---
+en:
+  faqs:
+    title: Frequently Asked Questions
+    deleted: "The FAQ has been deleted."
+    updated: "The FAQ has been updated."
+    created: "The FAQ has been created."
+    not_found: "The FAQ was not found."
+    new: 
+      title: "New FAQ"
+    edit: 
+      title: "Edit FAQ"

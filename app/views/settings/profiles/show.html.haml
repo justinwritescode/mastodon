@@ -1,5 +1,6 @@
 - content_for :header_tags do
   = javascript_pack_tag 'profile-fields', crossorigin: 'anonymous'
+  = field_templates_script_tag
 
 - content_for :page_title do
   = t('settings.edit_profile')
@@ -33,12 +34,12 @@
         = f.simple_fields_for :fields, @account.fields do |fields_f|
           .row
             - template = FieldTemplate.find_by(name: fields_f.object.name)
-            - tooltip = template&.description.presence || fields_f.object.name
+            - tooltip = template&.second_person_singular_description.presence || fields_f.object.name
             = fields_f.input :name, input_html: { value: fields_f.object.name, name: "account[fields_attributes][#{fields_f.index}][name]", title: tooltip }, label_html: { title: tooltip, class: 'tooltip' }
             - if template&.dropdown
-              = fields_f.input :value, as: :select, collection: template.dropdown_options.map { |option| [option.value, option.value, { title: option.description }] }, include_blank: false, input_html: { name: "account[fields_attributes][#{fields_f.index}][value]", value: fields_f.object.value, class: 'dropdown-with-tooltip', title: template&.default_value || "Enter Value" }
+              = fields_f.input :value, as: :select, collection: template.dropdown_options.map { |option| [option.value, option.value, { title: option.second_person_singular_description }] }, include_blank: false, input_html: { name: "account[fields_attributes][#{fields_f.index}][value]", value: fields_f.object.display_value, class: 'dropdown-with-tooltip', title: fields_f.object&.display_value || "Enter Value" }
             - else
-              = fields_f.input :value, placeholder: template&.default_value || t('simple_form.labels.account.fields.value'), input_html: { maxlength: 255, name: "account[fields_attributes][#{fields_f.index}][value]", value: fields_f.object.value, title: fields_f.object.value || template&.default_value || "Enter Value" }
+              = fields_f.input :value, placeholder: template&.default_value || t('simple_form.labels.account.fields.value'), input_html: { maxlength: 255, name: "account[fields_attributes][#{fields_f.index}][value]", value: fields_f.object.second_person_singular_display_value, title: fields_f.object.display_value || template&.default_value || "Enter Value" }
             = fields_f.input :marked_for_deletion, as: :boolean, label: 'Mark for Deletion', input_html: { name: "account[fields_attributes][#{fields_f.index}][marked_for_deletion]", value: '1', id: "account_fields_attributes_#{fields_f.index}_marked_for_deletion", title: "Mark for deletion" }
 
         .new-fields-container

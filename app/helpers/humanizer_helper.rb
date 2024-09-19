@@ -6,6 +6,7 @@ module HumanizerHelper
       subject: 'I',
       object: 'me',
       possessive: 'my',
+      possessive_pronoun: 'mine',
       reflexive: 'myself',
       be: 'am',
       do: 'do',
@@ -15,6 +16,7 @@ module HumanizerHelper
       subject: 'we',
       object: 'us',
       possessive: 'our',
+      possessive_pronoun: 'ours',
       reflexive: 'ourselves',
       be: 'are',
       do: 'do',
@@ -24,6 +26,7 @@ module HumanizerHelper
       subject: 'you',
       object: 'you',
       possessive: 'your',
+      possessive_pronoun: 'yours',
       reflexive: 'yourself',
       be: 'are',
       do: 'do',
@@ -33,7 +36,8 @@ module HumanizerHelper
     second_plural: {
       subject: 'you all',
       object: 'you all',
-      possessive: 'your',
+      possessive: 'y\'all\'s',
+      possessive_pronoun: 'y\'all\'s',
       reflexive: 'yourselves',
       be: 'are',
       do: 'do',
@@ -44,17 +48,8 @@ module HumanizerHelper
       subject: 'he',
       object: 'him',
       possessive: 'his',
+      possessive_pronoun: 'his',
       reflexive: 'himself',
-      be: 'is',
-      do: 'does',
-      have: 'has',
-      go: 'goes',
-    },
-    third_singular_neuter: {
-      subject: 'it',
-      object: 'it',
-      possessive: 'its',
-      reflexive: 'itself',
       be: 'is',
       do: 'does',
       have: 'has',
@@ -64,7 +59,19 @@ module HumanizerHelper
       subject: 'she',
       object: 'her',
       possessive: 'her',
+      possessive_pronoun: 'hers',
       reflexive: 'herself',
+      be: 'is',
+      do: 'does',
+      have: 'has',
+      go: 'goes',
+    },
+    third_singular_neuter: {
+      subject: 'it',
+      object: 'it',
+      possessive: 'its',
+      possessive_pronoun: 'its',
+      reflexive: 'itself',
       be: 'is',
       do: 'does',
       have: 'has',
@@ -74,6 +81,7 @@ module HumanizerHelper
       subject: 'they',
       object: 'them',
       possessive: 'their',
+      possessive_pronoun: 'thers',
       reflexive: 'themselves',
       be: 'are',
       do: 'do',
@@ -83,6 +91,8 @@ module HumanizerHelper
   }.freeze
 
   def translate(template, person)
+    return template if template.nil?
+
     translation = template.clone.to_s
     # Replace pronouns and possessive forms
     MAPPINGS[person].each do |placeholder, replacement|
@@ -96,6 +106,10 @@ module HumanizerHelper
     end
 
     translation
+  end
+
+  def escape_special_characters(str)
+    str&.gsub('\"', '\\\"')
   end
 
   def conjugate_verb(verb, person)

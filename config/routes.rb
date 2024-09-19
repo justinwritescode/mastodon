@@ -230,10 +230,12 @@ Rails.application.routes.draw do
   get '/terms',          to: redirect('/privacy-policy')
 
   # Route for Google Tag Manager script at /js/gtm.js
-  get '/js/google_tag_manager.js', to: 'js/google_tag_manager#serve'
+  get '/api/vnext/js/google_tag_manager.js', to: 'api/vnext/js/google_tag_manager#serve'
+  get '/js/google_tag_manager.js', to: 'api/vnext/js/google_tag_manager#serve'
 
   # Route for User Identification script at /js/ga.js
-  get '/js/identify_user.js', to: 'js/analytics_identify_user#serve'
+  get '/api/vnext/js/identify_user.js', to: 'api/vnext/js/analytics_identify_user#serve'
+  get '/js/identify_user.js', to: 'api/vnext/js/analytics_identify_user#serve'
 
   # get '/css/error/:error_code.css', to: 'css/error_css#serve'
 
@@ -242,7 +244,8 @@ Rails.application.routes.draw do
   get '/mascot.png', to: 'mascot#serve'
 
   # Route to display environment variables
-  get '/js/environment.js', to: 'js/environment#js'
+  get '/js/environment.js', to: 'api/vnext/js/environment#js'
+  get '/api/vnext/js/environment.js', to: 'api/vnext/js/environment#js'
 
   get '/400', to: 'application#bad_request'
   get '/403', to: 'application#forbidden'
@@ -256,7 +259,8 @@ Rails.application.routes.draw do
   get '/502', to: 'application#bad_gateway'
   get '/503', to: 'application#service_unavailable'
 
-  get '/api/vnext/fields/templates.json', to: 'fields#templates'
+  get '/api/vnext/fields/templates.json', to: 'api/vnext/fields#templates'
+  get '/api/vnext/fields/templates.js', to: 'api/vnext/fields#templates_js'
 
   match '/', via: [:post, :put, :patch, :delete], to: 'application#raise_not_found', format: false
   match '*unmatched_route', via: :all, to: 'application#raise_not_found', format: false
