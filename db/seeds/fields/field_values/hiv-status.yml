@@ -25,7 +25,7 @@
   order: 4
   default: false
 - display_value: 'poz (undetectable)'
-  value: 'tasp'
+  value: 'undetectable'
   description: "{{subject}} {{be}} HIV-positive, on medication, and {{have}} an undetectable viral load"
   order: 5
   default: false

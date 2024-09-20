@@ -36,7 +36,7 @@
   default: false
 
 - value: "benzos"
-  display_value: "benzodiazepines"
+  display_value: "benzodiazepines (Xanax, Valium, etc.)"
   description: "Benzodiazepines are a class of drugs that are commonly used for anxiety and sleep disorders. They can be highly addictive and have serious health effects."
   order: 6
   default: false
