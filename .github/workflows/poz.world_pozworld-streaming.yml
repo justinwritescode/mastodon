@@ -35,7 +35,7 @@ jobs:
       with:
         push: true
         tags: ghcr.io/${{ secrets.AzureAppService_ContainerUsername_003ca35bf0424eb9a5c5c09676c4db74 }}/justinwritescode/streaming.poz.world:${{ github.sha }}
-        file: ./Dockerfile
+        file: ./streaming/Dockerfile
 
   deploy:
     runs-on: ubuntu-latest
