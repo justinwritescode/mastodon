@@ -56,7 +56,7 @@
   category: 'lifestyle'
 
 - name: 'eye color'
-  dropdown: false
+  dropdown: true
   description: 'what color are {{possessive}} eyes? (note: if you have heterochromia, you can select more than one)'
   multiple: true
   type: 'string'
@@ -85,6 +85,7 @@
   multiple: false
   type: 'string'
   source: 'db/seeds/fields/field_values/hiv-status.yml'
+  category: 'sex'
 
 - name: 'kinks/fetishes'
   dropdown: false
@@ -149,3 +150,19 @@
   type: 'float'
   source: 'db/seeds/fields/field_values/weight.yml'
   category: 'physical'
+
+- name: 'viral load'
+  dropdown: true
+  description: '{{possessive}} latest viral load'
+  multiple: false
+  type: 'float'
+  source: 'db/seeds/fields/field_values/viral-load.yml'
+  category: 'for poz men only'
+
+- name: 'why chase?'
+  dropdown: false
+  description: 'why {{be}} {{subject}} chasing/did {{subject}} chase?'
+  multiple: false
+  type: 'string'
+  source: 'db/seeds/fields/field_values/why-chasing.yml'
+  category: 'for chasers only'

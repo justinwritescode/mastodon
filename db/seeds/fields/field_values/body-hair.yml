@@ -3,24 +3,39 @@
   value: null
   description: "{{subject}} {{have}}n't entered {{possessive}} body hair (yet)"
   default: true
+  order: 0
 - display_value: 'naturally smooth'
-  value: 0
+  value: 'naturally smooth'
   description: "{{subject}} {{have}} a naturally smooth body"
+  default: false
+  order: 1
 - display_value: 'shaved smooth'
-  value: 1
+  value: 'shaved smooth'
   description: "{{subject}} {{verb:shave}} {{possessive}} hair off"
+  default: false
+  order: 2
 - display_value: 'trimmed'
-  value: 1
+  value: 'trimmed'
   description: "{{subject}} {{verb:trim}} {{possessive}} body hair"
+  default: false
+  order: 3
 - display_value: 'some hair'
-  value: 2
+  value: 'some hair'
   description: "{{subject}} {{have}} some hair on {{possessive}} body"
+  default: false
+  order: 4
 - display_value: 'hairy'
-  value: 3
+  value: 'hairy'
   description: "{{subject}} {{be}} hairy"
+  default: false
+  order: 5
 - display_value: 'very hairy'
-  value: 4
+  value: 'very hairy'
   description: "{{subject}} {{have}} lots of body hair"
+  default: false
+  order: 6
 - display_value: 'sasquatch'
-  value: 5
+  value: 'sasquatch'
   description: "{{subject}} might as well be fucking Bigfoot!"
+  default: false
+  order: 7

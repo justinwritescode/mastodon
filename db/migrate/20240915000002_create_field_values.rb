@@ -9,6 +9,7 @@ class CreateFieldValues < ActiveRecord::Migration[7.1]
       t.text :display_value, null: false
       t.text :description, null: false
       t.boolean :default, default: false
+      t.integer :order, default: 0
 
       t.timestamps
     end

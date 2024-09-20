@@ -8,47 +8,59 @@
   value: 'lbl'
   description: 'light blond'
   order: 1
+  default: false
 - display_value: 'blond'
   value: 'bln'
   description: 'blond'
   order: 2
+  default: false
 - display_value: 'dark blond'
   value: 'dbl'
   description: 'dark blond'
   order: 3
+  default: false
 - display_value: 'light brown'
   value: 'lbr'
   description: 'light brown'
   order: 4
+  default: false
 - display_value: 'brown'
   value: 'brn'
   description: 'brown'
   order: 5
+  default: false
 - display_value: 'dark brown'
   value: 'dbr'
   description: 'dark brown'
   order: 6
+  default: false
 - display_value: 'red'
   value: 'red'
   description: 'auburn/red'
   order: 7
+  default: false
 - display_value: 'black'
   value: 'blk'
   description: 'black'
   order: 8
+  default: false
 - display_value: 'gray'
   value: 'gry'
   description: 'gray'
   order: 9
+  default: false
 - display_value: 'bald'
   value: 'bld'
   description: 'bald'
   order: 10
+  default: false
 - display_value: 'dyed'
   value: 'dye'
   description: 'dyed'
   order: 11
+  default: false
 - display_value: 'other'
   value: 'oth'
   description: 'some other color'
   order: 12
+  default: false

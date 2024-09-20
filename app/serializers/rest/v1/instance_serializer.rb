@@ -12,6 +12,8 @@ class REST::V1::InstanceSerializer < ActiveModel::Serializer
 
   has_many :rules, serializer: REST::RuleSerializer
 
+  has_many :faqs, serializer: FaqSerializer
+
   def uri
     object.domain
   end

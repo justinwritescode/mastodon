@@ -2,6 +2,22 @@
   = javascript_pack_tag 'profile-fields', crossorigin: 'anonymous'
   = field_templates_script_tag
 
+:javascript
+  document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll('.accordion-header').forEach(function(header) {
+      header.addEventListener('click', function(event) {
+        var content = document.querySelector(this.dataset.target);
+        if (content.classList.contains('collapsed')) {
+          content.classList.remove('collapsed');
+          content.style.maxHeight = content.scrollHeight + 'px';
+        } else {
+          content.classList.add('collapsed');
+          content.style.maxHeight = null;
+        }
+      });
+    });
+  });
+
 - content_for :page_title do
   = t('settings.edit_profile')
 
@@ -24,25 +40,41 @@
       .fields-group
         = f.input :note, wrapper: :with_block_label, input_html: { maxlength: 500 }
 
-    .fields-row__column.fields-group.fields-row__column-6
-      .input.with_block_label
-        %label{ title: t('simple_form.hints.account.fields') }= t('simple_form.labels.defaults.fields')
-        %span.hint= t('simple_form.hints.account.fields') 
-        %span.hint= "To add multiple values for a single field, just add multiple fields with the same label (e.g., \"kinks/fetishes\": \"#bugchasing\", \"kinks/fetishes\": \"#watersports\", \"kinks/fetishes\": \"#pozplay\", etc.)"
+  // Full-width fields section
+  .fields-full-width
+    %h4= t('edit_profile.additional_information')
 
-        // Existing Fields Rendering
-        = f.simple_fields_for :fields, @account.fields do |fields_f|
-          .row
-            - template = FieldTemplate.find_by(name: fields_f.object.name)
-            - tooltip = template&.second_person_singular_description.presence || fields_f.object.name
-            = fields_f.input :name, input_html: { value: fields_f.object.name, name: "account[fields_attributes][#{fields_f.index}][name]", title: tooltip }, label_html: { title: tooltip, class: 'tooltip' }
-            - if template&.dropdown
-              = fields_f.input :value, as: :select, collection: template.dropdown_options.map { |option| [option.value, option.value, { title: option.second_person_singular_description }] }, include_blank: false, input_html: { name: "account[fields_attributes][#{fields_f.index}][value]", value: fields_f.object.display_value, class: 'dropdown-with-tooltip', title: fields_f.object&.display_value || "Enter Value" }
-            - else
-              = fields_f.input :value, placeholder: template&.default_value || t('simple_form.labels.account.fields.value'), input_html: { maxlength: 255, name: "account[fields_attributes][#{fields_f.index}][value]", value: fields_f.object.second_person_singular_display_value, title: fields_f.object.display_value || template&.default_value || "Enter Value" }
-            = fields_f.input :marked_for_deletion, as: :boolean, label: 'Mark for Deletion', input_html: { name: "account[fields_attributes][#{fields_f.index}][marked_for_deletion]", value: '1', id: "account_fields_attributes_#{fields_f.index}_marked_for_deletion", title: "Mark for deletion" }
+    // Render fields grouped by category with accordion collapsible sections
+    - grouped_fields = @account.fields.group_by { |field| FieldTemplate.find_by(name: field.name)&.category }
 
-        .new-fields-container
+    - grouped_fields.each_with_index do |(category, fields), index|
+      - if category.present?
+        .accordion-header{ data: { target: "##{category.parameterize}" } }
+          = category.titleize
+        - accordion_id = category.parameterize
+        .accordion.collapsed{id: "#{accordion_id}", style: "max-height: 0; overflow: hidden; transition: max-height 0.2s ease-out;"}
+          = f.simple_fields_for :fields, fields do |fields_f|
+            .row
+              - template = FieldTemplate.find_by(name: fields_f.object.name)
+              - tooltip = template&.second_person_singular_description.presence || fields_f.object.name
+
+              .field-label-with-tooltip
+                = fields_f.input :name, input_html: { title: tooltip, name: "account[fields_attributes][#{fields_f.index}][name]", value: fields_f.object.name }
+                %span.hint{ title: tooltip, class: 'tooltip' }= tooltip
+              - if template&.dropdown
+                .dropdown-container
+                  = fields_f.input :value, as: :select, collection: template.dropdown_options.map { |option| [option.second_person_singular_display_value, option.value, { title: option.second_person_singular_description }] }, include_blank: false, input_html: { name: "account[fields_attributes][#{fields_f.index}][value]", value: fields_f.object.value, class: 'dropdown-with-tooltip' }
+              - else
+                .text-container
+                  = fields_f.input :value, placeholder: template&.default_value || t('simple_form.labels.account.fields.value'), input_html: { maxlength: 255, name: "account[fields_attributes][#{fields_f.index}][value]", value: fields_f.object.second_person_singular_display_value, title: fields_f.object.display_value || template&.default_value || "Enter Value" }
+              .deletion-container
+                = fields_f.input :marked_for_deletion, as: :boolean, label: 'Mark for Deletion', input_html: { name: "account[fields_attributes][#{fields_f.index}][marked_for_deletion]", value: '1', id: "account_fields_attributes_#{fields_f.index}_marked_for_deletion", title: "Mark for deletion" }
+      - else
+        %h5= t('edit_profile.undefined_category')
+        .alert.alert-warning
+          = t('edit_profile.undefined_category_explanation')
+
+    .new-fields-container
 
   .buttons
     %button.add-field-btn{ type: 'button' }= t('settings.add_field')
@@ -86,3 +118,4 @@
 
   .actions
     = f.button :button, t('generic.save_changes'), type: :submit
+

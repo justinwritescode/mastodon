@@ -64,6 +64,7 @@ class FieldTemplate < ApplicationRecord
         template.description = field_data['description']
         template.multiple = field_data['multiple']
         template.field_type = field_data['type']
+        template.category = field_data['category']
         template.save!
         FieldValue.seed_field_values_from_yaml(field_data['name'], field_data['source'])
       end

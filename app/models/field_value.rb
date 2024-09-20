@@ -7,9 +7,10 @@ class FieldValue < ApplicationRecord
   belongs_to :field_template
 
   # Validations
-  validates :value, presence: true
   validates :description, presence: true, allow_blank: true
   validates :default, inclusion: { in: [true, false] }
+  attribute :default, :boolean, default: false
+  attribute :order, :integer, default: 0
 
   def third_person_masculine_display_value
     translate(display_value, :third_singular_masculine)
@@ -33,6 +34,7 @@ class FieldValue < ApplicationRecord
       display_value: display_value.presence || value,
       description: description,
       default: default,
+      order: order,
       third_person_masculine_display_value: escape_special_characters(third_person_masculine_display_value),
       second_person_singular_display_value: escape_special_characters(second_person_singular_display_value),
       third_person_masculine_description: escape_special_characters(third_person_masculine_description),
@@ -50,11 +52,13 @@ class FieldValue < ApplicationRecord
     yaml_content = YAML.load_file(absolute_path)
 
     yaml_content.each do |field_value|
-      FieldValue.find_or_create_by(value: field_value['value']) do |value|
+      FieldValue.find_or_create_by(value: field_value['value'], field_template_id: field_template.id) do |value|
         value.value = field_value['value']
         value.display_value = field_value['display_value']
         value.description = field_value['description']
         value.default = field_value['default']
+        value.order = field_value['order']
+        value.save!
       end
     end
   end
