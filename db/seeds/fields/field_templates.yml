@@ -7,20 +7,20 @@
   source: 'db/seeds/fields/field_values/build.yml'
   category: 'physical'
 
-- name: 'cock girth'
-  dropdown: true
-  description: 'how thick around {{possessive}} cock is; its circumference, in inches'
-  multiple: false
-  type: 'float'
-  source: 'db/seeds/fields/field_values/cock-girth.yml'
-  category: 'sex'
-
 - name: 'cock length'
   dropdown: true
-  description: 'how long {{possessive}} cock is, measured from the base along the top, in inches'
+  description: 'how long is {{possessive}} cock, measured from the base along the top, in inches?'
   multiple: false
   type: 'float'
   source: 'db/seeds/fields/field_values/cock-length.yml'
+  category: 'sex'
+
+- name: 'cock girth'
+  dropdown: true
+  description: 'how thick around is {{possessive}} cock (i.e., its circumference), in inches?'
+  multiple: false
+  type: 'float'
+  source: 'db/seeds/fields/field_values/cock-girth.yml'
   category: 'sex'
 
 - name: 'dominance'
@@ -159,10 +159,18 @@
   source: 'db/seeds/fields/field_values/viral-load.yml'
   category: 'for poz men only'
 
+- name: 'former chaser'
+  dropdown: true
+  description: '{{be}} {{subject}} a former chaser?'
+  multiple: false
+  type: 'string'
+  source: 'db/seeds/fields/field_values/former-chaser.yml'
+  category: 'for poz men only'
+
 - name: 'why chase?'
   dropdown: false
-  description: 'why {{be}} {{subject}} chasing/did {{subject}} chase?'
+  description: 'why {{be}} {{subject}} chasing/did {{subject}} chase hiv?'
   multiple: false
   type: 'string'
   source: 'db/seeds/fields/field_values/why-chasing.yml'
-  category: 'for chasers only'
+  category: 'for chasers and former chasers only'

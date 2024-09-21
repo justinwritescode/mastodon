@@ -6,7 +6,11 @@ en:
     updated: "The FAQ has been updated."
     created: "The FAQ has been created."
     not_found: "The FAQ was not found."
+    delete_confirmation: 'Are you sure?'
     new: 
       title: "New FAQ"
     edit: 
       title: "Edit FAQ"
+    index:
+      empty: "No FAQs found."
+      title: "FAQs"

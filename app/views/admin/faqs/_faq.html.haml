@@ -1,0 +1,11 @@
+.announcements-list__item
+  = link_to edit_admin_faq_path(faq), class: 'announcements-list__item__title' do
+    FAQ #{faq.number}.
+    = truncate(faq.question)
+
+  .announcements-list__item__action-bar
+    .announcements-list__item__meta
+      = faq.answer
+
+    %div
+      = table_link_to 'delete', t('faq.delete.title'), admin_faq_path(faq), method: :delete, data: { confirm: t('admin.accounts.are_you_sure') } if can?(:destroy, faq)

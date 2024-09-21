@@ -10,12 +10,13 @@ class REST::InstanceSerializer < ActiveModel::Serializer
   include InstanceHelper
   include RoutingHelper
 
-  attributes :domain, :title, :version, :source_url, :description,
+  attributes :domain, :title, :tagline, :version, :source_url, :description,
              :usage, :thumbnail, :icon, :languages, :configuration,
              :registrations, :api_versions
 
   has_one :contact, serializer: ContactSerializer
   has_many :rules, serializer: REST::RuleSerializer
+  has_many :faqs, serializer: REST::FaqSerializer
 
   def thumbnail
     if object.thumbnail
@@ -123,5 +124,9 @@ class REST::InstanceSerializer < ActiveModel::Serializer
 
   def markdown
     @markdown ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML, no_images: true)
+  end
+
+  def tagline
+    Setting.site_tagline
   end
 end

@@ -70,6 +70,7 @@ class UserRole < ApplicationRecord
         manage_settings
         manage_rules
         manage_roles
+        manage_faqs
         manage_webhooks
         manage_custom_emojis
         manage_announcements

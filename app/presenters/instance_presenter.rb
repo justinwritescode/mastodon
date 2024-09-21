@@ -3,7 +3,7 @@
 class InstancePresenter < ActiveModelSerializers::Model
   attributes :domain, :title, :version, :source_url,
              :description, :languages, :rules, :contact,
-             :faqs
+             :faqs, :tagline
 
   class ContactPresenter < ActiveModelSerializers::Model
     attributes :email, :account
@@ -99,5 +99,9 @@ class InstancePresenter < ActiveModelSerializers::Model
 
   def faqs
     Faq.ordered
+  end
+
+  def tagline
+    Setting.site_tagline
   end
 end

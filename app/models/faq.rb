@@ -11,14 +11,14 @@ class Faq < ApplicationRecord
   validates :number, uniqueness: true
 
   # Public instance methods
-  def as_json(options = {})
-    {
-      id: id,
-      number: number,
-      question: question,
-      answer: answer,
-    }
-  end
+  # def as_json(options = {})
+  #   {
+  #     id: id,
+  #     number: number,
+  #     question: question,
+  #     answer: answer,
+  #   }
+  # end
 
   # Class methods
   def self.ordered

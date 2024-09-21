@@ -1,8 +1,12 @@
 - content_for :page_title do
   = t('faqs.index.title')
 
+- content_for :heading do
+  %h2= t('faqs.index.title')
+  = render partial: 'admin/settings/shared/links'
+
 - content_for :heading_actions do
-  = link_to t('faqs.new.title'), new_faq_path, class: 'button'
+  = link_to t('faqs.new.title'), admin_new_faq_path, class: 'button'
 
 - if @faqs.empty?
   .muted-hint.center-text= t 'faqs.index.empty'
@@ -17,13 +21,13 @@
 
 
 %h1 FAQs
-= link_to t('faqs.new'), new_faq_path
+= link_to t('faqs.new'), admin_new_faq_path
 
 %ul
   - @faqs.each do |faq|
     %li
-      = link_to faq.question, faq_path(faq)
+      = link_to faq.question, admin_faq_path(faq)
       | 
-      = link_to 'Edit', edit_faq_path(faq)
+      = link_to 'Edit', edit_admin_faq_path(faq)
       | 
-      = link_to 'Destroy', faq, method: :delete, data: { confirm: 'Are you sure?' }
+      = link_to 'Destroy', admin_faq_path(faq), method: :delete, data: { confirm: t('faqs.delete_confirmation') }

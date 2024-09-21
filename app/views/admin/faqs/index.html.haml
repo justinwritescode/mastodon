@@ -1,11 +1,22 @@
-%h1 FAQs
-= link_to 'New FAQ', new_faq_path
+- content_for :page_title do
+  = t('faqs.index.title')
 
-%ul
-  - @faqs.each do |faq|
-    %li
-      = link_to faq.question, faq_path(faq)
-      | 
-      = link_to 'Edit', edit_faq_path(faq)
-      | 
-      = link_to 'Destroy', faq, method: :delete, data: { confirm: 'Are you sure?' }
+%hr.spacer/
+
+- if can? :create, :faq
+  = simple_form_for @faq, url: admin_faqs_path do |form|
+    = render 'shared/error_messages', object: @faq
+
+    = render form
+
+    .actions
+      = form.button :button, t('faqs.new.title'), type: :submit
+
+  %hr.spacer/
+
+- if @faqs.empty?
+  .muted-hint.center-text
+    = t 'faqs.index.empty'
+- else
+  .announcements-list
+    = render partial: 'faq', collection: @faqs

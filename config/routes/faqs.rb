@@ -2,7 +2,6 @@
 
 namespace :admin do
   resources :faqs, only: [:index, :new, :create, :edit, :update, :destroy]
-  root to: '/admin/faqs#index'
 end
 
 namespace :api do
