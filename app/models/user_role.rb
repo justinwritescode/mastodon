@@ -36,6 +36,7 @@ class UserRole < ApplicationRecord
     manage_roles: (1 << 17),
     manage_user_access: (1 << 18),
     delete_user_data: (1 << 19),
+    manage_faqs: (1 << 20),
   }.freeze
 
   EVERYONE_ROLE_ID = -99
