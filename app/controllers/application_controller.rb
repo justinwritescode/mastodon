@@ -16,6 +16,7 @@ class ApplicationController < ActionController::Base
   include SelfDestructHelper
   include ErrorTranslatorHelper
   include ErrorsAssetHelper
+  include Pundit::Authorization
 
   helper_method :current_account
   helper_method :current_session
@@ -28,7 +29,7 @@ class ApplicationController < ActionController::Base
   helper_method :skip_csrf_meta_tags?
 
   # Catch-all rescue for all exceptions
-  rescue_from StandardError, with: :handle_exception
+  # rescue_from StandardError, with: :handle_exception
 
   rescue_from ActionController::ParameterMissing, Paperclip::AdapterRegistry::NoHandlerError, with: :bad_request
   rescue_from Mastodon::NotPermittedError, with: :forbidden
@@ -175,7 +176,7 @@ class ApplicationController < ActionController::Base
 
   def respond_with_error(code, exception = nil)
     respond_to do |format|
-      format.any  { render 'errors/500', layout: 'error', status: '500', formats: [:html], exception: exception } if code.blank? || code.nil?
+      format.any  { render 'errors/500', layout: 'error', status: '500', formats: [:html], exception: exception } if code.blank?
       format.any  { render "errors/#{code}", layout: 'error', status: code, formats: [:html], exception: exception } if code.present?
       format.json { render json: { error: Rack::Utils::HTTP_STATUS_CODES[code], exception: exception }, status: code }
     end
