@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
+  include Pundit::Authorization
+
   DANGEROUS_SCOPES = %w(
     read
     write
@@ -102,7 +104,8 @@ module ApplicationHelper
   def can?(action, record)
     return false if record.nil?
 
-    policy(record).public_send(:"#{action}?")
+    policy = policy(record) # This line assumes the policy method exists and is called correctly.
+    policy.public_send(:"#{action}?")
   end
 
   def material_symbol(icon, attributes = {})
