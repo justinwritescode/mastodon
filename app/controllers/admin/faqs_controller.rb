@@ -6,7 +6,9 @@ module Admin
     before_action :authorize_faq, only: [:create, :update, :destroy] # Add authorization filter
 
     def index
-      @faqs = Faq.all
+      @faqs = Faq.ordered
+      @faq = Faq.new
+      render layout: 'admin' # This would override the default layout for this action only
     end
 
     def show; end
@@ -14,9 +16,12 @@ module Admin
     def new
       @faq = Faq.new
       authorize @faq
+      render layout: 'admin' # This would override the default layout for this action only
     end
 
-    def edit; end
+    def edit
+      render layout: 'admin'
+    end
 
     def create
       @faq = Faq.new(faq_params)
@@ -24,7 +29,7 @@ module Admin
       if @faq.save
         redirect_to admin_faqs_path, notice: 'FAQ was successfully created.'
       else
-        render :new
+        render :new, layout: 'admin'
       end
     end
 
@@ -33,7 +38,7 @@ module Admin
       if @faq.update(faq_params)
         redirect_to admin_faqs_path, notice: 'FAQ was successfully updated.'
       else
-        render :edit
+        render :edit, layout: 'admin'
       end
     end
 
@@ -46,7 +51,7 @@ module Admin
     private
 
     def authorize_faq
-      authorize @faq
+      authorize @faq unless @faq.nil?
     end
 
     def set_faq

@@ -14,3 +14,11 @@ en:
     index:
       empty: "No FAQs found."
       title: "FAQs"
+  admin:
+    faqs:
+      title: Frequently Asked Questions (FAQs)
+      add_new: 'Create New FAQ'
+      description_html: "These are the site's FAQs, which will be displayed on the landing page and the FAQs page."
+      empty: "No FAQs found."
+      edit: "Edit FAQ"
+      delete: "Delete"

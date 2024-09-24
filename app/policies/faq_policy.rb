@@ -2,18 +2,22 @@
 
 class FaqPolicy < ApplicationPolicy
   def index?
-    role.can?(:manage_rules)
+    current_account.role.can?(:manage_faqs)
   end
 
   def create?
-    role.can?(:manage_rules)
+    current_account.role.can?(:manage_faqs)
   end
 
   def update?
-    role.can?(:manage_rules)
+    current_account.role.can?(:manage_faqs)
   end
 
   def destroy?
-    role.can?(:manage_rules)
+    current_account.role.can?(:manage_faqs)
+  end
+
+  def edit?
+    current_account.role.can?(:manage_faqs)
   end
 end

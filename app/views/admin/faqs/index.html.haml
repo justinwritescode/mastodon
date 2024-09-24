@@ -1,5 +1,7 @@
 - content_for :page_title do
-  = t('faqs.index.title')
+  = t('admin.faqs.title')
+
+%p= t('admin.faqs.description_html')
 
 %hr.spacer/
 
@@ -10,13 +12,13 @@
     = render form
 
     .actions
-      = form.button :button, t('faqs.new.title'), type: :submit
+      = form.button :button, t('admin.faqs.add_new'), type: :submit
 
   %hr.spacer/
 
 - if @faqs.empty?
   .muted-hint.center-text
-    = t 'faqs.index.empty'
+    = t 'admin.faqs.empty'
 - else
   .announcements-list
     = render partial: 'faq', collection: @faqs
