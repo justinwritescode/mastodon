@@ -5,7 +5,7 @@ export RAILS_ENV=production
 export PATH="/opt/mastodon/bin:${PATH}"
 
 cd /opt/mastodon && \
-bash bin/display-branding && \
+bash bin/show-branding && \
 bash bin/start-sshd && \
 bash bin/start-nginx && \
 echo "**** Starting streaming ****" && \

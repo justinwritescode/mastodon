@@ -6,7 +6,7 @@ export PATH="/opt/mastodon/bin:${PATH}"
 
 PATH="/opt/mastodon/bin:${PATH}"
 
-bash display-branding;
+bash show-branding;
 bash start-sshd;
 bash start-nginx; 
 echo "**** Starting Mastodon ****";

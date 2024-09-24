@@ -12,7 +12,7 @@ fi
 
 cd /mastodon || exit 1
 
-bash sidekiq-branding;
+bash show-sidekiq-branding;
 
 bash start-sshd;     
 bash start-nginx; 

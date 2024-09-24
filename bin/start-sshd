@@ -4,7 +4,7 @@
 export RAILS_ENV=production
 export PATH="/opt/mastodon/bin:${PATH}"
 
-bash sshd-branding
+bash show-sshd-branding
 
 if pgrep -f "sshd:" >/dev/null; then
     echo "Zombie sshd processes detected, sending SIGTERM"

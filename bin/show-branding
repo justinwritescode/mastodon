@@ -1,6 +1,6 @@
 #!/bin/bash
 
-bash separator
+bash show-separator
 
 echo "
 
@@ -14,5 +14,5 @@ echo "
                                                                                                                             
 "
 
-bash display-byline
-bash separator
+bash show-byline
+bash show-separator
