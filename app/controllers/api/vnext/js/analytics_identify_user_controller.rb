@@ -73,6 +73,9 @@ class Api::Vnext::Js::AnalyticsIdentifyUserController < ApplicationController
   # end
 
   def current_user_name
+    return nil unless current_account
+
+    current_account.username if current_account&.local?
     if current_account.domain.present?
       "#{current_account.username}@#{current_account.domain}"
     else
