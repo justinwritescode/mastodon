@@ -6,12 +6,12 @@ class Api::Vnext::FaqsController < ApplicationController
   # GET /api/vnext/faqs
   def index
     @faqs = Faq.all
-    render json: @faqs
+    render json: @faqs, content_type: 'application/faqs+json', serializer: FaqSerializer
   end
 
   # GET /api/vnext/faqs/:id
   def show
-    render json: @faq
+    render json: @faq, content_type: 'application/faqs+json', serializer: FaqSerializer
   end
 
   # POST /api/vnext/faqs
@@ -27,7 +27,7 @@ class Api::Vnext::FaqsController < ApplicationController
   # PATCH/PUT /api/vnext/faqs/:id
   def update
     if @faq.update(faq_params)
-      render json: @faq
+      render json: @faq, content_type: 'application/faqs+json', serializer: FaqSerializer
     else
       render json: @faq.errors, status: 422
     end

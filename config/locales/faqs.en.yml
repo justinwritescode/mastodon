@@ -22,3 +22,7 @@ en:
       empty: "No FAQs found."
       edit: "Edit FAQ"
       delete: "Delete"
+      moderation_notes:
+        destroyed: "The FAQ has been deleted."
+        updated: "The FAQ has been updated."
+        created: "The FAQ has been created."

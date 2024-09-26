@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Faq < ApplicationRecord
+  include Discard::Model
+  self.discard_column = :deleted_at
   # Callbacks
   before_create :set_number
   before_update :adjust_numbers
@@ -9,6 +11,7 @@ class Faq < ApplicationRecord
   validates :question, presence: true
   validates :answer, presence: true
   validates :number, uniqueness: true
+  attribute :deleted_at, :datetime
 
   # Public instance methods
   # def as_json(options = {})

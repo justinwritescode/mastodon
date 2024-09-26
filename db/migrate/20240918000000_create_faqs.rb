@@ -9,6 +9,7 @@ class CreateFaqs < ActiveRecord::Migration[7.1]
       t.text :answer, null: false
 
       t.timestamps
+      t.datetime :deleted_at, null: true
     end
 
     add_index :faqs, :number, unique: true

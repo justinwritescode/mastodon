@@ -1,6 +1,15 @@
 - content_for :page_title do
   = t('admin.faqs.title')
 
+:javascript
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('form[data-remote="true"]').forEach(form => {
+      form.addEventListener('ajax:success', () => {
+        window.location.reload();
+      });
+    });
+  });
+
 %p= t('admin.faqs.description_html')
 
 %hr.spacer/
@@ -21,4 +30,4 @@
     = t 'admin.faqs.empty'
 - else
   .announcements-list
-    = render partial: 'faq', collection: @faqs
+    = render partial: 'faq', collection: @faqs, as: :faq, locals: { total_faqs: @faqs.size }

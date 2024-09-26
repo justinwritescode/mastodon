@@ -27,7 +27,7 @@ module Admin
       @faq = Faq.new(faq_params)
       authorize @faq
       if @faq.save
-        redirect_to admin_faqs_path, notice: 'FAQ was successfully created.'
+        redirect_to admin_faqs_path, notice: t('admin.faqs.moderation_notes.created')
       else
         render :new, layout: 'admin'
       end
@@ -36,7 +36,7 @@ module Admin
     def update
       authorize @faq
       if @faq.update(faq_params)
-        redirect_to admin_faqs_path, notice: 'FAQ was successfully updated.'
+        redirect_to admin_faqs_path, notice: t('admin.faqs.moderation_notes.updated')
       else
         render :edit, layout: 'admin'
       end
@@ -45,7 +45,31 @@ module Admin
     def destroy
       authorize @faq
       @faq.destroy
-      redirect_to admin_faqs_path, notice: 'FAQ was successfully destroyed.'
+      redirect_to admin_faqs_path, notice: t('admin.faqs.moderation_notes.destroyed')
+    end
+
+    def swap_positions
+      direction = params[:direction]
+
+      if direction == 'up'
+        target_faq = Faq.find_by(number: @faq.number - 1)
+      elsif direction == 'down'
+        target_faq = Faq.find_by(number: @faq.number + 1)
+      end
+
+      if target_faq.nil?
+        Rails.logger.error "Target FAQ is nil. Direction: #{direction}, FAQ number: #{@faq.number}"
+        redirect_to admin_faqs_path, alert: 'Unable to swap positions.'
+        return
+      end
+
+      Faq.transaction do
+        target_number = target_faq.number
+        target_faq.update!(number: @faq.number)
+        @faq.update!(number: target_number)
+      end
+
+      redirect_to admin_faqs_path, notice: 'Position swapped successfully.'
     end
 
     private
