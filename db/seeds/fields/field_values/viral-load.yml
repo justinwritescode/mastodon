@@ -5,116 +5,56 @@
   order: 0
   default: false
 
-- value: "< 20 copies/mL"
-  display_value: "< 20 copies/mL"
+- value: 20
+  display_value: "Undetectable (e.g., <20 copies/mL)"
   description: "{{subject}} {{have}} a viral load less than 20 copies/mL"
   order: 1
   default: false
 
-- value: "21 - 50 copies/mL"
-  display_value: "21 - 50 copies/mL"
-  description: "{{subject}} {{have}} a viral load between 21 and 50 copies/mL"
+- value: 200
+  display_value: "20 - 200 copies/mL"
+  description: "{{subject}} {{have}} a viral load between 20 and 200 copies/mL"
   order: 2
   default: false
 
-- value: "51 - 100 copies/mL"
-  display_value: "51 - 100 copies/mL"
-  description: "{{subject}} {{have}} a viral load between 51 and 100 copies/mL"
+- value: 1000
+  display_value: "201 - 1,000 copies/mL"
+  description: "{{subject}} {{have}} a viral load between 201 and 1,000 copies/mL"
   order: 3
   default: false
 
-- value: "101 - 200 copies/mL"
-  display_value: "101 - 200 copies/mL"
-  description: "{{subject}} {{have}} a viral load between 101 and 200 copies/mL"
+- value: 10000
+  display_value: "1,001 - 10,000 copies/mL"
+  description: "{{subject}} {{have}} a viral load between 1,001 and 10,000 copies/mL"
   order: 4
   default: false
 
-- value: "201 - 400 copies/mL"
-  display_value: "201 - 400 copies/mL"
-  description: "{{subject}} {{have}} a viral load between 201 and 400 copies/mL"
+- value: 50000
+  display_value: "10,001 - 50,000 copies/mL"
+  description: "{{subject}} {{have}} a viral load between 10,001 and 50,000 copies/mL"
   order: 5
   default: false
 
-- value: "401 - 600 copies/mL"
-  display_value: "401 - 600 copies/mL"
-  description: "{{subject}} {{have}} a viral load between 401 and 600 copies/mL"
+- value: 100000
+  display_value: "50,001 - 100,000 copies/mL"
+  description: "{{subject}} {{have}} a viral load between 50,001 and 100,000 copies/mL"
   order: 6
   default: false
 
-- value: "601 - 800 copies/mL"
-  display_value: "601 - 800 copies/mL"
-  description: "{{subject}} {{have}} a viral load between 601 and 800 copies/mL"
+- value: 500000
+  display_value: "100,001 - 500,000 copies/mL"
+  description: "{{subject}} {{have}} a viral load between 100,001 and 500,000 copies/mL"
   order: 7
   default: false
 
-- value: "801 - 1,000 copies/mL"
-  display_value: "801 - 1,000 copies/mL"
-  description: "{{subject}} {{have}} a viral load between 801 and 1,000 copies/mL"
+- value: 1000000
+  display_value: "500,001 - 1,000,000 copies/mL"
+  description: "{{subject}} {{have}} a viral load between 500,001 and 1,000,000 copies/mL"
   order: 8
   default: false
 
-- value: "1,001 - 2,000 copies/mL"
-  display_value: "1,001 - 2,000 copies/mL"
-  description: "{{subject}} {{have}} a viral load between 1,001 and 2,000 copies/mL"
+- value: 1000001
+  display_value: ">1,000,001 copies/mL"
+  description: "{{subject}} {{have}} a viral load greater than 1,000,001 copies/mL"
   order: 9
-  default: false
-
-- value: "2,001 - 5,000 copies/mL"
-  display_value: "2,001 - 5,000 copies/mL"
-  description: "{{subject}} {{have}} a viral load between 2,001 and 5,000 copies/mL"
-  order: 10
-  default: false
-
-- value: "5,001 - 10,000 copies/mL"
-  display_value: "5,001 - 10,000 copies/mL"
-  description: "{{subject}} {{have}} a viral load between 5,001 and 10,000 copies/mL"
-  order: 11
-  default: false
-
-- value: "10,001 - 20,000 copies/mL"
-  display_value: "10,001 - 20,000 copies/mL"
-  description: "{{subject}} {{have}} a viral load between 10,001 and 20,000 copies/mL"
-  order: 12
-  default: false
-
-- value: "20,001 - 50,000 copies/mL"
-  display_value: "20,001 - 50,000 copies/mL"
-  description: "{{subject}} {{have}} a viral load between 20,001 and 50,000 copies/mL"
-  order: 13
-  default: false
-
-- value: "50,001 - 100,000 copies/mL"
-  display_value: "50,001 - 100,000 copies/mL"
-  description: "{{subject}} {{have}} a viral load between 50,001 and 100,000 copies/mL"
-  order: 14
-  default: false
-
-- value: "100,001 - 200,000 copies/mL"
-  display_value: "100,001 - 200,000 copies/mL"
-  description: "{{subject}} {{have}} a viral load between 100,001 and 200,000 copies/mL"
-  order: 15
-  default: false
-
-- value: "200,001 - 300,000 copies/mL"
-  display_value: "200,001 - 300,000 copies/mL"
-  description: "{{subject}} {{have}} a viral load between 200,001 and 300,000 copies/mL"
-  order: 16
-  default: false
-
-- value: "300,001 - 400,000 copies/mL"
-  display_value: "300,001 - 400,000 copies/mL"
-  description: "{{subject}} {{have}} a viral load between 300,001 and 400,000 copies/mL"
-  order: 17
-  default: false
-
-- value: "400,001 - 500,000 copies/mL"
-  display_value: "400,001 - 500,000 copies/mL"
-  description: "{{subject}} {{have}} a viral load between 400,001 and 500,000 copies/mL"
-  order: 18
-  default: false
-
-- value: "> 500,000 copies/mL"
-  display_value: "> 500,000 copies/mL"
-  description: "{{subject}} {{have}} a viral load greater than 500,000 copies/mL"
-  order: 19
   default: false

@@ -5,7 +5,7 @@
   default: true
   order: 0
 - display_value: 'total bottom'
-  value: 'total-bottom'
+  value: 'total bottom'
   description: "{{subject}} never {{verb:put}} {{possessive}} dick in another man's ass; {{possessive}} dick is only for show or to flop around whilst {{subject}} {{verb:get}} railed"
   order: 1
   default: false
@@ -15,12 +15,12 @@
   order: 2
   default: false
 - display_value: 'mostly bottom'
-  value: 'mostly-btm'
+  value: 'mostly btm'
   description: "{{subject}}'ll top for the right guy"
   order: 3
   default: false
 - display_value: 'vers bottom'
-  value: 'vers-btm'
+  value: 'vers btm'
   description: "{{subject}} {{be}} predominantly bottom, but will top on occasion"
   order: 4
   default: false
@@ -30,12 +30,12 @@
   order: 5
   default: false
 - display_value: 'vers top'
-  value: 'vers-top'
+  value: 'vers top'
   description: "{{subject}} {{be}} predominantly a top, but {{verb:enjoy}} bottoming on occasion"
   order: 6
   default: false
 - display_value: 'mostly top'
-  value: 'mostly-top'
+  value: 'mostly top'
   description: "{{subject}}'ll bottom for the right guy"
   order: 7
   default: false
@@ -45,7 +45,7 @@
   order: 8
   default: false
 - display_value: 'total top'
-  value: 'total-top'
+  value: 'total top'
   description: "{{subject}} {{be}} a total top; no dick goes in {{possessive}} ass EVER"
   order: 9
   default: false

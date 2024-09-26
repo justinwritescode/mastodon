@@ -1,7 +1,7 @@
 ---
 - value: null
   display_value: '[not entered]'
-  description: "{{subject}} {{have}}n't selected a cock girth (yet)"
+  description: "{{subject}} {{have}}n't selected {{possessive}} cock girth (yet)"
   default: true
   order: 0
 - value: 0.5
@@ -191,11 +191,11 @@
   default: false
 - value: 10
   display_value: '10"'
-  description: "{{possessive}} cock measures 10 inches in girth (circumference)"
+  description: "{{possessive}} cock measures an impossibly huge 10 inches in girth (circumference)"
   order: 39
   default: false
 - value: 9999
   display_value: '> 10"'
-  description: "{{possessive}} cock measures > 10 inches in girth (circumference)"
+  description: "{{possessive}} cock measures an impossibly huge > 10 inches in girth (circumference)"
   order: 40
   default: false

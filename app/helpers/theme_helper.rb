@@ -23,6 +23,10 @@ module ThemeHelper
     end
   end
 
+  def theme_dark_light(theme = current_theme)
+    ['system', 'mastodon-light'].include?(theme) ? 'light' : 'dark'
+  end
+
   private
 
   def theme_color_for(theme)

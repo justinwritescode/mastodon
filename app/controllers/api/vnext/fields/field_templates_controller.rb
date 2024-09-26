@@ -6,7 +6,7 @@ class Api::Vnext::Fields::FieldTemplatesController < ApplicationController
   # GET /api/vnext/fields/field_templates
   def index
     @field_templates = FieldTemplate.all
-    render json: @field_templates
+    render json: @field_templates, serializer: FieldTemplateSerializer
   end
 
   # GET /api/vnext/fields/field_templates/:id

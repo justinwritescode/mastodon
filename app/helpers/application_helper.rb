@@ -2,6 +2,7 @@
 
 module ApplicationHelper
   include Pundit::Authorization
+  include InlineSvg::ActionView::Helpers
 
   DANGEROUS_SCOPES = %w(
     read
@@ -245,6 +246,59 @@ module ApplicationHelper
   def mascot_url
     my_mascot_image_url
     # full_asset_url(instance_presenter.mascot&.file&.url || frontend_asset_path('images/elephant_ui_plane.svg'))
+  end
+
+  def svg_symbol(icon, prefix, attributes = {})
+    safe_join(
+      [
+        render_inline_svg(
+          "#{icon}.svg",
+          class: ['icon', "#{prefix}-#{icon}"].concat(attributes[:class].to_s.split),
+          role: :img,
+          data: attributes[:data]
+        ),
+        ' ',
+      ]
+    )
+  end
+
+  def bootstrap_icon(name, options = {})
+    options[:class] = "bi bi-#{name} #{options[:class]}".strip
+    content_tag(:i, nil, options)
+  end
+
+  def bootstrap_icon_text(name, text, options = {})
+    options[:class] = "bi bi-#{name} #{options[:class]}".strip
+    content_tag(:i, text, options)
+  end
+
+  def bootstrap_icon_button(name, text, options = {})
+    options[:class] = "bi bi-#{name} #{options[:class]}".strip
+    options[:type] = 'button'
+    button_tag(text, options)
+  end
+
+  def bootstrap_icon_link(name, text, url, options = {})
+    options[:class] = "bi bi-#{name} #{options[:class]}".strip
+    link_to(text, url, options)
+  end
+
+  def bootstrap_icon_button_link(name, text, url, options = {})
+    options[:class] = "bi bi-#{name} #{options[:class]}".strip
+    options[:type] = 'button'
+    link_to(text, url, options)
+  end
+
+  def bootstrap_icons_stylesheet_link_tag
+    stylesheet_link_tag 'https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.min.css'
+  end
+
+  def bootstrap_stylesheet_tag
+    stylesheet_link_tag 'https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css'
+  end
+
+  def bootstrap_javascript_tag
+    javascript_tag '', src: 'https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.js'
   end
 
   private

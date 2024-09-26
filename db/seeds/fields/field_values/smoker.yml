@@ -16,7 +16,7 @@
   default: false
 - display_value: 'socially'
   value: 'socially'
-  description: "{{subject}} {{verb:smoke}} when {{subject}}'s out with friends"
+  description: "{{subject}} {{verb:smoke}} when {{subject}} {{be}} out with friends"
   order: 3
   default: false
 - display_value: 'quitting'

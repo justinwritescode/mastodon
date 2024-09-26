@@ -26,7 +26,7 @@
   default: false
 - display_value: 'socially'
   value: 'socially'
-  description: "{{subject}} {{verb:use}} recreational drugs when {{subject}}'s out with friends"
+  description: "{{subject}} {{verb:use}} recreational drugs when {{subject}} {{be}} out with friends"
   order: 5
   default: false
 - display_value: 'quitting'
@@ -40,12 +40,12 @@
   order: 7
   default: false
 - display_value: 'in recovery'
-  value: 'in-recovery'
+  value: 'in recovery'
   description: '{{subject}} {{be}} in recovery from drug addiction'
   order: 8
   default: false
 - display_value: 'fuck no'
-  value: 'fuck-no'
+  value: 'fuck no'
   description: '{{subject}} {{have}} never and will never use recreational drugs'
   order: 9
   default: false

@@ -15,7 +15,7 @@
   order: 2
   default: false
 - display_value: 'neg (on PrEP)'
-  value: 'prep'
+  value: 'neg+prep'
   description: "{{subject}} {{be}} HIV-negative and on pre-exposure prophylaxis"
   order: 3
   default: false

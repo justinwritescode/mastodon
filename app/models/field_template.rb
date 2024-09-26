@@ -2,21 +2,36 @@
 
 # app/models/fields/field_template.rb
 class FieldTemplate < ApplicationRecord
+  include Discard::Model
   include HumanizerHelper
+
+  self.discard_column = :deleted_at
 
   # Define relationships if needed
   has_many :field_values, dependent: :destroy
 
   # Explicitly declare the 'field_type' attribute with `attribute` method
   attribute :field_type, :string
+  attribute :deleted_at, :datetime
+  attribute :rules, :jsonb
 
-  enum :field_type, { string: 'string', float: 'float', integer: 'integer', object: 'object' } # Enum backed by string
+  enum :field_type, { string: 'string', float: 'float', integer: 'integer', boolean: 'boolean', object: 'object' } # Enum backed by string
 
   # Validations
-  validates :name, presence: true
+  validates :name, presence: true, allow_blank: false
   validates :description, presence: true
   validates :multiple, inclusion: { in: [true, false] }
   validates :field_type, inclusion: { in: field_types.keys }
+  validates :third_person_masculine_description, presence: true, allow_blank: false
+  validates :second_person_singular_description, presence: true, allow_blank: false
+  validates :first_person_singular_description, presence: true, allow_blank: false
+
+  def description=(description)
+    write_attribute(:description, description)
+    self[:third_person_masculine_description] = translate(description, :third_singular_masculine)
+    self[:second_person_singular_description] = translate(description, :second_singular)
+    self[:first_person_singular_description] = translate(description, :first_singular)
+  end
 
   # Methods for retrieving drop-down options
   def dropdown_options
@@ -36,17 +51,42 @@ class FieldTemplate < ApplicationRecord
     translate(description, :second_singular)
   end
 
-  def as_json(_ = {})
-    {
-      name: escape_special_characters(name),
-      description: escape_special_characters(description),
-      default_value: escape_special_characters(default_value),
-      options: dropdown_options.map(&:as_json),
-      third_person_masculine_description: escape_special_characters(third_person_masculine_description),
-      second_person_singular_description: escape_special_characters(second_person_singular_description),
-      multiple: multiple,
-    }
+  def first_person_singular_description
+    translate(description, :first_singular)
   end
+
+  # Custom getter for rules
+  def rules
+    jsonb_data = read_attribute(:rules) || {}
+    @rules ||= FieldTemplateRules.new(jsonb_data['rules'] || {})
+  end
+
+  # Custom setter for rules
+  def rules=(value)
+    if value.is_a?(FieldTemplateRules)
+      write_attribute(:rules, { rules: value.rules, combiner: value.combiner })
+    elsif value.is_a?(String)
+      write_attribute(:rules, value)
+    elsif value.nil?
+      write_attribute(:rules, {})
+    elsif value.is_a?(Hash) # rubocop:disable Lint/DuplicateBranch
+      write_attribute(:rules, value)
+    else
+      raise ArgumentError, "Expected a FieldTemplateRules object, but found #{value.class}"
+    end
+  end
+
+  # def as_json(_ = {})
+  #   {
+  #     name: escape_special_characters(name),
+  #     description: escape_special_characters(description),
+  #     default_value: escape_special_characters(default_value),
+  #     options: dropdown_options.map(&:as_json),
+  #     third_person_masculine_description: escape_special_characters(third_person_masculine_description),
+  #     second_person_singular_description: escape_special_characters(second_person_singular_description),
+  #     multiple: multiple,
+  #   }
+  # end
 
   # Define the method as a class method using `self.`
   def self.seed_field_templates_from_yaml(file_path)
@@ -65,6 +105,7 @@ class FieldTemplate < ApplicationRecord
         template.multiple = field_data['multiple']
         template.field_type = field_data['type']
         template.category = field_data['category']
+        template.rules = field_data['rules']
         template.save!
         FieldValue.seed_field_values_from_yaml(field_data['name'], field_data['source'])
       end
