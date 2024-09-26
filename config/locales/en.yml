@@ -721,6 +721,8 @@ en:
         manage_roles_description: Allows users to manage and assign roles below theirs
         manage_rules: Manage Rules
         manage_rules_description: Allows users to change server rules
+        manage_faqs: Manage FAQs
+        manage_faqs_description: Allows users to change FAQs
         manage_settings: Manage Settings
         manage_settings_description: Allows users to change site settings
         manage_taxonomies: Manage Taxonomies
@@ -748,7 +750,9 @@ en:
     settings:
       about:
         manage_rules: Manage server rules
+        manage_faqs: Manage FAQs
         preamble: Provide in-depth information about how the server is operated, moderated, funded.
+        faqs_hint: There is a dedicated area for FAQs that your users might ask before joining.
         rules_hint: There is a dedicated area for rules that your users are expected to adhere to.
         title: About
       add_field: Add another field
@@ -1465,7 +1469,7 @@ en:
       scheduled: I'm'a get to it
       unconfirmed: Unconfirmed
     status: Status
-    success: Your data was successfully uploaded and will be processed in due time
+    success: Your data were successfully uploaded and will be processed in due time
     time_started: Started at
     titles:
       blocking: Importing blocked accounts
@@ -1499,7 +1503,7 @@ en:
     expires_in_prompt: Never
     generate: Generate invite link
     invalid: This invite is not valid
-    invited_by: 'You were invited by:'
+    invited_by: 'You were invited by '
     max_uses:
       one: 1 use
       other: "%{count} uses"
