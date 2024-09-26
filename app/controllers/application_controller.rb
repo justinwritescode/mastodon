@@ -59,43 +59,6 @@ class ApplicationController < ActionController::Base
     raise ActionController::RoutingError, "No route matches #{params[:unmatched_route]}"
   end
 
-  private
-
-  def public_fetch_mode?
-    !authorized_fetch_mode?
-  end
-
-  def store_referrer
-    return if request.referer.blank?
-
-    redirect_uri = URI(request.referer)
-    return if redirect_uri.path.start_with?('/auth')
-
-    stored_url = redirect_uri.to_s if redirect_uri.host == request.host && redirect_uri.port == request.port
-
-    store_location_for(:user, stored_url)
-  end
-
-  def require_functional!
-    redirect_to edit_user_registration_path unless current_user.functional?
-  end
-
-  def skip_csrf_meta_tags?
-    false
-  end
-
-  def after_sign_out_path_for(_resource_or_scope)
-    if ENV['OMNIAUTH_ONLY'] == 'true' && ENV['OIDC_ENABLED'] == 'true'
-      '/auth/auth/openid_connect/logout'
-    else
-      new_user_session_path
-    end
-  end
-
-  def truthy_param?(key)
-    ActiveModel::Type::Boolean.new.cast(params[key])
-  end
-
   def forbidden
     respond_with_error(403)
   end
@@ -138,6 +101,47 @@ class ApplicationController < ActionController::Base
 
   def im_a_teapot
     respond_with_error(418)
+  end
+
+  def conflict
+    respond_with_error(409)
+  end
+
+  private
+
+  def public_fetch_mode?
+    !authorized_fetch_mode?
+  end
+
+  def store_referrer
+    return if request.referer.blank?
+
+    redirect_uri = URI(request.referer)
+    return if redirect_uri.path.start_with?('/auth')
+
+    stored_url = redirect_uri.to_s if redirect_uri.host == request.host && redirect_uri.port == request.port
+
+    store_location_for(:user, stored_url)
+  end
+
+  def require_functional!
+    redirect_to edit_user_registration_path unless current_user.functional?
+  end
+
+  def skip_csrf_meta_tags?
+    false
+  end
+
+  def after_sign_out_path_for(_resource_or_scope)
+    if ENV['OMNIAUTH_ONLY'] == 'true' && ENV['OIDC_ENABLED'] == 'true'
+      '/auth/auth/openid_connect/logout'
+    else
+      new_user_session_path
+    end
+  end
+
+  def truthy_param?(key)
+    ActiveModel::Type::Boolean.new.cast(params[key])
   end
 
   def single_user_mode?
