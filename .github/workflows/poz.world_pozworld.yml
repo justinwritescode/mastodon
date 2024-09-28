@@ -16,23 +16,16 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - uses: ./.github/actions/setup-docker
+    - uses: ./.github/actions/build-and-push-docker-image
       with:
-        password: ${{ secrets.PACKAGES_PAT }}
-
-    - name: Log in to registry
-      uses: docker/login-action@v2
-      with:
-        registry: https://ghcr.io/
-        username: ${{ secrets.AzureAppService_ContainerUsername_083c1d1dcf2148c39073af25da373b36 }}
-        password: ${{ secrets.AzureAppService_ContainerPassword_738c8b140eac4ff7bc8695b3d55df1cb }}
-
-    - name: Build and push container image to registry
-      uses: docker/build-push-action@v3
-      with:
-        push: true
-        tags: ghcr.io/${{ secrets.AzureAppService_ContainerUsername_083c1d1dcf2148c39073af25da373b36 }}/justinwritescode/poz.world:${{ github.sha }}
-        file: ./Dockerfile
+        git-token: ${{ secrets.HIVCHASER_PACKAGES_PAT }}
+        github-password: ${{ secrets.HIVCHASER_PACKAGES_PAT }}
+        username: hivchaser
+        acr-password: ${{ secrets.AZURECR_KEY }}
+        tag: poz.world
+        tag-prefix: pwv
+        description: Your self-hosted social media platform for the HIV community
+        dockerfile: Dockerfile.poz.world
 
   deploy:
     runs-on: ubuntu-latest
@@ -49,4 +42,4 @@ jobs:
         app-name: 'pozworld'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_1f44889051db4923964789b0ba3eda66 }}
-        images: 'ghcr.io/${{ secrets.AzureAppService_ContainerUsername_083c1d1dcf2148c39073af25da373b36 }}/justinwritescode/poz.world:${{ github.sha }}'
+        images: 'ghcr.io/poz-world/poz.world:${{ github.sha }}'
