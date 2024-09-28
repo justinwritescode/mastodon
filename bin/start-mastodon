@@ -6,8 +6,8 @@ export PATH="/opt/mastodon/bin:${PATH}"
 
 PATH="/opt/mastodon/bin:${PATH}"
 
-bash show-mastodon-branding 
-bash start-sshd 
-bash start-nginx 
+/bin/bash show-mastodon-branding 
+/bin/bash start-sshd 
+/bin/bash start-nginx 
 echo "**** Starting Mastodon ****";
 /opt/mastodon/bin/bundle exec rails server -p 3000 

@@ -1,8 +1,8 @@
 #!/bin/bash
 
-bash show-separator
+/bin/bash show-separator
 
-echo "
+/bin/echo "
 
                                                                                                                                                     
                         ██████╗  ██████╗ ███████╗   ██╗    ██╗ ██████╗ ██████╗ ██╗     ██████╗ 
@@ -14,5 +14,5 @@ echo "
                                                                                                                             
 "
 
-bash show-byline
-bash show-separator
+/bin/bash show-byline
+/bin/bash show-separator

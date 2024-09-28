@@ -5,21 +5,21 @@ set -e
 export RAILS_ENV=production
 export PATH="/opt/mastodon/bin:${PATH}"
 
-bash show-nginx-branding;
-echo "set \$cdn_host \"$CDN_HOST\";" > /config/nginx/conf.d/cdn_host.conf;
-echo "set \$streaming_host \"$STREAMING_HOST\";" > /config/nginx/conf.d/streaming_host.conf;
+/bin/bash show-nginx-branding;
+/bin/echo "set \$cdn_host \"$CDN_HOST\";" > /config/nginx/conf.d/cdn_host.conf;
+/bin/echo "set \$streaming_host \"$STREAMING_HOST\";" > /config/nginx/conf.d/streaming_host.conf;
 
-if pgrep -f "[n]ginx:" >/dev/null; then
-    echo "Zombie nginx processes detected, sending SIGTERM"
-    pkill -ef [n]ginx:
-    sleep 1
+if /usr/bin/pgrep -f "[n]ginx:" >/dev/null; then
+    /bin/echo "Zombie nginx processes detected, sending SIGTERM"
+    /usr/bin/pkill -ef [n]ginx:
+    /bin/sleep 1
 fi
 
-if pgrep -f "[n]ginx:" >/dev/null; then
-    echo "Zombie nginx processes still active, sending SIGKILL"
-    pkill -9 -ef [n]ginx:
-    sleep 1
+if /usr/bin/pgrep -f "[n]ginx:" >/dev/null; then
+    /bin/echo "Zombie nginx processes still active, sending SIGKILL"
+    /usr/bin/pkill -9 -ef [n]ginx:
+    /bin/sleep 1
 fi
 
-echo "**** Starting NGINX ****";
+/bin/echo "**** Starting NGINX ****";
 /usr/sbin/nginx -g "daemon off;" &

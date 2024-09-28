@@ -4,9 +4,9 @@
 export RAILS_ENV=production
 export PATH="/opt/mastodon/bin:${PATH}"
 
-cd /opt/mastodon && \
-bash bin/show-branding && \
-bash bin/start-sshd && \
-bash bin/start-nginx && \
-echo "**** Starting streaming ****" && \
+/usr/bin/cd /opt/mastodon && \
+/bin/bash bin/show-branding && \
+/bin/bash bin/start-sshd && \
+/bin/bash bin/start-nginx && \
+/bin/echo "**** Starting streaming ****" && \
 node /opt/mastodon/streaming/index.js;

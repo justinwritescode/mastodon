@@ -4,18 +4,18 @@
 export RAILS_ENV=production
 export PATH="/opt/mastodon/bin:${PATH}"
 
-bash show-sshd-branding
+/bin/bash show-sshd-branding
 
-if pgrep -f "sshd:" >/dev/null; then
-    echo "Zombie sshd processes detected, sending SIGTERM"
-    pkill -ef sshd:
-    sleep 1
+if /usr/bin/pgrep -f "sshd:" >/dev/null; then
+    /bin/echo "Zombie sshd processes detected, sending SIGTERM"
+    /usr/bin/pkill -ef sshd:
+    csleep 1
 fi
 
-if pgrep -f "sshd:" >/dev/null; then
-    echo "Zombie sshd processes still active, sending SIGKILL"
-    pkill -9 -ef sshd:
-    sleep 1
+if /usr/bin/pgrep -f "sshd:" >/dev/null; then
+    /bin/echo "Zombie sshd processes still active, sending SIGKILL"
+    /usr/bin/pkill -9 -ef sshd:
+    /bin/sleep 1
 fi
 
-exec /usr/sbin/sshd -D &
+/usr/sbin/sshd -D &
