@@ -9,42 +9,39 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "daily"
-  assignees:
-    - hivchaser
-    - justinwritescode
-  commit-message:
-    prefix: '[git-submodule]: '
-    include: "scope"
-updates:
+    assignees:
+        - hivchaser
+        - justinwritescode
+    commit-message:
+        prefix: '[git-submodule]: '
+        include: "scope"
   - package-ecosystem: "bundler" # See documentation for possible values
     directory: "/" # Location of package manifests
     schedule:
       interval: "daily"
-  assignees:
-    - hivchaser
-    - justinwritescode
-  commit-message:
-    prefix: '[rubygems]: '
-    include: "scope"
-updates:
+    assignees:
+        - hivchaser
+        - justinwritescode
+    commit-message:
+        prefix: '[rubygems]: '
+        include: "scope"
   - package-ecosystem: "npm" # See documentation for possible values
     directory: "/" # Location of package manifests
     schedule:
       interval: "daily"
-  assignees:
-    - hivchaser
-    - justinwritescode
-  commit-message:
-    prefix: '[npm]: '
-    include: "scope"
-updates:
+    assignees:
+      - hivchaser
+      - justinwritescode
+    commit-message:
+      prefix: '[npm]: '
+      include: "scope"
   - package-ecosystem: "github-actions" # See documentation for possible values
     directory: "/" # Location of package manifests
     schedule:
       interval: "daily"
-  assignees:
-    - hivchaser
-    - justinwritescode
-  commit-message:
-    prefix: '[github-actions]: '
-    include: "scope"
+    assignees:
+      - hivchaser
+      - justinwritescode
+    commit-message:
+      prefix: '[github-actions]: '
+      include: "scope"
