@@ -22,7 +22,9 @@ jobs:
         github-password: ${{ secrets.HIVCHASER_PACKAGES_PAT }}
         username: hivchaser
         acr-password: ${{ secrets.AZURECR_KEY }}
-        tag: ghcr.io/poz-world/poz.world
+        tag: |
+          ghcr.io/poz-world/poz.world
+          thebackroomlife.azurecr.io/poz.world
         tag-prefix: pwv
         description: Your self-hosted social media platform for the HIV community
         dockerfile: Dockerfile.poz.world
