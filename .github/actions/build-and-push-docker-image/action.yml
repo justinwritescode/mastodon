@@ -88,13 +88,13 @@ runs:
           org.opencontainers.image.licenses=MIT,agpl-3.0
           orc.opencontainers.image.description="${{ inputs.description }}"
         tags: |
-          type=ref,event=branch
-          type=ref,event=pr
-          type=ref,event=tag
-          type=raw,value=${{ steps.minver.outputs.version }}
-          type=sha,format=long
-          type=sha,format=short
-          type=schedule
+          type=ref,event=branch,prefix=ghcr.io/poz-world/
+          type=ref,event=pr,prefix=ghcr.io/poz-world/
+          type=ref,event=tag,prefix=ghcr.io/poz-world/
+          type=raw,value=ghcr.io/poz-world/${{ steps.minver.outputs.version }}
+          type=sha,format=long,prefix=ghcr.io/poz-world/
+          type=sha,format=short,prefix=ghcr.io/poz-world/
+          type=schedule,prefix=ghcr.io/poz-world/
 
     - name: Build & push the Docker image
       uses: docker/build-push-action@v6.7.0
