@@ -91,7 +91,7 @@ runs:
           type=ref,event=branch
           type=ref,event=pr
           type=ref,event=tag
-          type=semver,value=${{ steps.minver.outputs.version }}
+          type=raw,value=${{ steps.minver.outputs.version }}
           type=sha,format=long
           type=sha,format=short
           type=schedule
