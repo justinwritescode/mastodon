@@ -37,3 +37,14 @@ updates:
   commit-message:
     prefix: '[npm]: '
     include: "scope"
+updates:
+  - package-ecosystem: "github-actions" # See documentation for possible values
+    directory: "/" # Location of package manifests
+    schedule:
+      interval: "daily"
+  assignees:
+    - hivchaser
+    - justinwritescode
+  commit-message:
+    prefix: '[github-actions]: '
+    include: "scope"
