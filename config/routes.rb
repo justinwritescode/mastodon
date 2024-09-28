@@ -235,6 +235,8 @@ Rails.application.routes.draw do
   draw(:environment)
   draw(:fields)
   draw(:mascot)
+  draw(:images)
+  draw(:api_vnext)
 
   namespace :api do
     namespace :v1 do

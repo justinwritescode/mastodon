@@ -172,6 +172,8 @@ class ApplicationController < ActionController::Base
     return Setting.theme unless Themes.instance.names.include? current_user&.setting_theme
 
     current_user.setting_theme
+  rescue
+    Setting.theme
   end
 
   def body_class_string
@@ -180,8 +182,8 @@ class ApplicationController < ActionController::Base
 
   def respond_with_error(code, exception = nil)
     respond_to do |format|
-      format.any  { render 'errors/500', layout: 'error', status: '500', formats: [:html], exception: exception } if code.blank?
-      format.any  { render "errors/#{code}", layout: 'error', status: code, formats: [:html], exception: exception } if code.present?
+      format.html { render 'errors/500', layout: 'error', status: '500', formats: [:html], exception: exception } if code.blank?
+      format.html { render "errors/#{code}", layout: 'error', status: code, formats: [:html], exception: exception } if code.present?
       format.json { render json: { error: Rack::Utils::HTTP_STATUS_CODES[code], exception: exception }, status: code }
     end
   end

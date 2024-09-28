@@ -1,5 +1,6 @@
 {
   "name": "@mastodon/mastodon",
+  "version": "4.3.0-nightly+2024-09-26",
   "license": "AGPL-3.0-or-later",
   "packageManager": "yarn@4.4.1",
   "engines": {
@@ -30,9 +31,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mastodon/mastodon.git"
+    "url": "https://github.com/justinwritescode/mastodon.git"
   },
-  "private": true,
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
+  },
+  "private": false,
   "dependencies": {
     "@babel/core": "^7.22.1",
     "@babel/plugin-transform-nullish-coalescing-operator": "^7.22.3",

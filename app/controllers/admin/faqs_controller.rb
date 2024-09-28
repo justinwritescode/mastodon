@@ -2,8 +2,8 @@
 
 module Admin
   class FaqsController < ApplicationController
-    before_action :set_faq, only: [:show, :edit, :update, :destroy]
-    before_action :authorize_faq, only: [:create, :update, :destroy] # Add authorization filter
+    before_action :set_faq, only: [:show, :edit, :update, :destroy, :swap_positions]
+    before_action :authorize_faq, only: [:create, :update, :destroy, :swap_positions] # Add authorization filter
 
     def index
       @faqs = Faq.ordered
@@ -63,11 +63,14 @@ module Admin
         return
       end
 
+      current_number = @faq.number
+
       Faq.transaction do
         target_number = target_faq.number
-        target_faq.update!(number: @faq.number)
+        target_faq.update!(number: 999_999_999)
         @faq.update!(number: target_number)
       end
+      target_faq.update!(number: current_number)
 
       redirect_to admin_faqs_path, notice: 'Position swapped successfully.'
     end

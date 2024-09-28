@@ -9,4 +9,4 @@ bash bin/show-branding && \
 bash bin/start-sshd && \
 bash bin/start-nginx && \
 echo "**** Starting streaming ****" && \
-node ./streaming/index.js;
+node /opt/mastodon/streaming/index.js;

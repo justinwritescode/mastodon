@@ -20,4 +20,8 @@ class FaqPolicy < ApplicationPolicy
   def edit?
     current_account.role.can?(:manage_faqs)
   end
+
+  def swap_positions?
+    current_account.role.can?(:manage_faqs)
+  end
 end

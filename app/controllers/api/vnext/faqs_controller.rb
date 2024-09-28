@@ -5,8 +5,8 @@ class Api::Vnext::FaqsController < ApplicationController
 
   # GET /api/vnext/faqs
   def index
-    @faqs = Faq.all
-    render json: @faqs, content_type: 'application/faqs+json', serializer: FaqSerializer
+    @faqs = Faq.ordered
+    render json: @faqs, content_type: 'application/faqs+json', each_serializer: FaqSerializer
   end
 
   # GET /api/vnext/faqs/:id

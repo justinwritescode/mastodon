@@ -1,8 +1,8 @@
 ARG TAG=nightly \
     AZURE_STORAGE_CONNECTION_STRING=${AZURE_STORAGE_CONNECTION_STRING}  \
     AZURE_STORAGE_CONTAINER_NAME=${AZURE_STORAGE_CONTAINER_NAME} \
-    MASTODON_VERSION_METADATA=${MASTODON_VERSION_METADATA, ''} \
-    MASTODON_VERSION_PRERELEASE=${MASTODON_VERSION_PRERELEASE, 'nightly'}
+    MASTODON_VERSION_METADATA=${MASTODON_VERSION_METADATA:-''} \
+    MASTODON_VERSION_PRERELEASE=${MASTODON_VERSION_PRERELEASE:-'nightly'}
 
 FROM ghcr.io/mastodon/mastodon:${TAG} AS base
 
@@ -20,15 +20,14 @@ ENV TZ=EST5EDT \
 
 USER root
 
-RUN mkdir /app && \
-    mkdir /run/sshd && \
-    ln -s /opt/mastodon /app/www && \
-    apt-get update  && \
-    apt-get install -y --no-install-recommends dialog && \
-    apt-get install -y --no-install-recommends \
-        openssh-server \
-        nginx \
-        nodejs && \
+RUN mkdir -p /app;
+RUN mkdir -p /run/sshd;
+RUN ln -s /opt/mastodon /app/www;
+RUN apt-get update;
+RUN apt-get install -y --no-install-recommends dialog;
+RUN apt-get install -y --no-install-recommends \
+    openssh-server \
+    nginx && \
     echo "root:Docker!" | chpasswd 
 
 
@@ -66,7 +65,7 @@ RUN \
     bundle config set --global path $(readlink -f "vendor/bundle"); \
     # Download and install required Gems
     bundle install -j"$(nproc)"
-    # Use Ruby on Rails to create Mastodon assets
+# Use Ruby on Rails to create Mastodon assets
 
 RUN \ 
     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
@@ -80,9 +79,14 @@ RUN \
 
 # RUN bash bin/install-azure-cli && \
 #     bash bin/upload-static-files "${AZURE_STORAGE_CONTAINER_NAME}" "${AZURE_STORAGE_CONNECTION_STRING}"
+RUN \
+    mkdir -p /var/log/supervisor && \
+    mkdir -p /var/log/nginx && \
+    mkdir -p /var/log/sshd && \
+    mkdir -p /var/log/sidekiq && \
+    mkdir -p /var/log/streaming
 
-
-ENTRYPOINT [ "bash", "/opt/mastodon/bin/start-mastodon" ]
+ENTRYPOINT ["/bin/bash", "/opt/mastodon/bin/entrypoint"]
 
 LABEL org.opencontainers.image.description="Modifications to the base image for the site POZ.world"
 LABEL org.opencontainers.image.source="https://github.com/justinwritescode/mastodon"

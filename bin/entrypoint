@@ -7,15 +7,15 @@ export PATH="/opt/mastodon/bin:${PATH}"
 export PROGRAM="$1"
 
 if [[ $PROGRAM == "mastodon" ]]; then
-    bash start-mastodon;
+    bash start-mastodon 
 elif [[ $PROGRAM == "sidekiq" ]]; then
-    bash start-sidekiq;
+    bash start-sidekiq 
 elif [[ $PROGRAM == "streaming" ]]; then
-    bash start-streaming;
+    bash start-streaming 
 elif [[ $PROGRAM == "all" ]]; then
-    bash start-mastodon;
-    bash start-sidekiq;
-    bash start-streaming;
+    bash start-mastodon 
+    bash start-sidekiq 
+    bash start-streaming 
 else
     echo "Program '${PROGRAM}' was not found and could not be started.";
 fi

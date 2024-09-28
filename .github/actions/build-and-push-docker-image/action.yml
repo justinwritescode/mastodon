@@ -1,5 +1,5 @@
-name: 'Setup Docker'
-description: 'Setup Docker for cross-platform compilation'
+name: "Setup Docker"
+description: "Setup Docker for cross-platform compilation"
 inputs:
   username:
     required: false
@@ -35,7 +35,7 @@ outputs:
     value: ghcr.io/justinwritescode/mastodon:${{ inputs.tag }}-${{ github.sha }}
 
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
     - uses: actions/checkout@v4
       with:
@@ -49,7 +49,7 @@ runs:
         password: ${{ inputs.github-password }}
 
     - uses: docker/login-action@v3
-      with: 
+      with:
         username: thebackroomlife
         password: ${{ inputs.acr-password }}
         registry: thebackroomlife.azurecr.io
@@ -87,6 +87,14 @@ runs:
           org.opencontainers.image.version=${{ steps.minver.outputs.version }}
           org.opencontainers.image.licenses=MIT,agpl-3.0
           orc.opencontainers.image.description="${{ inputs.description }}"
+        tags: |
+          type=ref,event=branch
+          type=ref,event=pr
+          type=ref,event=tag
+          type=semver,value=${{ steps.minver.outputs.version }}
+          type=sha,format=long
+          type=sha,format=short
+          type=schedule
 
     - name: Build & push the Docker image
       uses: docker/build-push-action@v6.7.0
@@ -94,21 +102,7 @@ runs:
         context: .
         pull: true
         push: true
-        tags: |
-          ghcr.io/justinwritescode/${{ inputs.tag }}:${{ github.sha }}
-          ghcr.io/justinwritescode/${{ inputs.tag }}:latest
-          ghcr.io/justinwritescode/${{ inputs.tag }}:${{ steps.minver.outputs.version }}
-          thebackroomlife.azurecr.io/${{ inputs.tag }}:${{ github.sha }}
-          thebackroomlife.azurecr.io/${{ inputs.tag }}:latest
-          thebackroomlife.azurecr.io/justinwritescode/${{ inputs.tag }}:${{ github.sha }}
-          thebackroomlife.azurecr.io/justinwritescode/${{ inputs.tag }}:latest
-          thebackroomlife.azurecr.io/justinwritescode/mastodon/${{ inputs.tag }}:${{ github.sha }}
-          thebackroomlife.azurecr.io/justinwritescode/mastodon/${{ inputs.tag }}:latest
-          thebackroomlife.azurecr.io/justinwritescode/mastodon/${{ inputs.tag }}:${{ steps.minver.outputs.version }}
-          thebackroomlife.azurecr.io/mastodon:${{ inputs.tag }}
-          thebackroomlife.azurecr.io/mastodon/${{ inputs.tag }}:${{ github.sha }}
-          thebackroomlife.azurecr.io/mastodon/${{ inputs.tag }}:latest
-          thebackroomlife.azurecr.io/mastodon/${{ inputs.tag }}:${{ steps.minver.outputs.version }}
+        tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
         file: ${{ inputs.dockerfile }}
         platforms: linux/amd64,linux/arm64

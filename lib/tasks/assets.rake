@@ -34,6 +34,14 @@ namespace :assets do
     end
   end
 
+  # namespace :json do
+  #   task precompile: :environment do
+  #     desc 'Copy the "dynamic" JSON files to the output directory'
+  #     Rails.public_path.join('packs/manifest.json').write(InstancePresenter.new.to_json(serializer: ManifestSerializer))
+  #     Rails.logger.info { 'manifest.json precompiled.' }
+  #   end
+  # end
+
   namespace :missing_images do
     desc 'Dealing with images for "missing" elements'
     task copy_to_public: :environment do
@@ -75,6 +83,13 @@ if Rake::Task.task_defined?('assets:precompile')
     Rake::Task['assets:javascript:precompile'].invoke
   end
 end
+
+# if Rake::Task.task_defined?('assets:precompile')
+#   Rake::Task['assets:precompile'].enhance do
+#     Webpacker.manifest.refresh
+#     Rake::Task['assets:json:precompile'].invoke
+#   end
+# end
 
 private
 
