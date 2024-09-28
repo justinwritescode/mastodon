@@ -83,6 +83,8 @@ runs:
       uses: docker/metadata-action@v5
       with:
         images: ${{ inputs.tag }}
+        flavor: |
+          latest=auto
         labels: |
           org.opencontainers.image.version=${{ steps.minver.outputs.version }}
           org.opencontainers.image.licenses=MIT,agpl-3.0
@@ -92,8 +94,8 @@ runs:
           type=ref,event=pr
           type=ref,event=tag
           type=raw,value=${{ steps.minver.outputs.version }}
-          type=sha,format=long,pattern={{sha}}
-          type=sha,format=short
+          type=sha,format=long,pattern={{sha}},prefix=
+          type=sha,format=short,prefix=
           type=schedule
 
     - name: Build & push the Docker image
