@@ -6,12 +6,8 @@ ARG TAG=nightly \
 
 FROM ghcr.io/mastodon/mastodon:${TAG} AS base
 
-# ensure this directory exists and we can access it
-RUN if [ ! -d /var/lib/apt/lists/partial ]; then \
-    chmod -R 777 /var/lib/apt/lists; \
-    mkdir -p /var/lib/apt/lists/partial; \
-    fi && \
-    chmod 755 /var/lib/apt/lists/partial
+USER root
+
 # Install bash if not already available
 RUN apt-get update && apt-get install -y bash
 
@@ -26,8 +22,6 @@ ENV TZ=EST5EDT \
     AZURE_STORAGE_CONTAINER_NAME=${AZURE_STORAGE_CONTAINER_NAME} \
     MASTODON_VERSION_METADATA=${MASTODON_VERSION_METADATA} \
     MASTODON_VERSION_PRERELEASE=${MASTODON_VERSION_PRERELEASE}
-
-USER root
 
 RUN mkdir -p /app;
 RUN mkdir -p /run/sshd;
