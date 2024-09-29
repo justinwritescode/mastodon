@@ -82,3 +82,4 @@ letsencrypt/
 .rspec-local
 ./error.txt
 .npmrc
+/config/master.key
