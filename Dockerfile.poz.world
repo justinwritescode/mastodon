@@ -43,13 +43,17 @@ RUN apt-get install -y \
 
 RUN \
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
-ENV NVM_DIR="$HOME/.nvm" 
-RUN \
-    source $NVM_DIR/nvm.sh && "$NVM_DIR/nvm.sh"  # This loads nvm \
-    source "$NVM_DIR/bash_completion"  && "$NVM_DIR/bash_completion"  # This loads nvm bash_completion \
-    nvm install 20 && \
-    if [[ $(node -v) != 'v20.17.0' ]]; then exit 1; fi; \
-    if [[ $(npm -v) != '10.8.2' ]]; then exit 1; fi;
+ENV NVM_DIR="/root/.nvm" 
+
+SHELL [ "bash", "-c" ]
+
+# RUN \
+#     "$NVM_DIR/nvm.sh"  # This loads nvm \
+#     "$NVM_DIR/bash_completion"  # This loads nvm bash_completion \
+#     nvm install 20
+
+# RUN if [[ $(node -v) != 'v20.17.0' ]]; then exit 1; fi;
+# RUN if [[ $(npm -v) != '10.8.2' ]]; then exit 1; fi;
 
 WORKDIR /opt/mastodon
 
