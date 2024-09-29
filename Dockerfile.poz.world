@@ -7,8 +7,10 @@ ARG TAG=nightly \
 FROM ghcr.io/mastodon/mastodon:${TAG} AS base
 
 # ensure this directory exists and we can access it
-RUN mkdir -p /var/lib/apt/lists/partial && chmod 755 /var/lib/apt/lists/partial
-
+RUN if [ ! -d /var/lib/apt/lists/partial ]; then \
+    mkdir -p /var/lib/apt/lists/partial; \
+    fi && \
+    chmod 755 /var/lib/apt/lists/partial
 # Install bash if not already available
 RUN apt-get update && apt-get install -y bash
 
