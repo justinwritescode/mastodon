@@ -3,7 +3,7 @@
 
 set -e
 export RAILS_ENV=production
-export PATH="/opt/mastodon/bin:${PATH}"
+export PATH="/opt/mastodon/bin:/usr/bin:/bin:${PATH}"
 
 /bin/bash show-nginx-branding;
 /bin/echo "set \$cdn_host \"$CDN_HOST\";" > /config/nginx/conf.d/cdn_host.conf;

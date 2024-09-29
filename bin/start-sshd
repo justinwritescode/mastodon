@@ -2,7 +2,7 @@
 # shellcheck shell=bash
 
 export RAILS_ENV=production
-export PATH="/opt/mastodon/bin:${PATH}"
+export PATH="/opt/mastodon/bin:/usr/bin:/bin:${PATH}"
 
 /bin/bash show-sshd-branding
 
