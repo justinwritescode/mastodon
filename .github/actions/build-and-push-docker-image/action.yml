@@ -90,6 +90,7 @@ runs:
           org.opencontainers.image.licenses=MIT,agpl-3.0
           org.opencontainers.image.description="${{ inputs.description }}"
         tags: |
+          type=raw,value=latest
           type=ref,event=branch
           type=ref,event=pr
           type=ref,event=tag
