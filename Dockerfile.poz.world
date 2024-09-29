@@ -30,7 +30,7 @@ RUN apt-get update;
 RUN apt-get install -y --no-install-recommends dialog;
 RUN apt-get install -y --no-install-recommends \
     openssh-server \
-    nginx \
+    nginx && \
     echo "root:Docker!" | chpasswd 
 
 RUN apt-get install -y \
