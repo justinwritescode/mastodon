@@ -25,6 +25,7 @@ USER root
 
 RUN mkdir -p /app;
 RUN mkdir -p /run/sshd;
+RUN mkdir -p /var/lib/apt/lists/partial && chmod 755 /var/lib/apt/lists/partial
 RUN ln -s /opt/mastodon /app/www;
 RUN apt-get update;
 RUN apt-get install -y --no-install-recommends dialog;
