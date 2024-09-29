@@ -8,7 +8,7 @@ FROM ghcr.io/mastodon/mastodon:${TAG} AS base
 
 # ensure this directory exists and we can access it
 RUN if [ ! -d /var/lib/apt/lists/partial ]; then \
-    chmod -R 777 /var/lib; \
+    chmod -R 777 /var/lib/apt/lists; \
     mkdir -p /var/lib/apt/lists/partial; \
     fi && \
     chmod 755 /var/lib/apt/lists/partial
