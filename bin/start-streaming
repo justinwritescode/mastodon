@@ -4,7 +4,7 @@
 export RAILS_ENV=production
 export PATH="/opt/mastodon/bin:/usr/bin:/bin:${PATH}"
 
-/usr/bin/cd /opt/mastodon && \
+cd /opt/mastodon && \
 /bin/bash bin/show-branding && \
 /bin/bash bin/start-sshd && \
 /bin/bash bin/start-nginx && \

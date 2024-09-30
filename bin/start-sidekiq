@@ -10,7 +10,7 @@ export PATH="/opt/mastodon/bin:/usr/bin:/bin:${PATH}"
         SIDEKIQ_THREADS=$(/usr/bin/printf '%d' 5)
     fi
 
-/usr/bin/cd /opt/mastodon/bin || exit 1
+cd /opt/mastodon/bin || exit 1
 
 /bin/bash show-sidekiq-branding;
 
