@@ -1,8 +1,8 @@
 ARG TAG=nightly \
     AZURE_STORAGE_CONNECTION_STRING=${AZURE_STORAGE_CONNECTION_STRING}  \
     AZURE_STORAGE_CONTAINER_NAME=${AZURE_STORAGE_CONTAINER_NAME} \
-    MASTODON_VERSION_METADATA=${MASTODON_VERSION_METADATA, ''} \
-    MASTODON_VERSION_PRERELEASE=${MASTODON_VERSION_PRERELEASE, 'nightly'}
+    MASTODON_VERSION_METADATA=${MASTODON_VERSION_METADATA:-''} \
+    MASTODON_VERSION_PRERELEASE=${MASTODON_VERSION_PRERELEASE:-'nightly'}
 
 FROM ghcr.io/mastodon/mastodon-streaming:${TAG} AS base
 
@@ -26,9 +26,9 @@ RUN mkdir /app && \
     apt-get update  && \
     apt-get install -y --no-install-recommends dialog && \
     apt-get install -y --no-install-recommends \
-        openssh-server \
-        nginx \
-        nodejs && \
+    openssh-server \
+    nginx \
+    nodejs && \
     echo "root:Docker!" | chpasswd 
 
 RUN apt-get install -y \
