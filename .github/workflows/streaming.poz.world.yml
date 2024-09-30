@@ -48,4 +48,4 @@ jobs:
         app-name: 'pozworld-streaming'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_be5f76a6413349b08fc0dae02bab8183 }}
-        images: 'ghcr.io/${{ secrets.AzureAppService_ContainerUsername_003ca35bf0424eb9a5c5c09676c4db74 }}/justinwritescode/streaming.poz.world:${{ github.sha }}'
+        images: 'ghcr.io/poz-world/streaming.poz.world:${{ github.sha }}'
