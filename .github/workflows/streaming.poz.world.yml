@@ -20,22 +20,18 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
-
-    - name: Log in to registry
-      uses: docker/login-action@v2
+    - uses: ./.github/actions/build-and-push-docker-image
       with:
-        registry: https://ghcr.io/
-        username: ${{ secrets.AzureAppService_ContainerUsername_003ca35bf0424eb9a5c5c09676c4db74 }}
-        password: ${{ secrets.AzureAppService_ContainerPassword_fdc3083406234c50bd0f4635a1e75945 }}
-
-    - name: Build and push container image to registry
-      uses: docker/build-push-action@v3
-      with:
-        push: true
-        tags: ghcr.io/${{ secrets.AzureAppService_ContainerUsername_003ca35bf0424eb9a5c5c09676c4db74 }}/justinwritescode/streaming.poz.world:${{ github.sha }}
-        file: ./Dockerfile.streaming.poz.world
+        git-token: ${{ secrets.HIVCHASER_PACKAGES_PAT }}
+        github-password: ${{ secrets.HIVCHASER_PACKAGES_PAT }}
+        username: hivchaser
+        acr-password: ${{ secrets.AZURECR_KEY }}
+        tag: |
+          ghcr.io/poz-world/streaming.poz.world
+          thebackroomlife.azurecr.io/streaming.poz.world
+        tag-prefix: pwv
+        description: Streaming server for your self-hosted social media platform for the HIV community
+        dockerfile: Dockerfile.streaming.poz.world
 
   deploy:
     runs-on: ubuntu-latest

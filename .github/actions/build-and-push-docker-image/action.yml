@@ -98,6 +98,8 @@ runs:
           type=sha,format=long,pattern={{sha}},prefix=
           type=sha,format=short,prefix=
           type=schedule
+          type=schedule,pattern=nightly
+          type=schedule,pattern={{date 'YYYYMMDD'}}
 
     - name: Build & push the Docker image
       uses: docker/build-push-action@v6.7.0
@@ -111,6 +113,7 @@ runs:
         platforms: linux/amd64,linux/arm64
         cache-from: type=gha
         cache-to: type=gha,mode=max
+        annotations: ${{ steps.meta.outputs.annotations }}
         build-args: |
           MASTODON_VERSION_METADATA: ${{ steps.mastodon_version_metadata.outputs.MASTODON_VERSION_METADATA }}
           AZURE_STORAGE_CONNECTION_STRING: ${{ env.AZURE_STORAGE_CONNECTION_STRING }}
