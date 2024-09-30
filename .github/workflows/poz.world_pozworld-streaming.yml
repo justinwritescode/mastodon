@@ -1,11 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build & Deploy - pozworld-streaming
-
-concurrency: 
-  group: pozworld-streaming
-  cancel-in-progress: true
+name: Build and deploy container app to Azure Web App - pozworld-streaming
 
 on:
   push:
@@ -27,15 +23,15 @@ jobs:
       uses: docker/login-action@v2
       with:
         registry: https://ghcr.io/
-        username: ${{ secrets.AzureAppService_ContainerUsername_003ca35bf0424eb9a5c5c09676c4db74 }}
-        password: ${{ secrets.AzureAppService_ContainerPassword_fdc3083406234c50bd0f4635a1e75945 }}
+        username: ${{ secrets.AzureAppService_ContainerUsername_b38fd4bd746c4651b3d2e097d419447a }}
+        password: ${{ secrets.AzureAppService_ContainerPassword_14c50b3872d84695a6c185151af6f1f7 }}
 
     - name: Build and push container image to registry
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: ghcr.io/${{ secrets.AzureAppService_ContainerUsername_003ca35bf0424eb9a5c5c09676c4db74 }}/justinwritescode/streaming.poz.world:${{ github.sha }}
-        file: ./Dockerfile.streaming.poz.world
+        tags: ghcr.io/${{ secrets.AzureAppService_ContainerUsername_b38fd4bd746c4651b3d2e097d419447a }}/poz-world/streaming.poz.world:${{ github.sha }}
+        file: ./Dockerfile
 
   deploy:
     runs-on: ubuntu-latest
@@ -51,5 +47,5 @@ jobs:
       with:
         app-name: 'pozworld-streaming'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_be5f76a6413349b08fc0dae02bab8183 }}
-        images: 'ghcr.io/${{ secrets.AzureAppService_ContainerUsername_003ca35bf0424eb9a5c5c09676c4db74 }}/justinwritescode/streaming.poz.world:${{ github.sha }}'
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_92c8d229a66746269da61458112d440d }}
+        images: 'ghcr.io/${{ secrets.AzureAppService_ContainerUsername_b38fd4bd746c4651b3d2e097d419447a }}/poz-world/streaming.poz.world:${{ github.sha }}'
