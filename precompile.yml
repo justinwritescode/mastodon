@@ -5,9 +5,8 @@ services:
     container_name: assets_precompiler
     volumes:
       - ./public:/opt/mastodon/public
-    command: cp /root/.bashrc /root/.profile
-    entrypoint:
-      ["/opt/mastodon/bin/bundle", "exec", "rake", "assets:precompile"]
+      - ./bin:/opt/mastodon/bin
+    entrypoint: ["/bin/bash", "/opt/mastodon/bin/precompile-assets"]
     environment:
       RAILS_ENV: production
       SECRET_KEY_BASE: 4d9118f0b0c03485e5cea6e709bafcb91e90458d4453440c91e03d79a2a09a8986a2c49f7152169aa13f5d45aa48dcb4845444f37866ef0001425cf797f20d1b

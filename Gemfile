@@ -14,6 +14,8 @@ gem 'haml-rails', '~>2.0'
 gem 'pg', '~> 1.5'
 gem 'pghero'
 
+gem 'aws-sdk-core', '~> 3.209.1', require: false
+gem 'aws-sdk-kms', '~> 1.94.0', require: false
 gem 'aws-sdk-s3', '~> 1.166', require: false
 gem 'blurhash', '~> 0.1'
 gem 'fog-core', '<= 2.5.0'

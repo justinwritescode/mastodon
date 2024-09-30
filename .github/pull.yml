@@ -14,7 +14,7 @@ rules: # Array of rules
       - justinwritescode
       - hivchaser
   - base: poz.world
-    upstream: mastodon/mastodon:main # Required. Can be a branch in the same forked repo.
+    upstream: main # Required. Can be a branch in the same forked repo.
     assignees: # Optional
       - justinwritescode
       - hivchaser

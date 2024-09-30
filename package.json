@@ -1,5 +1,5 @@
 {
-  "name": "@mastodon/mastodon",
+  "name": "@poz-world/mastodon",
   "version": "4.3.0-nightly+2024-09-26",
   "license": "AGPL-3.0-or-later",
   "packageManager": "yarn@4.5.0",
@@ -37,7 +37,6 @@
     "registry": "https://npm.pkg.github.com",
     "access": "restricted"
   },
-  "private": false,
   "dependencies": {
     "@babel/core": "^7.22.1",
     "@babel/plugin-transform-nullish-coalescing-operator": "^7.22.3",
@@ -125,8 +124,8 @@
     "redux-immutable": "^4.0.0",
     "regenerator-runtime": "^0.14.0",
     "requestidlecallback": "^0.3.0",
-    "sass-loader": "^16.0.2",
     "sass": "^1.79.4",
+    "sass-loader": "^16.0.2",
     "stacktrace-js": "^2.0.2",
     "stringz": "^2.1.0",
     "substring-trie": "^1.0.2",
