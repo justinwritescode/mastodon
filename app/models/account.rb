@@ -373,20 +373,18 @@ class Account < ApplicationRecord
     # end
 
     # self[:fields] = fields
-    self[:fields] = attributes.values.reject { |attr| (attr[:name].blank? && attr[:value].blank?) || attr['marked_for_deletion'] == true }
+    self[:fields] = attributes.values.reject { |attr| (attr['name'].blank? && attr['value'].blank?) || attr['marked_for_deletion'] == '1' }
   end
 
   def build_fields
-    return if fields.size >= DEFAULT_FIELDS_SIZE
+    existing_fields = self[:fields] || []
+    field_templates = FieldTemplate.all
 
-    tmp = self[:fields] || []
-    tmp = [] if tmp.is_a?(Hash)
-
-    (DEFAULT_FIELDS_SIZE - tmp.size).times do
-      tmp << { name: '', value: '' }
+    field_templates.each do |template|
+      existing_fields << { 'name' => template.name, 'value' => '', 'verified_at' => nil } unless existing_fields.any? { |field| field['name'] == template.name }
     end
 
-    self.fields = tmp
+    self.fields = existing_fields
   end
 
   def set_default_fields

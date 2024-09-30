@@ -88,6 +88,17 @@ class FieldTemplate < ApplicationRecord
   #   }
   # end
 
+  # Method to check if the user's account fields match the template's rules
+  def rules_match?(account_fields)
+    return true if rules.empty?
+
+    account_fields_hash = account_fields.each_with_object({}) { |field, hash| hash[field.name] = field.value }
+
+    rules.rules.all? do |field_name, expected_value|
+      account_fields_hash[field_name] == expected_value
+    end
+  end
+
   # Define the method as a class method using `self.`
   def self.seed_field_templates_from_yaml(file_path)
     # Convert the relative path to an absolute path

@@ -25,9 +25,17 @@ class Api::Vnext::SettingsController < ApplicationController
     setting = Setting.find_by(var: var_name)
 
     if setting.nil?
-      render json: { error: 'Setting not found' }, status: 404
+      respond_to do |format|
+        format.html { render html: '<p>Setting not found</p>'.html_safe } # Adjust the HTML as needed
+        format.json { render json: { error: 'Setting not found' }, status: 404 }
+        format.text { render plain: 'Setting not found', status: 404 }
+      end
     else
-      render html: markdown.render(format(setting.value, domain: Rails.configuration.x.local_domain)).html_safe # rubocop:disable Rails/OutputSafety
+      respond_to do |format|
+        format.html { render html: markdown.render(format(setting.value, domain: Rails.configuration.x.local_domain)).html_safe } # rubocop:disable Rails/OutputSafety
+        format.json { render json: SettingWrapper.new(value: setting.value) }
+        format.text { render plain: setting.value }
+      end
     end
   end
 

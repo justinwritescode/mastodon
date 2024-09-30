@@ -25,39 +25,42 @@ ENV TZ=EST5EDT \
 
 RUN mkdir -p /app;
 RUN mkdir -p /run/sshd;
+RUN mkdir -p /usr/local/nvm
 RUN ln -s /opt/mastodon /app/www;
 RUN apt-get update;
 RUN apt-get install -y --no-install-recommends dialog;
 RUN apt-get install -y --no-install-recommends \
     openssh-server \
-    nginx && \
-    echo "root:Docker!" | chpasswd 
-
-RUN apt-get install -y \
+    nginx \
     build-essential \ 
     libssl-dev \
     git \
     libicu-dev \
     libidn11-dev \
-    libpq-dev
+    libpq-dev && \
+    echo "root:Docker!" | chpasswd 
 
-RUN \
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
-ENV NVM_DIR="/root/.nvm" 
+ENV NVM_DIR=/usr/local/nvm
+ENV NODE_VERSION=22
+ENV NVM_VERSION=0.40.1
 
-SHELL [ "bash", "-c" ]
+# install nvm
+# https://github.com/creationix/nvm#install-script
+RUN curl --silent -o- https://raw.githubusercontent.com/creationix/nvm/v${NVM_VERSION}/install.sh | bash
 
-# RUN \
-#     "$NVM_DIR/nvm.sh"  # This loads nvm \
-#     "$NVM_DIR/bash_completion"  # This loads nvm bash_completion \
-#     nvm install 20
+# install node and npm
+RUN source $NVM_DIR/nvm.sh \
+    && nvm install $NODE_VERSION \
+    && nvm alias default $NODE_VERSION \
+    && nvm use default
 
-# RUN if [[ $(node -v) != 'v20.17.0' ]]; then exit 1; fi;
-# RUN if [[ $(npm -v) != '10.8.2' ]]; then exit 1; fi;
+# add node and npm to path so the commands are available
+ENV NODE_PATH=$NVM_DIR/v$NODE_VERSION/lib/node_modules
+ENV PATH=$NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 
 WORKDIR /opt/mastodon
 
-EXPOSE 8080 8081 2222 3000 4000
+EXPOSE 8080 2222
 
 RUN \ 
     rm -rf /usr/bin/bundle && \

@@ -14,22 +14,17 @@ class FieldTemplateRules
     exactly: 'exactly',
   }.freeze
 
-  def initialize(rules = {}, method = 'all_of')
-    @data = { 'rules' => rules }
-
-    if VALID_METHODS.key?(method)
-      @data['method'] = method
-    else
-      raise ArgumentError, 'Invalid method value. Allowed values: "all_of", "any_of", "none_of", "one_of", "exactly"'
-    end
+  def initialize(rules = {})
+    @data = rules
+    @method = rules['method'] || DEFAULT_METHOD
   end
 
   def [](key)
-    @data['rules'][key.to_s]
+    rules[key.to_s]
   end
 
   def []=(key, value)
-    @data['rules'][key.to_s] = value
+    rules[key.to_s] = value
   end
 
   def method
@@ -43,6 +38,8 @@ class FieldTemplateRules
       raise ArgumentError, 'Invalid method value. Allowed values: "all_of", "any_of", "none_of", "one_of", "exactly"'
     end
   end
+
+  delegate :empty?, to: :rules
 
   def rules
     @data.except('method')
