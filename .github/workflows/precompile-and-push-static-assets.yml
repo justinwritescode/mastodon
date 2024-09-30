@@ -26,25 +26,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4.1.7
 
-    - uses: clupprich/ruby-build-action@v1.3.0
-      with:
-        # Ruby version
-        ruby-version: 3.3.4 # default is 2.6.5
-        # Flag if the Ruby installation is cached
-        cache-available: true # default is false
-
-    - shell: bash
-      run: |
-        # Configure bundle to prevent changes to Gemfile and Gemfile.lock
-          bundle config set --global frozen "true"; \
-        # Configure bundle to not cache downloaded Gems
-          bundle config set --global cache_all "false"; \
-        # Configure bundle to only process production Gems
-          bundle config set --local without "development test"; \
-        # Configure bundle to not warn about root user
-          bundle config set silence_root_warning "true"; \
-        # Download and install required Gems
-          bundle install -j"$(nproc)";
+    - run: docker compose -f ./precompile.yml up
 
     - shell: bash
       run: bundle exec assets:precompile  
