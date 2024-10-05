@@ -134,7 +134,7 @@ GEM
       msgpack (~> 1.2)
     brakeman (6.2.1)
       racc
-    browser (5.3.1)
+    browser (6.0.0)
     builder (3.3.0)
     bundler-audit (0.9.2)
       bundler (>= 1.2.0, < 3)
@@ -972,7 +972,7 @@ DEPENDENCIES
   blurhash (~> 0.1)
   bootsnap (~> 1.18.0)
   brakeman (~> 6.0)
-  browser (< 6)
+  browser (< 7)
   bundler-audit (~> 0.9)
   capybara (~> 3.39)
   charlock_holmes (~> 0.7.7)
