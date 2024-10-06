@@ -80,3 +80,4 @@ letsencrypt/
 
 # Ignore local-only rspec configuration
 .rspec-local
+.npmrc

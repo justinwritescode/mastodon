@@ -5,8 +5,8 @@ ruby '>= 3.3.4'
 
 gem 'propshaft'
 gem 'puma', '~> 6.3'
-gem 'rack', '~> 2.2.7'
-gem 'rails', '~> 7.1.4'
+gem 'rack', '~> 3.1.7'
+gem 'rails', '~> 7.2.1'
 gem 'thor', '~> 1.2'
 
 gem 'dotenv'
@@ -14,7 +14,7 @@ gem 'haml-rails', '~>2.0'
 gem 'pg', '~> 1.5'
 gem 'pghero'
 
-gem 'aws-sdk-s3', '~> 1.123', require: false
+gem 'aws-sdk-s3', '~> 1.166', require: false
 gem 'blurhash', '~> 0.1'
 gem 'fog-core', '<= 2.5.0'
 gem 'fog-openstack', '~> 1.0', require: false
@@ -25,7 +25,7 @@ gem 'ruby-vips', '~> 2.2', require: false
 gem 'active_model_serializers', '~> 0.10'
 gem 'addressable', '~> 2.8'
 gem 'bootsnap', '~> 1.18.0', require: false
-gem 'browser', '< 6' # https://github.com/fnando/browser/issues/543
+gem 'browser', '< 7' # https://github.com/fnando/browser/issues/543
 gem 'charlock_holmes', '~> 0.7.7'
 gem 'chewy', '~> 7.3'
 gem 'devise', '~> 4.9'
@@ -59,11 +59,11 @@ gem 'httplog', '~> 1.7.0'
 gem 'i18n'
 gem 'idn-ruby', require: 'idn'
 gem 'inline_svg'
-gem 'irb', '~> 1.8'
+gem 'irb', '~> 1.14'
 gem 'kaminari', '~> 1.2'
 gem 'link_header', '~> 0.0'
 gem 'mario-redis-lock', '~> 1.2', require: 'redis_lock'
-gem 'mime-types', '~> 3.5.0', require: 'mime/types/columnar'
+gem 'mime-types', '~> 3.6.0', require: 'mime/types/columnar'
 gem 'mutex_m'
 gem 'nokogiri', '~> 1.15'
 gem 'oj', '~> 3.14'
@@ -82,10 +82,10 @@ gem 'rqrcode', '~> 2.2'
 gem 'ruby-progressbar', '~> 1.13'
 gem 'sanitize', '~> 6.0'
 gem 'scenic', '~> 1.7'
-gem 'sidekiq', '~> 6.5'
+gem 'sidekiq', '~> 7.3'
 gem 'sidekiq-bulk', '~> 0.2.0'
 gem 'sidekiq-scheduler', '~> 5.0'
-gem 'sidekiq-unique-jobs', '~> 7.1'
+gem 'sidekiq-unique-jobs', '~> 8.0'
 gem 'simple_form', '~> 5.2'
 gem 'simple-navigation', '~> 4.4'
 gem 'stoplight', '~> 4.1'
@@ -234,4 +234,4 @@ gem 'redis-rb', '~> 9001.0'
 
 gem 'ffi', '~> 1.17.0'
 
-gem 'ruby-lsp', '~> 0.17.6'
+gem 'ruby-lsp', '~> 0.19.0'

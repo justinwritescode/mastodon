@@ -25,7 +25,7 @@ jobs:
     runs-on: 'ubuntu-latest'
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
       with:
         ref: ${{ github.ref }}
         
@@ -42,7 +42,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - uses: ./.github/actions/build-and-push-docker-image
       id: build-streaming
       name: 'Build Streaming.TheBackroom.life'
@@ -57,7 +57,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/build-and-push-docker-image
         id: build-sidekiq
         name: 'Build Sidekiq.TheBackroom.life'
@@ -76,10 +76,10 @@ jobs:
       url: ${{ steps.deploy-to-thebackroom-life.webapp-url }}
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Deploy to Azure Web App
       id: deploy-to-thebackroom-life
-      uses: azure/webapps-deploy@v3.0.1
+      uses: azure/webapps-deploy@v3.0.2
       with:
         app-name: 'thebackroomlife'
         slot-name: 'production'
@@ -95,10 +95,10 @@ jobs:
       url: ${{ steps.deploy-to-thebackroom-streaming.webapp-url }}
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Deploy to Azure Web App
       id: deploy-to-thebackroom-streaming
-      uses: azure/webapps-deploy@v3.0.1
+      uses: azure/webapps-deploy@v3.0.2
       with:
         app-name: 'thebackroomlife-streaming'
         slot-name: 'production'
@@ -114,10 +114,10 @@ jobs:
       url: ${{ steps.deploy-to-thebackroom-sidekiq.webapp-url }}
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Deploy to Azure Web App
       id: deploy-to-thebackroom-sidekiq
-      uses: azure/webapps-deploy@v3.0.1
+      uses: azure/webapps-deploy@v3.0.2
       with:
         app-name: 'thebackroomlife-sidekiq'
         slot-name: 'production'
